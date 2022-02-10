@@ -1,0 +1,74 @@
+import image from "../../public/Doc4.jpg";
+import Link from "next/link";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import Picture from "../reusable/Picture";
+const AdminSchedule = ({
+  view = "/Admin/Doctor/1",
+  name,
+  speciality,
+  phone,
+  address,
+  email,
+  pic = image,
+}) => {
+  return (
+    <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
+      <div className="flex gap-10">
+        <Picture pic={pic} size={36} />
+        <div className="textSection basis-2/3 pt-2">
+          <div className="flex justify-between items-end mb-10 ">
+            <div className="nameTag">
+              <h1 className="text-xl leading-loose font-bold text-blue-500">
+                {name}
+              </h1>
+              {speciality && (
+                <p className="text-blue-500 tracking-wider"> {speciality}</p>
+              )}
+              {phone && (
+                <p className="text-blue-500 tracking-wider"> {phone}</p>
+              )}
+              {email && (
+                <p className="text-sm text-gray-700 tracking-wide">{email}</p>
+              )}
+              {address && (
+                <p className="text-sm text-gray-700 tracking-wide">{address}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="Dates w-fit text-left">
+            <Schedule />
+          </div>
+          <div className="action  flex  w-full gap-5 justify-end mt-10">
+            <Link href={view}>
+              <a className="px-4 py-2 border border-blue-500 rounded-md text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
+                <FaEye className="text-xl stroke-1" />
+              </a>
+            </Link>
+
+            <button className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+              <FaEdit className="text-xl stroke-1 " />
+            </button>
+            <button className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all">
+              <FaTrash className="text-xl stroke-1 " />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Schedule = () => {
+  return (
+    <div className="Date  my-5 flex justify-between gap-10">
+      <h3 className="text-gray-600">Monday</h3>
+      <div>
+        <h4 className="text-gray-600">9:00 am - 12:00 pm</h4>
+        <h4 className="text-gray-600">3:00 pm - 6:00 pm</h4>
+      </div>
+    </div>
+  );
+};
+
+export default AdminSchedule;

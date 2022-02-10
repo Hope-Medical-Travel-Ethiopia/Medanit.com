@@ -1,0 +1,57 @@
+import { FaBars } from "react-icons/fa";
+import pic from "../../public/Doc4.jpg";
+import { useState } from "react";
+import Picture from "../reusable/Picture";
+import Link from "next/link";
+const AdminNav = ({ title, current, parent }) => {
+  const [menu, setMenu] = useState(true);
+
+  const handleMenu = () => {
+    setMenu(!menu);
+  };
+  return (
+    <>
+      <div className="admin-navbar z-10">
+        <div className="menuBar text-2xl stroke-1 ml-5 flex-center gap-10">
+          <button>
+            <FaBars className="stroke-1 fill-blue-900" />
+          </button>
+          <div>
+            <h1 className="text-blue-500  text-sm tracking-wider ">
+              <Link href="/Admin">
+                <a> Admin </a>
+              </Link>
+              /
+              {title && (
+                <Link href={`/Admin/${title}`}>
+                  <a> {title}</a>
+                </Link>
+              )}
+              {parent && (
+                <Link href={`/Admin/${title}/${parent}`}>
+                  <a> / {parent}</a>
+                </Link>
+              )}
+              {current && <span className="text-gray-600"> / {current}</span>}
+            </h1>
+          </div>
+        </div>
+
+        <div className="navList">
+          <div className="profile flex items-center gap-4">
+            {/* <div className="image overflow-hidden h-14 w-14 rounded-full object-cover">
+              <Image src={picture} />
+            </div> */}
+            <Picture pic={pic} size="14" />
+            <div>
+              <h1 className="font-semibold  tracking-normal">John Doe</h1>
+              <p className="text-xs text-gray-500">Super Admin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default AdminNav;

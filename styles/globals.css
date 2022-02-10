@@ -1,16 +1,62 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+#hero {
+  background-size: cover;
+  background-position: right;
+  /* background-attachment: fixed; */
+  background-image: linear-gradient(
+      to left,
+      rgba(1, 16, 29, 0.52),
+      rgba(12, 12, 12, 0.73)
+    ),
+    url("../public/Docs.jpg");
+
+  /* background-color: brown; */
 }
 
-* {
-  box-sizing: border-box;
+.sidebar {
+  @apply min-h-screen w-64 bg-slate-800 text-gray-50 fixed;
+}
+/* .sidebar{
+  @apply min-h-screen w-24 overflow-hidden bg-slate-800 text-gray-50 fixed;
+
+} */
+.tabmin {
+  @apply gap-20;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.mainbar {
+  /* width: calc(100% - 16rem); */
+  /* float: right; */
+  margin-left: 16rem;
+  /* border: solid thick; */
+}
+
+.tab {
+  @apply flex py-5 px-10  gap-5 items-end transition-all text-slate-200;
+}
+.tab:hover {
+  @apply bg-slate-900 cursor-pointer text-slate-100;
+}
+
+.admin-navbar {
+  @apply h-20 bg-white  top-0 flex items-center justify-between lg:pr-20;
+  margin-top: 10;
+  position: sticky;
+  top: 0;
+}
+
+.textClip {
+  @apply bg-clip-text text-transparent  bg-gradient-to-br from-blue-500 via-cyan-500  to-emerald-500;
 }

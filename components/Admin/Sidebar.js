@@ -1,0 +1,81 @@
+import Link from "next/link";
+import {
+  FaAd,
+  FaArrowRight,
+  FaBaseballBall,
+  FaCapsules,
+  FaChartPie,
+  FaClinicMedical,
+  FaHospital,
+  FaMicroscope,
+  FaSeedling,
+  FaStethoscope,
+  FaUserMd,
+  FaUsersCog,
+} from "react-icons/fa";
+import Logo from "../layouts/LogoPic";
+
+const Sidebar = () => {
+  return (
+    <>
+      <div className="sidebar">
+        <div className="logo h-20 flex-center bg-slate-700">
+          <Logo />
+        </div>
+        <div className="menu">
+          <Tab icon={<FaChartPie />} title="Dashboard" link="/Admin" />
+          <Tab icon={<FaUsersCog />} title="Admins" link="/Admin/Admins" />
+          <Tab
+            icon={<FaAd />}
+            title="Promotions"
+            link="/Admin/Promotions"
+          />
+          <Tab
+            icon={<FaHospital />}
+            
+            title="Hospitals"
+            link="/Admin/Hospitals"
+          />
+          <Tab
+            icon={<FaStethoscope />}
+            title="Diagnostic"
+            link="/Admin/Diagnostic"
+          />
+          <Tab
+            icon={<FaClinicMedical />}
+            title="Pharmacy"
+            link="/Admin/Pharmacy"
+          />
+          <Tab icon={<FaUserMd />} title="Doctors" link="/Admin/Doctors" />
+          <Tab
+            icon={<FaCapsules />}
+            title="Medications"
+            link="/Admin/Medications"
+          />
+          <Tab
+            icon={<FaMicroscope />}
+            title="Medical Tests"
+            link="/Admin/MedicalTests"
+          />
+        </div>
+      </div>
+    </>
+  );
+};
+
+const Tab = ({ icon, title, link }) => {
+  return (
+    <Link href={link}>
+      <a className="tab flex border-b-[0.01px] border-slate-700">
+        <div className="icon font-thin stroke-1 text-slate-400 text-xl">
+          {icon}
+        </div>
+        <div className="menuTitle tracking-wider text-sm uppercase whitespace-nowrap ">
+          {title}
+        </div>
+      </a>
+    </Link>
+  );
+};
+
+export default Sidebar;
