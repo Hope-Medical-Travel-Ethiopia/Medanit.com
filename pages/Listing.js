@@ -38,7 +38,6 @@ const Listing = ({
     doctorsName.map((item) => {
       arr.push(item.name);
     });
-
     doctorsSpeciality.map((item) => {
       arr.push(item.speciality);
       hospitalList.push(item.speciality);
@@ -52,7 +51,7 @@ const Listing = ({
     pharmacy.map((item) => {
       pharmacyList.push(item.name);
     });
-  });
+  }, []);
 
   const handleType = (event) => {
     setProvider(event.target.value);

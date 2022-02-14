@@ -6,8 +6,11 @@ import pic from "../../../public/Doc4.jpg";
 import Card from "../../../components/Admin/Card";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";
+import { useAuth } from "../../../hooks/auth";
 
 export default function Hospitals() {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
@@ -33,11 +36,12 @@ export default function Hospitals() {
 }
 
 Hospitals.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Hospitals" name="Hospitality" />
+        <AdminNav title="Hospitals" name="Hospitality" user={user} />
         {page}
       </div>
       <Footer />

@@ -40,8 +40,8 @@ export async function getStaticPaths() {
 
   return {
     fallback: false,
-    paths: response.data.map((diagnostic) => ({
-      params: { id: diagnostic.id.toString() },
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
     })),
   };
 }

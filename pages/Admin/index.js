@@ -2,7 +2,10 @@ import React from "react";
 import Sidebar from "../../components/Admin/Sidebar";
 import Footer from "../../components/layouts/Footer";
 import AdminNav from "../../components/Admin/AdminNav";
+import { useAuth } from "../../hooks/auth";
+
 export default function admin() {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div className="min-h-screen p-20">
       <h1>This is Heading</h1>
@@ -36,11 +39,12 @@ export default function admin() {
 }
 
 admin.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav />
+        <AdminNav user={user} />
         {page}
       </div>
       <Footer />

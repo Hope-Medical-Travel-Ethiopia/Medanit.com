@@ -3,9 +3,13 @@ import pic from "../../public/Doc4.jpg";
 import { useState } from "react";
 import Picture from "../reusable/Picture";
 import Link from "next/link";
-const AdminNav = ({ title, current, parent }) => {
+import { useAuth } from "../../hooks/auth";
+import { useRouter } from "next/router";
+const AdminNav = ({ title, current, parent, user }) => {
   const [menu, setMenu] = useState(true);
-
+  const router = useRouter();
+  const { logout } = useAuth();
+  const [open, setOpen] = useState(false);
   const handleMenu = () => {
     setMenu(!menu);
   };
@@ -44,8 +48,12 @@ const AdminNav = ({ title, current, parent }) => {
             </div> */}
             <Picture pic={pic} size="14" />
             <div>
-              <h1 className="font-semibold  tracking-normal">John Doe</h1>
+              <h1 className="font-semibold  tracking-normal">
+                {" "}
+                {user && user.name}
+              </h1>
               <p className="text-xs text-gray-500">Super Admin</p>
+              <button onClick={logout}>Logout</button>
             </div>
           </div>
         </div>

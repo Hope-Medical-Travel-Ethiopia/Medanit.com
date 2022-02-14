@@ -1,23 +1,19 @@
 import useSWR from "swr";
-import axios from "@/lib/axios";
+import axios from "../lib/axios";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const router = useRouter();
 
-  const {
-    data: user,
-    error,
-    revalidate,
-  } = useSWR("/api/user", () =>
+  const { data: user, error, revalidate } = useSWR("/api/user", () =>
     axios
       .get("/api/user")
       .then((res) => res.data)
       .catch((error) => {
         if (error.response.status != 409) throw error;
 
-        router.push("/verify-email");
+        router.push("/Admin/Auth/verify-email");
       })
   );
 
@@ -41,8 +37,8 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const login = async ({ setErrors, setStatus, ...props }) => {
     await csrf();
 
-    setErrors([]);
     setStatus(null);
+    setErrors([]);
 
     axios
       .post("/login", props)
@@ -57,8 +53,8 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const forgotPassword = async ({ setErrors, setStatus, email }) => {
     await csrf();
 
-    setErrors([]);
     setStatus(null);
+    setErrors([]);
 
     axios
       .post("/forgot-password", { email })
@@ -73,8 +69,8 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const resetPassword = async ({ setErrors, setStatus, ...props }) => {
     await csrf();
 
-    setErrors([]);
     setStatus(null);
+    setErrors([]);
 
     axios
       .post("/reset-password", { token: router.query.token, ...props })
@@ -101,7 +97,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       revalidate();
     }
 
-    window.location.pathname = "/login";
+    window.location.pathname = "/Admin/Auth/login";
   };
 
   useEffect(() => {
