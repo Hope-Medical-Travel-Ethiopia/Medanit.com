@@ -36,7 +36,7 @@ const DoctorProfile = ({ doctor }) => {
   );
 };
 export async function getStaticPaths() {
-  const response = await axios.get("/doctors");
+  const response = await axios.get("/api/doctors");
 
   return {
     fallback: false,
@@ -47,7 +47,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const response = await axios.get(`/Doctors/${params.id}`);
+  const response = await axios.get(`/api/Doctors/${params.id}`);
 
   return {
     props: {

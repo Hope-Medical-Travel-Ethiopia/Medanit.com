@@ -9,9 +9,16 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
+import axios from "../../../lib/axios";
+import { useAuth } from "../../../hooks/auth";
+import { Router, useRouter } from "next/router";
 
 export default function CreateHospitals() {
+  const { user } = useAuth({ middleware: "auth" });
+
   const serviceList = ["sam", "samue", "muse"];
+
+  const router = useRouter();
 
   const [values, setValues] = React.useState({
     name: "",
@@ -27,8 +34,26 @@ export default function CreateHospitals() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log(values);
+  // const csrf = () => axios.get("/sanctum/csrf-cookie");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // await csrf();
+    const response = await axios
+      .post("/api/hospitals", {
+        name: values.name,
+        description: values.description,
+        email: values.email,
+        address: values.address,
+        services: values.services,
+        phone: values.phone,
+      })
+      .then((response) => {
+        router.push("/Admin/Hospitals");
+      });
+
+    // const data = await response.json();
+    // console.log(data);
   };
 
   return (
@@ -41,7 +66,7 @@ export default function CreateHospitals() {
         </div>
       </div>
       <div className="body mx-10 p-5 bg-white">
-        <form onSubmit={() => handleSubmit()} action="#">
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="flex justify-between flex-wrap">
             <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
               <InputLabel htmlFor={`hospital-registration-name`}>
@@ -158,11 +183,17 @@ export default function CreateHospitals() {
 }
 
 CreateHospitals.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Hospitals" current="Register New Hospital" />
+        <AdminNav
+          user={user}
+          title="Hospitals"
+          current="Register New Hospital"
+        />
         {page}
       </div>
       <Footer />

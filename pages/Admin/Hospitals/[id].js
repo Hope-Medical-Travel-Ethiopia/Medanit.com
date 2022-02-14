@@ -8,17 +8,17 @@ import About from "../../../components/sections/About";
 import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import AdminSchedule from "../../../components/Admin/AdminSchedule";
-export default function Hospital() {
-  const id = 1;
+import axios from "../../../lib/axios";
+export default function Hospital({ hospital }) {
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
         <ProfileHeader
-          name="Hospital Name"
+          name={hospital.name}
           image={pic}
-          phone="+25132345678"
-          email="hospitalemail@gmail.com"
-          address="bole , sarbet 4 kilo around piasa"
+          phone={hospital.phone}
+          email={hospital.email}
+          address={hospital.address}
         />
       </div>
       <div className="body my-10">
@@ -54,3 +54,24 @@ Hospital.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axios.get("/api/hospitals");
+
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get(`/api/Hospitals/${params.id}`);
+
+  return {
+    props: {
+      hospital: response.data,
+    },
+  };
+}

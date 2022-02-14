@@ -5,12 +5,15 @@ import AdminNav from "../../../components/Admin/AdminNav";
 import pic from "../../../public/Doc4.jpg";
 import Card from "../../../components/Admin/Card";
 import RegisterLink from "../../../components/Admin/RegisterLink";
+import axios from "../../../lib/axios";
 import Search from "../../../components/Admin/Search";
 import { useAuth } from "../../../hooks/auth";
 
-export default function Hospitals() {
+export default function Hospitals({ hospitals }) {
   const { user } = useAuth({ middleware: "auth" });
-
+  {
+    console.log(hospitals[0].name);
+  }
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
@@ -22,13 +25,9 @@ export default function Hospitals() {
       </div>
       <div className="body">
         <div className="listing flex flex-wrap gap-8">
-          <Card
-            pic={pic}
-            name="The Long Hospital name is here"
-            phone=" +251987654321"
-            email="thisemailis@email.com"
-            view="/Admin/Hospitals/1"
-          />
+          {hospitals.map((item) => (
+            <Card pic={pic} hospitals={item} key={item.id} />
+          ))}
         </div>
       </div>
     </div>
@@ -48,3 +47,13 @@ Hospitals.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const Hospitals = await axios.get("/api/hospitals");
+
+  return {
+    props: {
+      hospitals: Hospitals.data,
+    },
+  };
+}

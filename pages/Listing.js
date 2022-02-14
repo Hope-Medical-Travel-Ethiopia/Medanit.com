@@ -73,7 +73,7 @@ const Listing = ({
     event.preventDefault();
     setIsLoading(true);
     try {
-      let response = await axios.get(`/search-by-${provider}/${searchTerm}`);
+      let response = await axios.get(`/api/search-by-${provider}/${searchTerm}`);
       let res = await response.data;
       setProviderData(res);
       setIsLoading(false);
@@ -196,13 +196,13 @@ const Listing = ({
 };
 
 export async function getStaticProps() {
-  const DoctorNameResponse = await axios.get("/Doctors-name");
-  const DoctorSpecialityResponse = await axios.get("/Doctors-speciality");
-  const DoctorExpertiseResponse = await axios.get("/Doctors-expertise");
+  const DoctorNameResponse = await axios.get("/api/Doctors-name");
+  const DoctorSpecialityResponse = await axios.get("/api/Doctors-speciality");
+  const DoctorExpertiseResponse = await axios.get("/api/Doctors-expertise");
 
-  const diagnosticResponse = await axios.get("/diagnostics");
-  const hospitalResponse = await axios.get("/hospitals");
-  const pharmacyResponse = await axios.get("/pharmacy");
+  const diagnosticResponse = await axios.get("/api/diagnostics");
+  const hospitalResponse = await axios.get("/api/hospitals");
+  const pharmacyResponse = await axios.get("/api/pharmacy");
 
   return {
     props: {
