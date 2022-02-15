@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Sidebar from "../../../components/Admin/Sidebar";
-import Footer from "../../../components/layouts/Footer";
-import AdminNav from "../../../components/Admin/AdminNav";
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../../../components/Admin/Sidebar";
+import Footer from "../../../../components/layouts/Footer";
+import AdminNav from "../../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -9,11 +9,11 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
-import axios from "../../../lib/axios";
-import { useAuth } from "../../../hooks/auth";
-import { useRouter } from "next/router";
+import axios from "../../../../lib/axios";
+import { useAuth } from "../../../../hooks/auth";
+import { Router, useRouter } from "next/router";
 
-export default function CreateHospitals() {
+export default function EditHospitals({ hospital }) {
   const { user } = useAuth({ middleware: "auth" });
 
   const serviceList = ["sam", "samue", "muse"];
@@ -30,6 +30,10 @@ export default function CreateHospitals() {
     description: "",
   });
 
+  useEffect(() => {
+    setValues(hospital);
+  }, [hospital]);
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -40,7 +44,7 @@ export default function CreateHospitals() {
     e.preventDefault();
     // await csrf();
     const response = await axios
-      .post("/api/hospitals", {
+      .put(`/api/Hospitals/${hospital.id}`, {
         name: values.name,
         description: values.description,
         email: values.email,
@@ -135,7 +139,7 @@ export default function CreateHospitals() {
                 multiple
                 id="tags-filled"
                 options={serviceList.map((option) => option)}
-                //   defaultValue={[serviceList[1]]}
+                value={values.services}
                 onChange={(event, value) =>
                   setValues({ ...values, services: value })
                 }
@@ -182,7 +186,7 @@ export default function CreateHospitals() {
   );
 }
 
-CreateHospitals.getLayout = function PageLayout(page) {
+EditHospitals.getLayout = function PageLayout(page) {
   const { user } = useAuth({ middleware: "auth" });
 
   return (
@@ -192,7 +196,7 @@ CreateHospitals.getLayout = function PageLayout(page) {
         <AdminNav
           user={user}
           title="Hospitals"
-          current="Register New Hospital"
+          current="Edit Hospital Information"
         />
         {page}
       </div>
@@ -200,3 +204,24 @@ CreateHospitals.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axios.get("/api/hospitals");
+
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get(`/api/Hospitals/${params.id}`);
+
+  return {
+    props: {
+      hospital: response.data,
+    },
+  };
+}
