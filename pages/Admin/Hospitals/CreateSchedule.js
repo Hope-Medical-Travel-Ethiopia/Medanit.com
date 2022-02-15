@@ -14,8 +14,11 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { useAuth } from "../../../hooks/auth";
+import axios from "../../../lib/axios";
 
-export default function CreateSchedule() {
+export default function CreateSchedule({ doctors }) {
+  const { user } = useAuth({ middleware: "auth" });
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
   ]);
@@ -55,8 +58,25 @@ export default function CreateSchedule() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleDone = () => {
-    console.log(values);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // await csrf();
+    const response = await axios
+      .post("/api/hospitals", {
+        name: values.name,
+        description: values.description,
+        email: values.email,
+        address: values.address,
+        services: values.services,
+        phone: values.phone,
+        user_id: user.id,
+      })
+      .then((response) => {
+        router.push("/Admin/Hospitals");
+      });
+
+    // const data = await response.json();
+    // console.log(data);
   };
   console.log(JSON.stringify(schedule.day));
   return (
@@ -88,13 +108,10 @@ export default function CreateSchedule() {
                 className="m-auto w-100"
                 component="li"
                 {...props}
-                className="border-red-900 border-2 my-2 cursor-pointer"
+                className=" border-2 p-2 cursor-pointer"
               >
                 {option.name}{" "}
-                <span className="block text-xs">
-                  {" "}
-                  {option.speciality} {option.id}
-                </span>
+                <span className="block text-xs"> {option.speciality}</span>
               </Box>
             )}
             renderInput={(params) => (
@@ -146,7 +163,7 @@ export default function CreateSchedule() {
             Create New doctor
           </h1>
           <div>
-            <form onSubmit={() => handleDone()} action="#">
+            <form onSubmit={() => handleSubmit()}>
               <div className="flex justify-between flex-wrap">
                 <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                   <InputLabel htmlFor={`doctor-registration-name`}>
@@ -265,10 +282,7 @@ export default function CreateSchedule() {
         )}
         <form>
           {schedules.map((element, index) => (
-            <div
-              className="flex items-end  "
-              key={index}
-            >
+            <div className="flex items-end  " key={index}>
               {/* <input
                 type="text"
                 name="day"
@@ -374,46 +388,8 @@ export default function CreateSchedule() {
 }
 const expertiseList = ["sam", "samue", "muse"];
 
-const doctors = [
-  {
-    id: 101,
-    name: "John Doe",
-    speciality: "Cardiac Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 102,
-    name: "Jane Doe",
-    speciality: "Cardiac Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 104,
-    name: "Tylor Lokwood",
-    speciality: "internist Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 106,
-    name: "Bonny Bennet",
-    speciality: "internist Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 107,
-    name: "Candice Accolla",
-    speciality: "Heart Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 109,
-    name: "Phil boar",
-    speciality: "Heart Surgeon",
-    img: "url/image",
-  },
-];
-
 CreateSchedule.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
@@ -422,6 +398,7 @@ CreateSchedule.getLayout = function PageLayout(page) {
           title="Hospitals"
           current="Register New Schedule"
           parent="hospital"
+          user={user}
         />
         {page}
       </div>
@@ -429,3 +406,13 @@ CreateSchedule.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const Doctors = await axios.get("/api/doctors");
+
+  return {
+    props: {
+      doctors: Doctors.data,
+    },
+  };
+}
