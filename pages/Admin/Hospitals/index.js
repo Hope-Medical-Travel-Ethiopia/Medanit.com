@@ -11,9 +11,7 @@ import { useAuth } from "../../../hooks/auth";
 
 export default function Hospitals({ hospitals }) {
   const { user } = useAuth({ middleware: "auth" });
-  {
-    console.log(hospitals[0].name);
-  }
+  
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
