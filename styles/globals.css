@@ -60,3 +60,9 @@ body {
 .textClip {
   @apply bg-clip-text text-transparent  bg-gradient-to-br from-blue-500 via-cyan-500  to-emerald-500;
 }
+
+.registerButton {
+  @apply px-10 h-16 bg-gradient-to-r from-cyan-500 to-emerald-500
+  text-white rounded-lg flex items-center 
+      w-fit gap-4 justify-between;
+}

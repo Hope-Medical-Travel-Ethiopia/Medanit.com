@@ -405,7 +405,6 @@ CreateSchedule.getLayout = function PageLayout(page) {
 
 export async function getStaticPaths() {
   const response = await axios.get("/api/hospitals");
-
   return {
     fallback: false,
     paths: response.data.map((item) => ({
