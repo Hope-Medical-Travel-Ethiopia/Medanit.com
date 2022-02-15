@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { FaPlusCircle } from "react-icons/fa";
-const RegisterLink = ({ text, link }) => {
+const RegisterLink = ({ text, link, provider }) => {
   return (
-    <Link href={link}>
+    <Link href={`${link}/${provider}`}>
       <a
         className={`px-10 h-16 bg-gradient-to-r from-cyan-500 to-emerald-500
                 text-white rounded-lg text-md flex items-center 

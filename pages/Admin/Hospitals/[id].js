@@ -9,8 +9,10 @@ import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import AdminSchedule from "../../../components/Admin/AdminSchedule";
 import axios from "../../../lib/axios";
+import { useAuth } from "../../../hooks/auth";
 
 export default function Hospital({ hospital }) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
@@ -34,6 +36,7 @@ export default function Hospital({ hospital }) {
             <RegisterLink
               text="Add New Schedule"
               link="/Admin/Hospitals/CreateSchedule"
+              provider={hospital.id}
             />
             <div className="schedules">
               <AdminSchedule />
@@ -46,11 +49,13 @@ export default function Hospital({ hospital }) {
 }
 
 Hospital.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Hospitals" current="Hospital Name" />
+        <AdminNav title="Hospitals" current="Hospital Name" user={user} />
         {page}
       </div>
       <Footer />

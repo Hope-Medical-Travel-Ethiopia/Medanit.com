@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Admin/Sidebar";
-import Footer from "../../../components/layouts/Footer";
-import AdminNav from "../../../components/Admin/AdminNav";
+import Sidebar from "../../../../components/Admin/Sidebar";
+import Footer from "../../../../components/layouts/Footer";
+import AdminNav from "../../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,10 +14,10 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { useAuth } from "../../../hooks/auth";
-import axios from "../../../lib/axios";
+import { useAuth } from "../../../../hooks/auth";
+import axios from "../../../../lib/axios";
 
-export default function CreateSchedule({ doctors }) {
+export default function CreateSchedule({ doctors, hospital }) {
   const { user } = useAuth({ middleware: "auth" });
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
@@ -62,14 +62,10 @@ export default function CreateSchedule({ doctors }) {
     e.preventDefault();
     // await csrf();
     const response = await axios
-      .post("/api/hospitals", {
-        name: values.name,
-        description: values.description,
-        email: values.email,
-        address: values.address,
-        services: values.services,
-        phone: values.phone,
-        user_id: user.id,
+      .post("/api/Hospital_schedule", {
+        hospital_id: hospital.id,
+        doctor_id: doctor.id,
+        schedule: schedule,
       })
       .then((response) => {
         router.push("/Admin/Hospitals");
@@ -407,12 +403,25 @@ CreateSchedule.getLayout = function PageLayout(page) {
   );
 };
 
+export async function getStaticPaths() {
+  const response = await axios.get("/api/hospitals");
+
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
 export async function getStaticProps() {
+  const response = await axios.get(`/api/Hospitals/${params.id}`);
   const Doctors = await axios.get("/api/doctors");
 
   return {
     props: {
       doctors: Doctors.data,
+      hospital: response.data,
     },
   };
 }
