@@ -4,13 +4,13 @@ import axios from "../../lib/axios";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 
-const Card = ({ pic, hospitals }) => {
+const Card = ({ pic, provider, type }) => {
   const router = useRouter();
   const handleDelete = async () => {
     const response = await axios
-      .delete(`/api/hospitals/${hospitals.id}`)
+      .delete(`/api/${type}/${provider.id}`)
       .then((response) => {
-        router.push("/Admin/Hospitals");
+        router.push(`/Admin/${type}`);
       });
   };
   return (
@@ -18,30 +18,30 @@ const Card = ({ pic, hospitals }) => {
       <div className="image">{pic && <Picture pic={pic} size={36} />}</div>
       <div className="nameTag flex flex-col ">
         <h1 className="text-lg leading-tight mb-2 font-semibold text-blue-500">
-          {hospitals.name}
+          {provider.name}
         </h1>
-        {hospitals.speciality && (
-          <p className="text-md text-gray-600">{hospitals.speciality}</p>
+        {provider.speciality && (
+          <p className="text-md text-gray-600">{provider.speciality}</p>
         )}
-        {hospitals.phone && (
-          <p className="text-sm text-gray-600">{hospitals.phone}</p>
+        {provider.phone && (
+          <p className="text-sm text-gray-600">{provider.phone}</p>
         )}
-        {hospitals.email && (
-          <p className="text-sm text-gray-600">{hospitals.email}</p>
+        {provider.email && (
+          <p className="text-sm text-gray-600">{provider.email}</p>
         )}
-        {hospitals.address && (
-          <p className="text-sm text-gray-600">{hospitals.address}</p>
+        {provider.address && (
+          <p className="text-sm text-gray-600">{provider.address}</p>
         )}
       </div>
       <div className="action flex  w-full gap-5 justify-center">
-        {hospitals.id && (
+        {provider.id && (
           <>
-            <Link href={`/Admin/Hospitals/${hospitals.id}`}>
+            <Link href={`/Admin/${type}/${provider.id}`}>
               <a className="px-4 py-2 border border-blue-500 rounded-md text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
                 <FaEye className="text-xl stroke-1" />
               </a>
             </Link>
-            <Link href={`/Admin/Hospitals/Edit/${hospitals.id}`}>
+            <Link href={`/Admin/${type}/Edit/${provider.id}`}>
               <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
                 <FaEdit className="text-xl stroke-1 " />
               </a>
