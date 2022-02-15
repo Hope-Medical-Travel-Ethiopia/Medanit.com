@@ -9,6 +9,7 @@ import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import AdminSchedule from "../../../components/Admin/AdminSchedule";
 import axios from "../../../lib/axios";
+
 export default function Hospital({ hospital }) {
   return (
     <div className="min-h-screen p-20 py-10">
@@ -19,13 +20,15 @@ export default function Hospital({ hospital }) {
           phone={hospital.phone}
           email={hospital.email}
           address={hospital.address}
+          type="Hospitals"
+          provider={hospital.id}
         />
       </div>
       <div className="body my-10">
         <div className="grid grid-cols-3  gap-10">
-          <Expertise title="Service" />
+          <Expertise title="Service" services={hospital.services} />
           <div className="about row-start-2">
-            <About />
+            <About description={hospital.description} />
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <RegisterLink
