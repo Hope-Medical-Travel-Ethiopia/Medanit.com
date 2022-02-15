@@ -47,6 +47,7 @@ export default function CreateHospitals() {
         address: values.address,
         services: values.services,
         phone: values.phone,
+        user_id: user.id,
       })
       .then((response) => {
         router.push("/Admin/Hospitals");
