@@ -178,7 +178,7 @@ export default function EditHospitals({ hospital }) {
           <input
             type="submit"
             value="Submit"
-            className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white"
+            className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-700 hover:cursor-pointer transition-all ease-linear"
           />
         </form>
       </div>
