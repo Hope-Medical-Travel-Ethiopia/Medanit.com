@@ -83,7 +83,7 @@ export default function CreateSchedule({ doctors, hospital }) {
       .post("/api/Hospital_schedule", {
         hospital_id: hospital.id,
         doctor_id: doctor.id,
-        schedule: JSON.stringify(schedules),
+        schedule: schedules,
       })
       .then((response) => {
         router.push("/Admin/Hospitals");

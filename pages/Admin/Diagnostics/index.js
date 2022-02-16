@@ -8,20 +8,20 @@ import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
-export default function Diagnostic({ hospitals }) {
+export default function Diagnostic({ diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
         <RegisterLink
           text="Register new Diagnostic"
-          link="/Admin/Diagnostic/Create"
+          link="/Admin/Diagnostics/Create"
         />
         <Search />
       </div>
       <div className="body">
         <div className="listing flex flex-wrap gap-8">
-          {hospitals.map((item) => (
+          {diagnostics.map((item) => (
             <Card pic={pic} provider={item} type="Diagnostics" key={item.id} />
           ))}
         </div>
@@ -36,7 +36,7 @@ Diagnostic.getLayout = function PageLayout(page) {
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Diagnostic" name="Diagnostics" user={user} />
+        <AdminNav title="Diagnostics" name="Diagnostics" user={user} />
         {page}
       </div>
       <Footer />
@@ -49,7 +49,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      hospitals: Hospitals.data,
+      diagnostics: Hospitals.data,
     },
   };
 }
