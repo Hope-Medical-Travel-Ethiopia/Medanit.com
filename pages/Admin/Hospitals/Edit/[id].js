@@ -220,7 +220,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      hospital: response.data,
+      hospital: response.data[0],
     },
   };
 }
