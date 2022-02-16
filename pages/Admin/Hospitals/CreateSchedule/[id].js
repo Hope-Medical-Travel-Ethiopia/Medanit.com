@@ -16,9 +16,12 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useAuth } from "../../../../hooks/auth";
 import axios from "../../../../lib/axios";
+import { Router, useRouter } from "next/router";
 
 export default function CreateSchedule({ doctors, hospital }) {
   const { user } = useAuth({ middleware: "auth" });
+  const router = useRouter();
+
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
   ]);
@@ -48,6 +51,22 @@ export default function CreateSchedule({ doctors, hospital }) {
     picture: "",
   });
 
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    const response = await axios
+      .post("/api/Doctor", {
+        name: values.name,
+        speciality: values.speciality,
+        address: values.address,
+        expertise: values.expertise,
+        description: values.description,
+        profilePicture: values.picture,
+      })
+      .then((response) => {
+        setDoctor(response.data.doctor);
+      });
+  };
+
   const [schedule, setSchedule] = useState([]);
 
   const [doctor, setDoctor] = useState();
@@ -60,21 +79,16 @@ export default function CreateSchedule({ doctors, hospital }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await csrf();
     const response = await axios
       .post("/api/Hospital_schedule", {
         hospital_id: hospital.id,
         doctor_id: doctor.id,
-        schedule: schedule,
+        schedule: JSON.stringify(schedules),
       })
       .then((response) => {
         router.push("/Admin/Hospitals");
       });
-
-    // const data = await response.json();
-    // console.log(data);
   };
-  console.log(JSON.stringify(schedule.day));
   return (
     <div className="min-h-screen">
       <div className="Heading">
@@ -159,7 +173,7 @@ export default function CreateSchedule({ doctors, hospital }) {
             Create New doctor
           </h1>
           <div>
-            <form onSubmit={() => handleSubmit()}>
+            <form onSubmit={(e) => handleCreate(e)}>
               <div className="flex justify-between flex-wrap">
                 <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                   <InputLabel htmlFor={`doctor-registration-name`}>
@@ -276,7 +290,7 @@ export default function CreateSchedule({ doctors, hospital }) {
         ) : (
           <h1> please Add Values </h1>
         )}
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           {schedules.map((element, index) => (
             <div className="flex items-end  " key={index}>
               {/* <input
@@ -413,7 +427,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
   const Doctors = await axios.get("/api/doctors");
 

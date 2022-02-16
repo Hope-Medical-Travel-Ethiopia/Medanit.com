@@ -39,7 +39,9 @@ export default function Hospital({ hospital }) {
               provider={hospital.id}
             />
             <div className="schedules">
-              <AdminSchedule />
+              {hospital.doctors.map((doctor) => (
+                <AdminSchedule provider={doctor} />
+              ))}
             </div>
           </div>
         </div>
@@ -65,7 +67,6 @@ Hospital.getLayout = function PageLayout(page) {
 
 export async function getStaticPaths() {
   const response = await axios.get("/api/hospitals");
-
   return {
     fallback: false,
     paths: response.data.map((item) => ({
@@ -76,10 +77,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
-
   return {
     props: {
-      hospital: response.data,
+      hospital: response.data[0],
     },
   };
 }

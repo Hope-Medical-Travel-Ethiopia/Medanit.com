@@ -2,6 +2,7 @@ import image from "../../public/Doc4.jpg";
 import Link from "next/link";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import Picture from "../reusable/Picture";
+import { useState, useEffect } from "react";
 const AdminSchedule = ({
   view = "/Admin/Doctor/1",
   name,
@@ -10,7 +11,16 @@ const AdminSchedule = ({
   address,
   email,
   pic = image,
+  provider,
 }) => {
+  const [Sky, setSky] = useState([]);
+  useEffect(() => {
+    Sky.push(JSON.parse(provider.pivot.schedule))
+    console.log(Sky)
+    // setSky(provider.pivot.schedule);
+  }, [provider]);
+
+  
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
       <div className="flex gap-10">
@@ -19,25 +29,35 @@ const AdminSchedule = ({
           <div className="flex justify-between items-end mb-10 ">
             <div className="nameTag">
               <h1 className="text-xl leading-loose font-bold text-blue-500">
-                {name}
+                {provider.name}
               </h1>
-              {speciality && (
-                <p className="text-blue-500 tracking-wider"> {speciality}</p>
+              {provider.speciality && (
+                <p className="text-blue-500 tracking-wider">
+                  {" "}
+                  {provider.speciality}
+                </p>
               )}
-              {phone && (
-                <p className="text-blue-500 tracking-wider"> {phone}</p>
+              {provider.phone && (
+                <p className="text-blue-500 tracking-wider">
+                  {" "}
+                  {provider.phone}
+                </p>
               )}
-              {email && (
-                <p className="text-sm text-gray-700 tracking-wide">{email}</p>
+              {provider.email && (
+                <p className="text-sm text-gray-700 tracking-wide">
+                  {provider.email}
+                </p>
               )}
-              {address && (
-                <p className="text-sm text-gray-700 tracking-wide">{address}</p>
+              {provider.address && (
+                <p className="text-sm text-gray-700 tracking-wide">
+                  {provider.address}
+                </p>
               )}
             </div>
           </div>
 
           <div className="Dates w-fit text-left">
-            <Schedule />
+            {Sky && Sky.map((item) => <Schedule />)}
           </div>
           <div className="action  flex  w-full gap-5 justify-end mt-10">
             <Link href={view}>
