@@ -25,21 +25,16 @@ const Sidebar = () => {
         <div className="menu">
           <Tab icon={<FaChartPie />} title="Dashboard" link="/Admin" />
           <Tab icon={<FaUsersCog />} title="Admins" link="/Admin/Admins" />
-          <Tab
-            icon={<FaAd />}
-            title="Promotions"
-            link="/Admin/Promotions"
-          />
+          <Tab icon={<FaAd />} title="Promotions" link="/Admin/Promotions" />
           <Tab
             icon={<FaHospital />}
-            
             title="Hospitals"
             link="/Admin/Hospitals"
           />
           <Tab
             icon={<FaStethoscope />}
-            title="Diagnostic"
-            link="/Admin/Diagnostic"
+            title="Diagnostics"
+            link="/Admin/Diagnostics"
           />
           <Tab
             icon={<FaClinicMedical />}

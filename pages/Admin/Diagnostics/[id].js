@@ -8,34 +8,37 @@ import About from "../../../components/sections/About";
 import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import LabScheduleCard from "../../../components/sections/LabScheduleCard";
-export default function Diagnostic() {
-  const id = 1;
+import axios from "../../../lib/axios";
+import { useAuth } from "../../../hooks/auth";
+export default function Diagnostic({ diagnostics }) {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
         <ProfileHeader
-          name="Diagnostic Name"
+          name={diagnostics.name}
           image={pic}
-          phone="+25132345678"
-          email="Diagnosticemail@gmail.com"
-          address="bole , sarbet 4 kilo around piasa"
+          phone={diagnostics.phone}
+          email={diagnostics.email}
+          address={diagnostics.address}
+          type="Diagnostics"
+          provider={diagnostics.id}
         />
       </div>
       <div className="body my-10">
         <div className="grid grid-cols-3  gap-10">
-          <Expertise title="Service" />
+          <Expertise title="Service" services={diagnostics.services} />
           <div className="about row-start-2">
-            <About />
+            <About description={diagnostics.description} />
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <RegisterLink
               text="Add New Schedule"
               link="/Admin/Diagnostic/CreateSchedule"
+              provider={diagnostics.id}
             />
-            <div className="schedules flex flex-col gap-10">
-              <LabScheduleCard title="MRI - Cervical Spine (without contrast)" />
-              <LabScheduleCard title="MRI - Cervical Spine (without contrast)" />
-            </div>
+            <div className="schedules flex flex-col gap-10">{}</div>
           </div>
         </div>
       </div>
@@ -44,14 +47,36 @@ export default function Diagnostic() {
 }
 
 Diagnostic.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Diagnostic" current="Diagnostic Name" />
+        <AdminNav title="Diagnostics" current="Diagnostic Name" user={user} />
         {page}
       </div>
       <Footer />
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axios.get("/api/diagnostics");
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get(`/api/Diagnostics/${params.id}`);
+  console.log(response);
+  return {
+    props: {
+      diagnostics: response.data,
+    },
+  };
+}
