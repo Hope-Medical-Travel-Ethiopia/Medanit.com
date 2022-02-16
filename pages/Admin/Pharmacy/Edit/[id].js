@@ -1,7 +1,7 @@
-import React from "react";
-import Sidebar from "../../../components/Admin/Sidebar";
-import Footer from "../../../components/layouts/Footer";
-import AdminNav from "../../../components/Admin/AdminNav";
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../../../components/Admin/Sidebar";
+import Footer from "../../../../components/layouts/Footer";
+import AdminNav from "../../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -9,11 +9,11 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
-import axios from "../../../lib/axios";
-import { useAuth } from "../../../hooks/auth";
+import axios from "../../../../lib/axios";
+import { useAuth } from "../../../../hooks/auth";
 import { useRouter } from "next/router";
 
-export default function CreatePharmacy() {
+export default function CreatePharmacy({ pharmacy }) {
   const serviceList = ["sam", "samue", "muse"];
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
@@ -28,6 +28,10 @@ export default function CreatePharmacy() {
     closing: "",
   });
 
+  useEffect(() => {
+    setValues(pharmacy);
+  }, [pharmacy]);
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -35,7 +39,7 @@ export default function CreatePharmacy() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios
-      .post("/api/Pharmacy", {
+      .put(`/api/Pharmacy/${pharmacy.id}`, {
         name: values.name,
         email: values.email,
         address: values.address,
@@ -55,7 +59,7 @@ export default function CreatePharmacy() {
       <div className="Heading">
         <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Register New Pharmacy Center
+            Edit Pharmacy Center
           </h1>
         </div>
       </div>
@@ -63,7 +67,7 @@ export default function CreatePharmacy() {
         <h1 className="text-xl font-bold  tracking-wider mb-5 uppercase textClip">
           Add new Schedule
         </h1>
-        <form onSubmit={(e) => handleSubmit(e)} action="#">
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="flex justify-between flex-wrap">
             <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
               <InputLabel htmlFor={`Pharmacy-registration-name`}>
@@ -145,6 +149,7 @@ export default function CreatePharmacy() {
                   required
                   id="pharmacy-openning-time"
                   type="time"
+                  value={values.opening}
                   onChange={handleChange("opening")}
                 />
               </FormControl>
@@ -159,6 +164,7 @@ export default function CreatePharmacy() {
                   required
                   id="pharmacy-closing-time"
                   type="time"
+                  value={values.closing}
                   onChange={handleChange("closing")}
                 />
               </FormControl>
@@ -192,3 +198,22 @@ CreatePharmacy.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axios.get("/api/Pharmacy");
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get(`/api/Pharmacy/${params.id}`);
+  return {
+    props: {
+      pharmacy: response.data,
+    },
+  };
+}

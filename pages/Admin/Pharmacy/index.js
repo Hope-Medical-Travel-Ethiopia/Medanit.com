@@ -45,7 +45,7 @@ Pharmacy.getLayout = function PageLayout(page) {
 };
 
 export async function getStaticProps() {
-  const Hospitals = await axios.get("/api/pharmacy");
+  const Hospitals = await axios.get("/api/Pharmacy");
 
   return {
     props: {

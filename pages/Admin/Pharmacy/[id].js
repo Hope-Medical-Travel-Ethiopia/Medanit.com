@@ -7,19 +7,23 @@ import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { MedList } from "../../../components/Admin/MedList";
-export default function Pharmacy() {
+import axios from "../../../lib/axios";
+import { useAuth } from "../../../hooks/auth";
+export default function Pharmacy({ pharmacy }) {
   const id = 1;
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
         <ProfileHeader
-          name="Pharmacy Name"
+          name={pharmacy.name}
           image={pic}
-          phone="+25132345678"
-          email="Pharmacyemail@gmail.com"
-          address="bole , sarbet 4 kilo around piasa"
-          openingTime="12:00 AM"
-          closingTime="6:00 PM"
+          phone={pharmacy.phone}
+          email={pharmacy.email}
+          address={pharmacy.address}
+          openingTime={pharmacy.opening}
+          closingTime={pharmacy.closing}
+          type="Pharmacy"
+          provider={pharmacy.id}
         />
       </div>
       <div className="body my-10">
@@ -68,14 +72,34 @@ const medications = [
 ];
 
 Pharmacy.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Pharmacy" current="Pharmacy Name" />
+        <AdminNav title="Pharmacy" current="Pharmacy Name" user={user} />
         {page}
       </div>
       <Footer />
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axios.get("api/Pharmacy");
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get(`/api/Pharmacy/${params.id}`);
+  return {
+    props: {
+      pharmacy: response.data,
+    },
+  };
+}
