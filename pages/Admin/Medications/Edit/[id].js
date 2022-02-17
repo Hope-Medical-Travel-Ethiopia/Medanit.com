@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Sidebar from "../../../components/Admin/Sidebar";
-import Footer from "../../../components/layouts/Footer";
-import AdminNav from "../../../components/Admin/AdminNav";
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../../../components/Admin/Sidebar";
+import Footer from "../../../../components/layouts/Footer";
+import AdminNav from "../../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,8 +11,8 @@ import TextField from "@mui/material/TextField";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
-import axios from "../../../lib/axios";
-import { useAuth } from "../../../hooks/auth";
+import axios from "../../../../lib/axios";
+import { useAuth } from "../../../../hooks/auth";
 import { useRouter } from "next/router";
 
 export default function CreateMed({ medications }) {
@@ -29,10 +29,14 @@ export default function CreateMed({ medications }) {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  useEffect(() => {
+    setValues(medications);
+  }, [medications]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios
-      .post("/api/Medications", {
+      .put(`/api/Medications/${medications.id}`, {
         name: values.name,
         description: values.description,
       })
@@ -71,7 +75,7 @@ export default function CreateMed({ medications }) {
                 {option.name}{" "}
                 <span className="block text-xs">
                   {" "}
-                  {option.speciality} {option.description}
+                  {option.speciality} {option.id}
                 </span>
               </Box>
             )}
@@ -154,8 +158,18 @@ CreateMed.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
   const response = await axios.get("/api/Medications");
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get(`/api/Medications/${params.id}`);
 
   return {
     props: {
