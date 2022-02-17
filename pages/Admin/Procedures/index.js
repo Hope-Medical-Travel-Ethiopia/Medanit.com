@@ -32,6 +32,7 @@ export default function Procedures({ Procedure }) {
                 name={option.name}
                 description={option.description}
                 id={option.id}
+                type="Procedures"
               />
             ))}
         </section>
@@ -58,7 +59,7 @@ Procedures.getLayout = function PageLayout(page) {
 export async function getStaticProps() {
   const response = await axios.get("/api/Procedures");
   return {
-    props: {  
+    props: {
       Procedure: response.data,
     },
   };
