@@ -35,7 +35,7 @@ export default function Pharmacy({ pharmacy }) {
         </section>
         <section></section>
         <section>
-          {medications.map((option) => (
+          {pharmacy["medications"].map((option) => (
             <MedList
               key={option.id}
               name={option.name}
@@ -99,7 +99,9 @@ export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Pharmacy/${params.id}`);
   return {
     props: {
-      pharmacy: response.data,
+      pharmacy: response.data[0],
+      
     },
   };
 }
+
