@@ -1,5 +1,6 @@
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "../../lib/axios";
+import Link from "next/link";
 import { Router, useRouter } from "next/router";
 
 export const MedList = ({ name, description, id }) => {
@@ -20,9 +21,11 @@ export const MedList = ({ name, description, id }) => {
         {description}
       </p>
       <div className="action flex  gap-5 justify-center">
-        <button className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
-          <FaEdit className="text-xl stroke-1 " />
-        </button>
+        <Link href={`/Admin/Medications/Edit/${id}`}>
+          <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+            <FaEdit className="text-xl stroke-1 " />
+          </a>
+        </Link>
         <button
           onClick={() => handleDelete()}
           className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
