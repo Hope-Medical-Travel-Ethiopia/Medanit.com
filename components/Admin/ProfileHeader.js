@@ -33,11 +33,16 @@ const ProfileHeader = ({
           {name && <h1 className="text-3xl font-bold">{name}</h1>}
           {speciality && <h3 className="text-xl mb-5">{speciality}</h3>}
           {phone && (
-            <Link href={`tel: ${phone}`}>
-              <a className="text text-gray-200 tracking-widest mt-2">{phone}</a>
-            </Link>
+            <>
+              <Link href={`tel: ${phone}`}>
+                <a className="text text-gray-200 tracking-widest mt-2">
+                  {phone}
+                </a>
+              </Link>
+              <br />
+            </>
           )}
-          <br />
+
           {email && (
             <Link href={`mailTo: ${email}`}>
               <a className="text text-gray-200">{email}</a>
@@ -45,7 +50,7 @@ const ProfileHeader = ({
           )}
           {address && <p className="text text-gray-200">{address}</p>}
           {openingTime && (
-            <p className="text bg-gray-200 text-blue-500 px-5 py-2 rounded-full mt-3">
+            <p className="text bg-gray-200 text-blue-500 px-5 py-2 rounded-full mt-3 w-fit">
               Opening Hours :
               <span className="mx-3">
                 {openingTime} - {closingTime}

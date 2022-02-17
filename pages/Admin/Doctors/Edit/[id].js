@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Sidebar from "../../../components/Admin/Sidebar";
-import Footer from "../../../components/layouts/Footer";
-import AdminNav from "../../../components/Admin/AdminNav";
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../../../components/Admin/Sidebar";
+import Footer from "../../../../components/layouts/Footer";
+import AdminNav from "../../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,13 +10,13 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 
-import { useAuth } from "../../../hooks/auth";
-import axios from "../../../lib/axios";
+import { useAuth } from "../../../../hooks/auth";
+import axios from "../../../../lib/axios";
 import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
 
-export default function CreateDoctors({doctors}) {
+export default function CreateDoctors({doctor}) {
   const serviceList = ["sam", "samue", "muse"];
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
@@ -30,15 +30,19 @@ export default function CreateDoctors({doctors}) {
     description: "",
   });
 
+  useEffect(() => {
+    setValues(doctor);
+  }, [doctor]);
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleCreate = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(values);
     const response = await axios
-      .post("/api/Doctor", {
+      .put(`/api/Doctors/${doctor.id}`, {
         name: values.name,
         speciality: values.speciality,
         address: values.address,
@@ -56,11 +60,11 @@ export default function CreateDoctors({doctors}) {
       <div className="Heading">
         <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Register New Doctor
+            Edit Doctor
           </h1>
         </div>
       </div>
-      <div className="m-10 p-5 bg-white">
+      {/* <div className="m-10 p-5 bg-white">
         <h1 className="textClip text-lg font-bold my-5 ml-2">
           First Check if the Doctor Exists
         </h1>
@@ -94,13 +98,13 @@ export default function CreateDoctors({doctors}) {
             )}
           />
         </FormControl>
-      </div>
+      </div> */}
       <div className="m-10 p-5 bg-white">
         <h1 className="textClip text-xl font-bold my-5 ml-2">
-          Create New doctor
+          Edit doctor
         </h1>
         <div>
-          <form onSubmit={(e) => handleCreate(e)}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="flex justify-between flex-wrap">
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                 <InputLabel htmlFor={`doctor-registration-name`}>
@@ -157,6 +161,7 @@ export default function CreateDoctors({doctors}) {
                   id="tags-filled"
                   options={expertiseList.map((option) => option)}
                   //   defaultValue={[serviceList[1]]}
+                  value={values.expertise}
                   onChange={(event, value) => {
                     // console.log(value);
                     setValues({ ...values, expertise: value });
@@ -221,12 +226,23 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
-  const response = await axios.get("/api/doctors");
+export async function getStaticPaths(){
+  const response= await axios.get("/api/doctors");
+
+  return {
+    fallback: false,
+    paths: response.data.map((item)=>({
+      params: {id: item.id.toString()},
+    })),
+  };
+}
+
+export async function getStaticProps({params}) {
+  const response = await axios.get(`/api/Doctors/${params.id}`);
 
   return {
     props: {
-      doctors: response.data,
+      doctor: response.data,
     },
   };
 }
