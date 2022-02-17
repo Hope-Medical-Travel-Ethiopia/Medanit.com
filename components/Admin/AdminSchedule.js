@@ -12,15 +12,17 @@ const AdminSchedule = ({
   email,
   pic = image,
   provider,
+  schedule,
 }) => {
   const [Sky, setSky] = useState([]);
-  useEffect(() => {
-    Sky.push(JSON.parse(provider.pivot.schedule))
-    console.log(Sky)
-    // setSky(provider.pivot.schedule);
-  }, [provider]);
+  // useEffect(() => {
+  //   // Sky.push(schedule)
+  //   setSky = schedule;
+  //   console.log(schedule);
+  //   console.log(schedule["16"][0].ending);
+  //   // setSky(provider.pivot.schedule);
+  // }, [provider]);
 
-  
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
       <div className="flex gap-10">
@@ -57,7 +59,10 @@ const AdminSchedule = ({
           </div>
 
           <div className="Dates w-fit text-left">
-            {Sky && Sky.map((item) => <Schedule />)}
+            {schedule[`${provider.id}`] &&
+              schedule[`${provider.id}`].map((item) => (
+                <Schedule time={item} />
+              ))}
           </div>
           <div className="action  flex  w-full gap-5 justify-end mt-10">
             <Link href={view}>
@@ -79,15 +84,18 @@ const AdminSchedule = ({
   );
 };
 
-const Schedule = () => {
+const Schedule = ({ time }) => {
   return (
-    <div className="Date  my-5 flex justify-between gap-10">
-      <h3 className="text-gray-600">Monday</h3>
-      <div>
-        <h4 className="text-gray-600">9:00 am - 12:00 pm</h4>
-        <h4 className="text-gray-600">3:00 pm - 6:00 pm</h4>
+    <>
+      <div className="Date  my-5 flex justify-between gap-10">
+        <h3 className="text-gray-600">{time.day}</h3>
+        <div>
+          <h4 className="text-gray-600">
+            {time.starting} - {time.ending}
+          </h4>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

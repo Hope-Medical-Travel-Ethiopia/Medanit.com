@@ -86,6 +86,7 @@ export default function CreateSchedule({ doctors, hospital }) {
         schedule: schedules,
       })
       .then((response) => {
+        console.log(response.data);
         router.push("/Admin/Hospitals");
       });
   };
@@ -434,7 +435,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       doctors: Doctors.data,
-      hospital: response.data,
+      hospital: response.data[0],
     },
   };
 }

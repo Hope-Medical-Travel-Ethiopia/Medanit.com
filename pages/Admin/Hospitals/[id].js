@@ -11,7 +11,7 @@ import AdminSchedule from "../../../components/Admin/AdminSchedule";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 
-export default function Hospital({ hospital }) {
+export default function Hospital({ hospital, schedule }) {
   const { user } = useAuth({ middleware: "auth" });
   return (
     <div className="min-h-screen p-20 py-10">
@@ -40,7 +40,7 @@ export default function Hospital({ hospital }) {
             />
             <div className="schedules">
               {hospital.doctors.map((doctor) => (
-                <AdminSchedule provider={doctor} />
+                <AdminSchedule provider={doctor} schedule={schedule}/>
               ))}
             </div>
           </div>
@@ -77,9 +77,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
+  const scheduleResponse= await axios.get(`/api/schedule/${params.id}`)
+
   return {
     props: {
       hospital: response.data[0],
+      schedule: scheduleResponse.data
     },
   };
 }
