@@ -8,64 +8,59 @@ import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { MedList } from "../../../components/Admin/MedList";
+import { useAuth } from "../../../hooks/auth";
+import axios from "../../../lib/axios";
 
-export default function MedicalTests() {
+export default function Procedures({ Procedure }) {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
         <RegisterLink
           text="Register new Medical Test"
-          link="/Admin/medicalTests/CreateTest"
+          link="/Admin/Procedures/CreateProcedures"
         />
         <Search />
       </div>
       <div className="body">
         <section>
-          {medicalTest.map((option) => (
-            <MedList
-              key={option.id}
-              name={option.name}
-              description={option.description}
-              id={option.id}
-            />
-          ))}
+          {Procedure &&
+            Procedure.map((option) => (
+              <MedList
+                key={option.id}
+                name={option.name}
+                description={option.description}
+                id={option.id}
+                type="Procedures"
+              />
+            ))}
         </section>
       </div>
     </div>
   );
 }
 
-const medicalTest = [
-  {
-    id: 101,
-    name: "MRI",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 102,
-    name: "CT scan",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 103,
-    name: "CBC",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 104,
-    name: "X-Ray",
-    description: "some description about the medication will be listed here ",
-  },
-];
-MedicalTests.getLayout = function PageLayout(page) {
+Procedures.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Pharmacy" name="Pharmacys" />
+        <AdminNav title="Procedures" name="Pharmacys" user={user} />
         {page}
       </div>
       <Footer />
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const response = await axios.get("/api/Procedures");
+  return {
+    props: {
+      Procedure: response.data,
+    },
+  };
+}

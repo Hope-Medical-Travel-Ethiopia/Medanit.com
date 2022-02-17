@@ -31,6 +31,7 @@ export default function Medication({ medications }) {
               name={option.name}
               description={option.description}
               id={option.id}
+              type="Medications"
             />
           ))}
         </section>
@@ -45,7 +46,7 @@ Medication.getLayout = function PageLayout(page) {
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Pharmacy" name="Pharmacys" user={user} />
+        <AdminNav title="Medications" user={user} />
         {page}
       </div>
       <Footer />

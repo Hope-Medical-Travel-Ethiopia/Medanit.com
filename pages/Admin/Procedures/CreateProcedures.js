@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../../../../components/Admin/Sidebar";
-import Footer from "../../../../components/layouts/Footer";
-import AdminNav from "../../../../components/Admin/AdminNav";
+import React, { useState } from "react";
+import Sidebar from "../../../components/Admin/Sidebar";
+import Footer from "../../../components/layouts/Footer";
+import AdminNav from "../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,13 +11,14 @@ import TextField from "@mui/material/TextField";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
-import axios from "../../../../lib/axios";
-import { useAuth } from "../../../../hooks/auth";
+import axios from "../../../lib/axios";
+import { useAuth } from "../../../hooks/auth";
 import { useRouter } from "next/router";
 
-export default function CreateMed({ medications }) {
+export default function CreateTest({ procedure }) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
+
   const [values, setValues] = React.useState({
     name: "",
     description: "",
@@ -27,19 +28,15 @@ export default function CreateMed({ medications }) {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  useEffect(() => {
-    setValues(medications);
-  }, [medications]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios
-      .put(`/api/Medications/${medications.id}`, {
+      .post("/api/Procedure", {
         name: values.name,
         description: values.description,
       })
       .then((response) => {
-        router.push("/Admin/Medications");
+        router.push("/Admin/Procedures");
       });
   };
   return (
@@ -47,7 +44,7 @@ export default function CreateMed({ medications }) {
       <div className="Heading">
         <div className=" pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Edit {medications.name}
+            Add new Medical Procedure
           </h1>
         </div>
       </div>
@@ -55,11 +52,11 @@ export default function CreateMed({ medications }) {
       <div className="body">
         <section className="mx-10 p-5 bg-white flex flex-col justify-center items-center">
           <h1 className="textClip text-xl font-bold my-5 ml-2 self-start justify-self-start">
-            Check if the medication Exists
+            Check if the Procedure Exists
           </h1>
           <Autocomplete
-            id="select-medications"
-            options={medications}
+            id="select-procedures"
+            options={procedure}
             sx={{ width: 600 }}
             autoHighlight
             getOptionLabel={(option) => option.name}
@@ -68,19 +65,15 @@ export default function CreateMed({ medications }) {
                 className="m-auto w-100"
                 component="li"
                 {...props}
-                className=" border-2 my-2 cursor-pointer"
+                className="p-2 cursor-pointer"
               >
                 {option.name}{" "}
-                <span className="block text-xs">
-                  {" "}
-                  {option.speciality} {option.id}
-                </span>
               </Box>
             )}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Check If medication already exists "
+                label="Check If procedure already exists "
                 inputProps={{
                   ...params.inputProps,
                   autoComplete: "new-password",
@@ -93,28 +86,28 @@ export default function CreateMed({ medications }) {
         <section>
           <div className="m-10 p-5 bg-white">
             <h1 className="textClip text-xl font-bold my-5 ml-2">
-              Edit {medications.name}
+              Create New Procedure
             </h1>
             <div>
               <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="flex justify-between flex-wrap">
                   <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-                    <InputLabel htmlFor={`medication-registration-name`}>
-                      medication Name
+                    <InputLabel htmlFor={`procedure-registration-name`}>
+                      procedure Name
                     </InputLabel>
                     <OutlinedInput
                       required
-                      id="medication-registration-name"
+                      id="procedure-registration-name"
                       type="text"
                       value={values.name}
                       onChange={handleChange("name")}
-                      label="medication name"
+                      label="procedure name"
                     />
                   </FormControl>
                   <FormControl sx={{ m: 1, width: "100ch" }} variant="outlined">
                     <TextField
                       id="outlined-multiline-flexible"
-                      label="Description About the medication"
+                      label="Description About the procedure"
                       multiline
                       rows={4}
                       value={values.description}
@@ -124,7 +117,7 @@ export default function CreateMed({ medications }) {
                 </div>
                 <input
                   type="submit"
-                  value="Update medication"
+                  value="Register procedure"
                   className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white transition-all hover:bg-emerald-700 hover:cursor-pointer"
                 />
               </form>
@@ -136,16 +129,16 @@ export default function CreateMed({ medications }) {
   );
 }
 
-CreateMed.getLayout = function PageLayout(page) {
+CreateTest.getLayout = function PageLayout(page) {
   const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
       <div className="ml-64">
         <AdminNav
-          title="Medications"
+          title="Procedures"
           // parent="Pharmacy Name"
-          current="Edit Medication"
+          current="Add New Medical Procedure"
           user={user}
         />
         {page}
@@ -155,21 +148,12 @@ CreateMed.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/Medications");
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+export async function getStaticProps() {
+  const response = await axios.get("/api/Procedures");
 
-export async function getStaticProps({ params }) {
-  const response = await axios.get(`/api/Medications/${params.id}`);
   return {
     props: {
-      medications: response.data,
+      procedure: response.data,
     },
   };
 }
