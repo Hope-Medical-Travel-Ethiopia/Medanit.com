@@ -1,6 +1,17 @@
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import axios from "../../lib/axios";
+import { Router, useRouter } from "next/router";
+
 
 export const MedList = ({ name, description, id }) => {
+  const router = useRouter();
+  const handleDelete = async () => {
+    const response = await axios
+      .delete(`/api/Medications/${id}`)
+      .then((response) => {
+        router.push(`/Admin/Medications`);
+      });
+  };
   return (
     <div className="medication w-full bg-white px-10 py-5 my-5 rounded-lg flex items-center justify-between">
       <h1 className="text-xl font-bold tracking-wider text-blue-500">{name}</h1>
@@ -11,7 +22,7 @@ export const MedList = ({ name, description, id }) => {
         <button className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
           <FaEdit className="text-xl stroke-1 " />
         </button>
-        <button className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all">
+        <button onClick={() => handleDelete()} className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all">
           <FaTrash className="text-xl stroke-1 " />
         </button>
       </div>

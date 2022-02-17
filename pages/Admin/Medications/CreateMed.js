@@ -11,8 +11,13 @@ import TextField from "@mui/material/TextField";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
+import axios from "../../../lib/axios";
+import { useAuth } from "../../../hooks/auth";
+import { useRouter } from "next/router";
 
-export default function CreateMed() {
+export default function CreateMed({ medications }) {
+  const { user } = useAuth({ middleware: "auth" });
+  const router = useRouter();
   const [values, setValues] = React.useState({
     name: "",
     description: "",
@@ -24,8 +29,16 @@ export default function CreateMed() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleDone = () => {
-    console.log(values);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await axios
+      .post("/api/Medications", {
+        name: values.name,
+        description: values.description,
+      })
+      .then((response) => {
+        router.push("/Admin/Medications");
+      });
   };
   return (
     <div className="min-h-screen">
@@ -53,7 +66,7 @@ export default function CreateMed() {
                 className="m-auto w-100"
                 component="li"
                 {...props}
-                className="border-red-900 border-2 my-2 cursor-pointer"
+                className=" border-2 my-2 cursor-pointer"
               >
                 {option.name}{" "}
                 <span className="block text-xs">
@@ -81,7 +94,7 @@ export default function CreateMed() {
               Create New medication
             </h1>
             <div>
-              <form onSubmit={() => handleDone()} action="#">
+              <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="flex justify-between flex-wrap">
                   <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                     <InputLabel htmlFor={`medication-registration-name`}>
@@ -122,29 +135,8 @@ export default function CreateMed() {
 }
 const expertiseList = ["sam", "samue", "muse"];
 
-const medications = [
-  {
-    id: 101,
-    name: "Amoxicillin",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 102,
-    name: "Benzonate",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 103,
-    name: "Sertralin",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 104,
-    name: "Amoxicillin",
-    description: "some description about the medication will be listed here ",
-  },
-];
 CreateMed.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
@@ -153,6 +145,7 @@ CreateMed.getLayout = function PageLayout(page) {
           title="Pharmacy"
           parent="Pharmacy Name"
           current="Add New Pharmacy Schedule"
+          user={user}
         />
         {page}
       </div>
@@ -160,3 +153,13 @@ CreateMed.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const response = await axios.get("/api/Medications");
+
+  return {
+    props: {
+      medications: response.data,
+    },
+  };
+}
