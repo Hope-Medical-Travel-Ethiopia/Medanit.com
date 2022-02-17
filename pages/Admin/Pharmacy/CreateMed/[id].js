@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Admin/Sidebar";
-import Footer from "../../../components/layouts/Footer";
-import AdminNav from "../../../components/Admin/AdminNav";
+import Sidebar from "../../../../components/Admin/Sidebar";
+import Footer from "../../../../components/layouts/Footer";
+import AdminNav from "../../../../components/Admin/AdminNav";
 
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,8 +14,14 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import axios from "../../../../lib/axios";
+import { useAuth } from "../../../../hooks/auth";
+import { useRouter } from "next/router";
 
-export default function CreateMed() {
+export default function CreateMed({ medications, pharmacy }) {
+  const { user } = useAuth({ middleware: "auth" });
+  const router = useRouter();
+
   const [values, setValues] = React.useState({
     name: "",
     description: "",
@@ -29,6 +35,29 @@ export default function CreateMed() {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleChooseMedication = async () => {
+    const response = await axios
+      .post(`/api/addMedications`, {
+        pharmacy_id: pharmacy.id,
+        medication_id: medication.id,
+      })
+      .then((response) => {
+        router.push(`/Admin/Pharmacy/${pharmacy.id}`);
+      });
+  };
+
+  const handleSubmitMedication = async (e) => {
+    e.preventDefault();
+    const response = await axios
+      .post(`/api/createAndAdd/${pharmacy.id}`, {
+        name: values.name,
+        description: values.description,
+      })
+      .then((response) => {
+        router.push(`/Admin/Pharmacy/${pharmacy.id}`);
+      });
   };
 
   const handleScheduleChange = (prop) => (event) => {
@@ -68,13 +97,9 @@ export default function CreateMed() {
                 className="m-auto w-100"
                 component="li"
                 {...props}
-                className="border-red-900 border-2 my-2 cursor-pointer"
+                className=" p-2 cursor-pointer"
               >
                 {option.name}{" "}
-                <span className="block text-xs">
-                  {" "}
-                  {option.speciality} {option.id}
-                </span>
               </Box>
             )}
             renderInput={(params) => (
@@ -91,8 +116,7 @@ export default function CreateMed() {
           <div className="flex mt-5 justify-between gap-5 items-center">
             <button
               onClick={() => {
-                setShowmedication(true);
-                setShowmedicationForm(false);
+                handleChooseMedication();
               }}
               className="px-8 py-3 bg-sky-500 hover:bg-sky-700 transition-all text-white"
             >
@@ -125,7 +149,7 @@ export default function CreateMed() {
                 Create New medication
               </h1>
               <div>
-                <form onSubmit={() => handleDone()} action="#">
+                <form onSubmit={(e) => handleSubmitMedication(e)}>
                   <div className="flex justify-between flex-wrap">
                     <FormControl
                       sx={{ m: 1, width: "40ch" }}
@@ -167,53 +191,13 @@ export default function CreateMed() {
             </div>
           )}
         </section>
-
-        
       </div>
     </div>
   );
 }
-const expertiseList = ["sam", "samue", "muse"];
 
-const medications = [
-  {
-    id: 101,
-    name: "John Doe",
-    speciality: "Cardiac Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 102,
-    name: "Jane Doe",
-    speciality: "Cardiac Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 104,
-    name: "Tylor Lokwood",
-    speciality: "internist Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 106,
-    name: "Bonny Bennet",
-    speciality: "internist Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 107,
-    name: "Candice Accolla",
-    speciality: "Heart Surgeon",
-    img: "url/image",
-  },
-  {
-    id: 109,
-    name: "Phil boar",
-    speciality: "Heart Surgeon",
-    img: "url/image",
-  },
-];
 CreateMed.getLayout = function PageLayout(page) {
+  const { user } = useAuth({ middleware: "auth" });
   return (
     <div>
       <Sidebar />
@@ -222,6 +206,7 @@ CreateMed.getLayout = function PageLayout(page) {
           title="Pharmacy"
           parent="Pharmacy Name"
           current="Add New Pharmacy Schedule"
+          user={user}
         />
         {page}
       </div>
@@ -229,3 +214,25 @@ CreateMed.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const response = await axios.get("api/Pharmacy");
+  return {
+    fallback: false,
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const response = await axios.get("/api/Medications");
+  const pharmacyResponse = await axios.get(`/api/Pharmacy/${params.id}`);
+
+  return {
+    props: {
+      medications: response.data,
+      pharmacy: pharmacyResponse.data[0],
+    },
+  };
+}

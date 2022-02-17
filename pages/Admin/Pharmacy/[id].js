@@ -30,7 +30,7 @@ export default function Pharmacy({ pharmacy }) {
         <section>
           <RegisterLink
             text="Add New Medication"
-            link="/Admin/Pharmacy/CreateMed"
+            link={`/Admin/Pharmacy/CreateMed/${pharmacy.id}`}
           />
         </section>
         <section></section>
@@ -41,6 +41,8 @@ export default function Pharmacy({ pharmacy }) {
               name={option.name}
               description={option.description}
               id={option.id}
+              providerId={pharmacy.id}
+              type="Medications"
             />
           ))}
         </section>
@@ -48,28 +50,7 @@ export default function Pharmacy({ pharmacy }) {
     </div>
   );
 }
-const medications = [
-  {
-    id: 101,
-    name: "Amoxicillin",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 102,
-    name: "Benzonate",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 103,
-    name: "Sertralin",
-    description: "some description about the medication will be listed here ",
-  },
-  {
-    id: 104,
-    name: "Amoxicillin",
-    description: "some description about the medication will be listed here ",
-  },
-];
+
 
 Pharmacy.getLayout = function PageLayout(page) {
   const { user } = useAuth({ middleware: "auth" });

@@ -3,14 +3,22 @@ import axios from "../../lib/axios";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 
-export const MedList = ({ name, description, id, type }) => {
+export const MedList = ({ name, description, id, type, providerId }) => {
   const router = useRouter();
   const handleDelete = async () => {
-    const response = await axios
-      .delete(`/api/${type}/${id}`)
-      .then((response) => {
-        router.push(`/Admin/${type}`);
-      });
+    if (providerId) {
+      const response = await axios
+        .delete(`/api/${type}/${providerId}/${id}`)
+        .then((response) => {
+          router.push(`/Admin/Pharmacy/${providerId}`);
+        });
+    } else {
+      const response = await axios
+        .delete(`/api/${type}/${id}`)
+        .then((response) => {
+          router.push(`/Admin/${type}`);
+        });
+    }
   };
   return (
     <div className="medication w-full bg-white px-10 py-5 my-5 rounded-lg flex items-center justify-between flex-wrap">
