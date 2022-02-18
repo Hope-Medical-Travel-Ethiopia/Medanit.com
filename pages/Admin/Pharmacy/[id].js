@@ -14,17 +14,7 @@ export default function Pharmacy({ pharmacy }) {
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
-        <ProfileHeader
-          name={pharmacy.name}
-          image={pic}
-          phone={pharmacy.phone}
-          email={pharmacy.email}
-          address={pharmacy.address}
-          openingTime={pharmacy.opening}
-          closingTime={pharmacy.closing}
-          type="Pharmacy"
-          provider={pharmacy.id}
-        />
+        <ProfileHeader pic={pic} type="Pharmacy" provider={pharmacy} />
       </div>
       <div className="body my-10">
         <section>
@@ -50,7 +40,6 @@ export default function Pharmacy({ pharmacy }) {
     </div>
   );
 }
-
 
 Pharmacy.getLayout = function PageLayout(page) {
   const { user } = useAuth({ middleware: "auth" });
@@ -81,8 +70,6 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       pharmacy: response.data[0],
-      
     },
   };
 }
-

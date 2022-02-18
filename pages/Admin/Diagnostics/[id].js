@@ -16,15 +16,7 @@ export default function Diagnostic({ diagnostics }) {
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
-        <ProfileHeader
-          name={diagnostics.name}
-          image={pic}
-          phone={diagnostics.phone}
-          email={diagnostics.email}
-          address={diagnostics.address}
-          type="Diagnostics"
-          provider={diagnostics.id}
-        />
+        <ProfileHeader pic={pic} type="Diagnostics" provider={diagnostics} />
       </div>
       <div className="body my-10">
         <div className="grid grid-cols-3  gap-10">

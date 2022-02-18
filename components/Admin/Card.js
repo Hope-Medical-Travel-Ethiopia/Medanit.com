@@ -3,8 +3,24 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import axios from "../../lib/axios";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const Card = ({ pic, provider, type }) => {
+  const myLoader = ({ src, width, quality }) => {
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+  };
+
+  const [image, setimage] = useState();
+
+  useEffect(() => {
+    if (provider.coverImage) {
+      setimage(provider.coverImage);
+    } else if (provider.logo) {
+      setimage(provider.logo);
+    }
+  }, [provider]);
+
   const router = useRouter();
   const handleDelete = async () => {
     const response = await axios
@@ -15,7 +31,22 @@ const Card = ({ pic, provider, type }) => {
   };
   return (
     <div className="card w-72 p-10 rounded-lg bg-white overflow-hidden flex flex-col items-center justify-between gap-5">
-      <div className="image">{pic && <Picture pic={pic} size={36} />}</div>
+      <div
+        className="image"
+        className="overflow-hidden  h-36 w-36 rounded-full relative"
+      >
+        {image ? (
+          <Image
+            loader={myLoader}
+            src={image}
+            alt="Picture of the author"
+            layout="fill"
+            className="border-2 border-red-500 overflow-hidden   rounded-full object-cover"
+          />
+        ) : (
+          <Picture pic={pic} size={36} />
+        )}
+      </div>
       <div className="nameTag flex flex-col ">
         <h1 className="text-lg leading-tight mb-2 font-semibold text-blue-500">
           {provider.name}

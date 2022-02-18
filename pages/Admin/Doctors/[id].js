@@ -21,22 +21,13 @@ export default function Doctor({ doctors }) {
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
-        <ProfileHeader
-          name={doctors.name}
-          image={pic}
-          phone={doctors.phone}
-          email={doctors.email}
-          address={doctors.address}
-          speciality={doctors.speciality}
-          type="Doctors"
-          provider={doctors.id}
-        />
+        <ProfileHeader pic={pic} type="Doctors" provider={doctors} />
       </div>
       <div className="body my-10">
         <div className="grid grid-cols-3  gap-10">
           <Expertise title="Expertise" services={doctors.expertise} />
           <div className="about row-start-2">
-            <About description={doctors.description}/>
+            <About description={doctors.description} />
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <div className="schedules">

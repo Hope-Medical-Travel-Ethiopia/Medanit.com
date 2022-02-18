@@ -16,15 +16,7 @@ export default function Hospital({ hospital, schedule }) {
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
-        <ProfileHeader
-          name={hospital.name}
-          image={pic}
-          phone={hospital.phone}
-          email={hospital.email}
-          address={hospital.address}
-          type="Hospitals"
-          provider={hospital.id}
-        />
+        <ProfileHeader pic={pic} type="Hospitals" provider={hospital} />
       </div>
       <div className="body my-10">
         <div className="grid grid-cols-3  gap-10">
@@ -40,7 +32,7 @@ export default function Hospital({ hospital, schedule }) {
             />
             <div className="schedules">
               {hospital.doctors.map((doctor) => (
-                <AdminSchedule provider={doctor} schedule={schedule}/>
+                <AdminSchedule provider={doctor} schedule={schedule} />
               ))}
             </div>
           </div>
@@ -77,12 +69,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
-  const scheduleResponse= await axios.get(`/api/schedule/${params.id}`)
+  const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
 
   return {
     props: {
       hospital: response.data[0],
-      schedule: scheduleResponse.data
+      schedule: scheduleResponse.data,
     },
   };
 }

@@ -87,7 +87,7 @@ export default function CreateSchedule({ doctors, hospital }) {
       })
       .then((response) => {
         console.log(response.data);
-        router.push("/Admin/Hospitals");
+        router.push(`/Admin/Hospitals/${hospital.id}`);
       });
   };
   return (

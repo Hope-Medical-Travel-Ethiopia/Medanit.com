@@ -9,7 +9,7 @@ import Search from "../../../components/Admin/Search";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 
-export default function Doctors({ hospitals }) {
+export default function Doctors({ doctors }) {
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
@@ -18,7 +18,7 @@ export default function Doctors({ hospitals }) {
       </div>
       <div className="body">
         <div className="listing flex flex-wrap gap-8">
-          {hospitals.map((item) => (
+          {doctors.map((item) => (
             <Card pic={pic} provider={item} type="Doctors" key={item.id} />
           ))}
         </div>
@@ -33,7 +33,7 @@ Doctors.getLayout = function PageLayout(page) {
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Doctors" name="Doctority" user={user} />
+        <AdminNav title="Doctors" user={user} />
         {page}
       </div>
       <Footer />
@@ -42,11 +42,11 @@ Doctors.getLayout = function PageLayout(page) {
 };
 
 export async function getStaticProps() {
-  const Hospitals = await axios.get("/api/doctors");
+  const Doctors = await axios.get("/api/doctors");
 
   return {
     props: {
-      hospitals: Hospitals.data,
+      doctors: Doctors.data,
     },
   };
 }
