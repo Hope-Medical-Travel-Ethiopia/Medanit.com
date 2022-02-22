@@ -56,6 +56,7 @@ const Listing = ({
   const handleType = (event) => {
     setProvider(event.target.value);
     const targetValue = event.target.value;
+    console.log("target Value is " + targetValue);
     if (targetValue == "Doctors") {
       setProviders(arr);
     }
@@ -67,13 +68,17 @@ const Listing = ({
     }
     if (targetValue == "Pharmacy") {
       setProviders(pharmacyList);
+    } else {
+      alert("something is wrong");
     }
   };
   const search = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      let response = await axios.get(`/api/search-by-${provider}/${searchTerm}`);
+      let response = await axios.get(
+        `/api/search-by-${provider}/${searchTerm}`
+      );
       let res = await response.data;
       setProviderData(res);
       setIsLoading(false);
@@ -141,6 +146,8 @@ const Listing = ({
                       {" "}
                       {/* {option.speciality ? option.speciality : option.address}
                       {option.address && option.address} */}
+                      Description about the things above is discussed here in
+                      detail with both amharic and english. ይህ ቦታ ከላይ ለተገለጸው
                     </span>
                   </Box>
                 )}
@@ -202,7 +209,7 @@ export async function getStaticProps() {
 
   const diagnosticResponse = await axios.get("/api/diagnostics");
   const hospitalResponse = await axios.get("/api/hospitals");
-  const pharmacyResponse = await axios.get("/api/pharmacy");
+  const pharmacyResponse = await axios.get("/api/Pharmacy");
 
   return {
     props: {

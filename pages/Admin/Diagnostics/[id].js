@@ -9,8 +9,10 @@ import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import LabScheduleCard from "../../../components/sections/LabScheduleCard";
 import axios from "../../../lib/axios";
+import AdminSchedule from "../../../components/Admin/AdminSchedule";
+
 import { useAuth } from "../../../hooks/auth";
-export default function Diagnostic({ diagnostics }) {
+export default function Diagnostic({ diagnostics, schedule }) {
   const { user } = useAuth({ middleware: "auth" });
 
   return (
@@ -27,10 +29,15 @@ export default function Diagnostic({ diagnostics }) {
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <RegisterLink
               text="Add New Schedule"
-              link="/Admin/Diagnostic/CreateSchedule"
+              link={`/Admin/Diagnostics/CreateSchedule/`}
               provider={diagnostics.id}
             />
-            <div className="schedules flex flex-col gap-10">{}</div>
+            <div className="schedules flex flex-col gap-10">
+              {" "}
+              {diagnostics.procedures.map((doctor) => (
+                <AdminSchedule provider={doctor} schedule={schedule} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -65,10 +72,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
-  console.log(response);
+  const scheduleResponse = await axios.get(
+    `/api/Diagnostic_schedule/${params.id}`
+  );
+
+  console.log(
+    "the response here is " + response + "and the other response is "
+  );
   return {
     props: {
-      diagnostics: response.data,
+      diagnostics: response.data[0],
+      schedule: scheduleResponse.data,
     },
   };
 }
