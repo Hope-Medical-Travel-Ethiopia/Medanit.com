@@ -196,6 +196,7 @@ const Listing = ({
               address={item.address}
               phone={item.phone}
               email={item.email}
+              speciality={item.speciality}
               picture={image}
               provider={provider}
               id={item.id}

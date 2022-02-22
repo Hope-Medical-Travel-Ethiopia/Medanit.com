@@ -8,6 +8,7 @@ const ProviderListCard = ({
   picture,
   className,
   provider,
+  speciality,
   id,
 }) => {
   return (
@@ -23,13 +24,19 @@ const ProviderListCard = ({
         <section className="descSection flex flex-col justify-between w-64">
           <div className="nameTag">
             <h1 className="text-2xl font-bold text-blue-500">{name}</h1>
-            <a
-              href={`tel:${phone}`}
-              className="tracking-wide text-blue-400 text-lg mt-2"
-            >
-              {phone}
-            </a>
-            <p className="basis-2/3 text-sm">{address}</p>
+            {speciality && (
+              <h3 className="text-lg text-blue-500">{speciality}</h3>
+            )}
+            {phone && (
+              <a
+                href={`tel:${phone}`}
+                className="tracking-wide text-blue-400 text-lg mt-2"
+              >
+                {phone}
+              </a>
+            )}
+
+            {address && <p className="basis-2/3 text-sm">{address}</p>}
           </div>
         </section>
         <section className=" self-end justify-self-end">

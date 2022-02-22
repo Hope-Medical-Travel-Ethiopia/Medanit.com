@@ -63,7 +63,6 @@ Doctor.getLayout = function PageLayout(page) {
 
 export async function getStaticPaths() {
   const response = await axios.get("/api/doctors");
-  console.log(response);
   return {
     fallback: false,
     paths: response.data.map((item) => ({

@@ -20,9 +20,9 @@ const DoctorProfile = ({ doctor }) => {
         {/*  */}
         <section className="body mt-10">
           <div className="grid grid-cols-3  gap-10">
-            <Expertise title="Expertise" />
+            <Expertise title="Expertise" services={doctor.expertise} />
             <div className="about row-start-2">
-              <About />
+              <About description={doctor.description}/>
             </div>
             <div className="schedules col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
               <HospitalSchedule />
