@@ -51,6 +51,8 @@ const Listing = ({
     pharmacy.map((item) => {
       pharmacyList.push(item.name);
     });
+
+    setProviders(hospitalList);
   }, []);
 
   const handleType = (event) => {
@@ -59,17 +61,17 @@ const Listing = ({
     console.log("target Value is " + targetValue);
     if (targetValue == "Doctors") {
       setProviders(arr);
-    }
-    if (targetValue == "Diagnostics") {
+      console.log("yest it is doctors" + providers);
+    } else if (targetValue == "Diagnostics") {
       setProviders(diagnosticsList);
-    }
-    if (targetValue == "Hospital") {
+      console.log(+diagnosticsList + "yest it is diagnostics" + providers);
+    } else if (targetValue == "Hospital") {
       setProviders(hospitalList);
-    }
-    if (targetValue == "Pharmacy") {
+      console.log("yest it is hospital");
+    } else if (targetValue == "Pharmacy") {
       setProviders(pharmacyList);
     } else {
-      alert("something is wrong");
+      console.log("something is wrong");
     }
   };
   const search = async (event) => {
@@ -178,6 +180,11 @@ const Listing = ({
       </section>
       {/* <h1 className="text-2xl">Searching For {searchTerm}</h1> */}
       <section className="list mt-10 flex flex-col justify-center items-center m-auto">
+        {provider ? (
+          providers.map((item) => <p>{item}</p>)
+        ) : (
+          <p>No Providers</p>
+        )}
         {IsLoading ? (
           <>
             <h1 className="text-2xl">Searching For {searchTerm}</h1>
