@@ -35,43 +35,47 @@ const Listing = ({
   const pharmacyList = [];
 
   useEffect(() => {
-    doctorsName.map((item) => {
-      arr.push(item.name);
-    });
     doctorsSpeciality.map((item) => {
-      arr.push(item.speciality);
       hospitalList.push(item.speciality);
     });
     hospitals.map((item) => {
       hospitalList.push(item.name);
     });
-    diagnostics.map((item) => {
-      diagnosticsList.push(item.name);
-    });
-    pharmacy.map((item) => {
-      pharmacyList.push(item.name);
-    });
-
     setProviders(hospitalList);
-  }, []);
+  }, [hospitals]);
 
   const handleType = (event) => {
     setProvider(event.target.value);
     const targetValue = event.target.value;
-    console.log("target Value is " + targetValue);
     if (targetValue == "Doctors") {
+      doctorsName.map((item) => {
+        arr.push(item.name);
+      });
+      doctorsSpeciality.map((item) => {
+        arr.push(item.speciality);
+      });
       setProviders(arr);
-      console.log("yest it is doctors" + providers);
-    } else if (targetValue == "Diagnostics") {
+    }
+    if (targetValue == "Diagnostics") {
+      diagnostics.map((item) => {
+        diagnosticsList.push(item.name);
+      });
       setProviders(diagnosticsList);
-      console.log(+diagnosticsList + "yest it is diagnostics" + providers);
-    } else if (targetValue == "Hospital") {
+    }
+    if (targetValue == "Hospital") {
+      doctorsSpeciality.map((item) => {
+        hospitalList.push(item.speciality);
+      });
+      hospitals.map((item) => {
+        hospitalList.push(item.name);
+      });
       setProviders(hospitalList);
-      console.log("yest it is hospital");
-    } else if (targetValue == "Pharmacy") {
+    }
+    if (targetValue == "Pharmacy") {
+      pharmacy.map((item) => {
+        pharmacyList.push(item.name);
+      });
       setProviders(pharmacyList);
-    } else {
-      console.log("something is wrong");
     }
   };
   const search = async (event) => {
@@ -148,8 +152,6 @@ const Listing = ({
                       {" "}
                       {/* {option.speciality ? option.speciality : option.address}
                       {option.address && option.address} */}
-                      Description about the things above is discussed here in
-                      detail with both amharic and english. ይህ ቦታ ከላይ ለተገለጸው
                     </span>
                   </Box>
                 )}
@@ -180,11 +182,6 @@ const Listing = ({
       </section>
       {/* <h1 className="text-2xl">Searching For {searchTerm}</h1> */}
       <section className="list mt-10 flex flex-col justify-center items-center m-auto">
-        {provider ? (
-          providers.map((item) => <p>{item}</p>)
-        ) : (
-          <p>No Providers</p>
-        )}
         {IsLoading ? (
           <>
             <h1 className="text-2xl">Searching For {searchTerm}</h1>
