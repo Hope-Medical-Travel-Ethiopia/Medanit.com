@@ -182,6 +182,7 @@ const Listing = ({
       </section>
       {/* <h1 className="text-2xl">Searching For {searchTerm}</h1> */}
       <section className="list mt-10 flex flex-col justify-center items-center m-auto">
+        {searchTerm}
         {IsLoading ? (
           <>
             <h1 className="text-2xl">Searching For {searchTerm}</h1>
