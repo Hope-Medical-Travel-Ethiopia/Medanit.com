@@ -16,12 +16,12 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Listing = ({
-  doctorsName,
-  doctorsExpertise,
-  doctorsSpeciality,
+  doctors,
   diagnostics,
   hospitals,
   pharmacy,
+  procedures,
+  medication,
 }) => {
   const [providerData, setProviderData] = useState([]);
   const [formInput, setformInput] = useState();
@@ -29,41 +29,48 @@ const Listing = ({
   const [providers, setProviders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("someText");
   const [IsLoading, setIsLoading] = useState(false);
-  const arr = [];
+  const doctorsList = [];
   const hospitalList = [];
   const diagnosticsList = [];
   const pharmacyList = [];
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    doctorsSpeciality.map((item) => {
+    doctors.map((item) => {
       hospitalList.push(item.speciality);
     });
     hospitals.map((item) => {
       hospitalList.push(item.name);
     });
     setProviders(hospitalList);
-  }, [hospitals]);
+  }, [hospitals, doctors]);
+
+  //Type Change Function
 
   const handleType = (event) => {
     setProvider(event.target.value);
     const targetValue = event.target.value;
     if (targetValue == "Doctors") {
-      doctorsName.map((item) => {
-        arr.push(item.name);
+      doctors.map((item) => {
+        doctorsList.push(item.name);
+        doctorsList.push(item.speciality);
+        item.expertise.map((exp) => {
+          doctorsList.push(exp);
+        });
       });
-      doctorsSpeciality.map((item) => {
-        arr.push(item.speciality);
-      });
-      setProviders(arr);
+      setProviders(doctorsList);
     }
     if (targetValue == "Diagnostics") {
       diagnostics.map((item) => {
         diagnosticsList.push(item.name);
       });
+      procedures.map((item) => {
+        diagnosticsList.push(item.name);
+      });
       setProviders(diagnosticsList);
     }
     if (targetValue == "Hospital") {
-      doctorsSpeciality.map((item) => {
+      doctors.map((item) => {
         hospitalList.push(item.speciality);
       });
       hospitals.map((item) => {
@@ -75,9 +82,15 @@ const Listing = ({
       pharmacy.map((item) => {
         pharmacyList.push(item.name);
       });
+      medication.map((item) => {
+        pharmacyList.push(item.name);
+      });
       setProviders(pharmacyList);
     }
   };
+
+  //Search Function
+
   const search = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -93,12 +106,14 @@ const Listing = ({
     }
   };
 
+  //return
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <Head>
         <title>Diagnostics</title>
       </Head>
-      <section className="searchSection bg-white  flex justify-center p-10  ">
+      <section className="searchSection bg-white  flex justify-center p-10 items-center flex-col">
         <div>
           <form
             onSubmit={search}
@@ -133,7 +148,7 @@ const Listing = ({
                 sx={{ width: 600, color: "red" }}
                 autoHighlight
                 getOptionLabel={(option) => option}
-                onChange={(event, newValue) => {
+                onInputChange={(event, newValue) => {
                   try {
                     setSearchTerm(newValue);
                   } catch {
@@ -179,10 +194,14 @@ const Listing = ({
             </FormControl>
           </form>
         </div>
+        {searchTerm && providerData && (
+          <h1 className="text-xl font-bold">
+            {providerData.length} results were found for {searchTerm}
+          </h1>
+        )}
       </section>
       {/* <h1 className="text-2xl">Searching For {searchTerm}</h1> */}
       <section className="list mt-10 flex flex-col justify-center items-center m-auto">
-        {searchTerm}
         {IsLoading ? (
           <>
             <h1 className="text-2xl">Searching For {searchTerm}</h1>
@@ -191,7 +210,7 @@ const Listing = ({
         ) : (
           providerData.map((item) => (
             <ProviderListCard
-              key={item.id}
+              key={item.id + item.name}
               name={item.name}
               address={item.address}
               phone={item.phone}
@@ -209,23 +228,29 @@ const Listing = ({
 };
 
 export async function getStaticProps() {
-  const DoctorNameResponse = await axios.get("/api/Doctors-name");
-  const DoctorSpecialityResponse = await axios.get("/api/Doctors-speciality");
-  const DoctorExpertiseResponse = await axios.get("/api/Doctors-expertise");
+  // const DoctorNameResponse = await axios.get("/api/Doctors-name");
+  // const DoctorSpecialityResponse = await axios.get("/api/Doctors-speciality");
+  // const DoctorExpertiseResponse = await axios.get("/api/Doctors-expertise");
 
+  const DoctorsResponse = await axios.get("/api/doctors");
   const diagnosticResponse = await axios.get("/api/diagnostics");
   const hospitalResponse = await axios.get("/api/hospitals");
   const pharmacyResponse = await axios.get("/api/Pharmacy");
+  const procedureResponse = await axios.get("/api/Procedures");
+  const MedicationResponse = await axios.get("/api/Medications");
 
   return {
     props: {
       // doctors: response.data,
-      doctorsName: DoctorNameResponse.data,
-      doctorsSpeciality: DoctorSpecialityResponse.data,
-      doctorsExpertise: DoctorExpertiseResponse.data,
+      // doctorsName: DoctorNameResponse.data,
+      // doctorsSpeciality: DoctorSpecialityResponse.data,
+      // doctorsExpertise: DoctorExpertiseResponse.data,
+      doctors: DoctorsResponse.data,
       diagnostics: diagnosticResponse.data,
       hospitals: hospitalResponse.data,
       pharmacy: pharmacyResponse.data,
+      procedures: procedureResponse.data,
+      medication: MedicationResponse.data,
     },
   };
 }
