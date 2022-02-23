@@ -19,18 +19,18 @@ export default function CreatePharmacy({ pharmacy }) {
   const router = useRouter();
 
   const [values, setValues] = React.useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    logo: "",
-    opening: "",
-    closing: "",
+    name: pharmacy.name,
+    email: pharmacy.email,
+    address: pharmacy.address,
+    logo: pharmacy.logo,
+    phone: pharmacy.phone,
+    opening: pharmacy.opening,
+    closing: pharmacy.closing,
   });
 
-  useEffect(() => {
-    setValues(pharmacy);
-  }, [pharmacy]);
+  // useEffect(() => {
+  //   setValues(pharmacy);
+  // }, [pharmacy]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -43,8 +43,8 @@ export default function CreatePharmacy({ pharmacy }) {
         name: values.name,
         email: values.email,
         address: values.address,
-        logo: values.logo,
         phone: values.phone,
+        logo: values.logo,
         opening: values.opening,
         closing: values.closing,
         user_id: user.id,
@@ -133,7 +133,7 @@ export default function CreatePharmacy({ pharmacy }) {
                 id="Pharmacy-registration-logo"
                 type="file"
                 inputProps={{ accept: "image/" }}
-                value={values.logo}
+                // value={values.logo}
                 onChange={handleChange("logo")}
               />
             </FormControl>
@@ -211,9 +211,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Pharmacy/${params.id}`);
+  console.log(response.data[0]);
   return {
     props: {
-      pharmacy: response.data,
+      pharmacy: response.data[0],
     },
   };
 }

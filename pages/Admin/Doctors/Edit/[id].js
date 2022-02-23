@@ -15,8 +15,7 @@ import axios from "../../../../lib/axios";
 import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
-
-export default function CreateDoctors({doctor}) {
+export default function CreateDoctors({ doctor }) {
   const serviceList = ["sam", "samue", "muse"];
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
@@ -32,6 +31,7 @@ export default function CreateDoctors({doctor}) {
 
   useEffect(() => {
     setValues(doctor);
+    console.log(values);
   }, [doctor]);
 
   const handleChange = (prop) => (event) => {
@@ -64,45 +64,9 @@ export default function CreateDoctors({doctor}) {
           </h1>
         </div>
       </div>
-      {/* <div className="m-10 p-5 bg-white">
-        <h1 className="textClip text-lg font-bold my-5 ml-2">
-          First Check if the Doctor Exists
-        </h1>
-        <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-        <Autocomplete
-            id="select-doctors"
-            options={doctors}
-            sx={{ width: 600 }}
-            autoHighlight
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option) => (
-              <Box
-                className="m-auto w-100"
-                component="li"
-                {...props}
-                className=" border-2 p-2 cursor-pointer"
-              >
-                {option.name}{" "}
-                <span className="block text-xs"> {option.speciality}</span>
-              </Box>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Choose a Doctor"
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password",
-                }}
-              />
-            )}
-          />
-        </FormControl>
-      </div> */}
+
       <div className="m-10 p-5 bg-white">
-        <h1 className="textClip text-xl font-bold my-5 ml-2">
-          Edit doctor
-        </h1>
+        <h1 className="textClip text-xl font-bold my-5 ml-2">Edit doctor</h1>
         <div>
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className="flex justify-between flex-wrap">
@@ -226,18 +190,18 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths(){
-  const response= await axios.get("/api/doctors");
+export async function getStaticPaths() {
+  const response = await axios.get("/api/doctors");
 
   return {
     fallback: false,
-    paths: response.data.map((item)=>({
-      params: {id: item.id.toString()},
+    paths: response.data.map((item) => ({
+      params: { id: item.id.toString() },
     })),
   };
 }
 
-export async function getStaticProps({params}) {
+export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
 
   return {

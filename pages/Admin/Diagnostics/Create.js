@@ -39,22 +39,25 @@ export default function CreateDiagnostics() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // await csrf();
-    const response = await axios
-      .post("/api/diagnostics", {
-        name: values.name,
-        description: values.description,
-        email: values.email,
-        address: values.address,
-        services: values.services,
-        phone: values.phone,
-        user_id: user.id,
-      })
-      .then((response) => {
-        router.push("/Admin/Diagnostics");
-      });
+    let formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("address", values.address);
+    formData.append("logo", values.logo);
+    formData.append("phone", values.phone);
+    for (const i = 0; i < values.services.length; i++) {
+      formData.append("services[]", values.services[i]);
+    }
+    formData.append("description", values.description);
+    formData.append("user_id", user.id);
 
-    // const data = await response.json();
-    // console.log(data);
+    const response = axios({
+      url: "/api/diagnostics",
+      method: "POST",
+      data: formData,
+    }).then((response) => {
+      router.push("/Admin/Diagnostics");
+    });
   };
 
   return (
@@ -77,7 +80,6 @@ export default function CreateDiagnostics() {
                 required
                 id="Diagnostic-registration-name"
                 type="text"
-                value={values.name}
                 onChange={handleChange("name")}
                 label="Diagnostic name"
               />
@@ -90,7 +92,6 @@ export default function CreateDiagnostics() {
                 required
                 id="Diagnostic-registration-phone"
                 type="number"
-                value={values.phone}
                 onChange={handleChange("phone")}
                 label="Diagnostic phone"
               />
@@ -103,7 +104,6 @@ export default function CreateDiagnostics() {
                 required
                 id="Diagnostic-registration-email"
                 type="email"
-                value={values.email}
                 onChange={handleChange("email")}
                 label="Diagnostic email"
               />
@@ -116,7 +116,6 @@ export default function CreateDiagnostics() {
                 required
                 id="Diagnostic-registration-address"
                 type="text"
-                value={values.address}
                 onChange={handleChange("address")}
                 label="Diagnostic address"
               />
@@ -125,9 +124,9 @@ export default function CreateDiagnostics() {
               <TextField
                 id="Diagnostic-registration-logo"
                 type="file"
-                inputProps={{ accept: "image/" }}
-                value={values.logo}
-                onChange={handleChange("logo")}
+                onChange={(e) =>
+                  setValues({ ...values, ["logo"]: e.target.files[0] })
+                }
               />
             </FormControl>
 
