@@ -32,7 +32,12 @@ export default function Hospital({ hospital, schedule }) {
             />
             <div className="schedules">
               {hospital.doctors.map((doctor) => (
-                <AdminSchedule provider={doctor} schedule={schedule} />
+                <AdminSchedule
+                  parent={hospital}
+                  provider={doctor}
+                  schedule={schedule}
+                  key={doctor.id}
+                />
               ))}
             </div>
           </div>
@@ -44,7 +49,6 @@ export default function Hospital({ hospital, schedule }) {
 
 Hospital.getLayout = function PageLayout(page) {
   const { user } = useAuth({ middleware: "auth" });
-
   return (
     <div>
       <Sidebar />

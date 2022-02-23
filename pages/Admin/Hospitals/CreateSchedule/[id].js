@@ -278,28 +278,10 @@ export default function CreateSchedule({ doctors, hospital }) {
 
       <div className="scheduleForm m-10 p-5 bg-white">
         <h1 className="textClip text-xl font-bold my-5 ml-2">Add Schedule</h1>
-        {schedules[0].day ? (
-          schedules.map((item) => (
-            <div>
-              <h1 key={item.day}>{item.day} </h1>
-              <p>
-                {" "}
-                {item.starting} - to - {item.ending}{" "}
-              </p>
-            </div>
-          ))
-        ) : (
-          <h1> please Add Values </h1>
-        )}
+
         <form onSubmit={(e) => handleSubmit(e)}>
           {schedules.map((element, index) => (
             <div className="flex items-end  " key={index}>
-              {/* <input
-                type="text"
-                name="day"
-                value={element.day || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -318,13 +300,6 @@ export default function CreateSchedule({ doctors, hospital }) {
                   label="Day"
                 />
               </FormControl>
-              {/* <label>starting</label> */}
-              {/* <input
-                type="time"
-                name="starting"
-                value={element.starting || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"

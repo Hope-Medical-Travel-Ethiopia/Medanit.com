@@ -4,26 +4,24 @@ import Image from "next/image";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import Picture from "../reusable/Picture";
 import { useState, useEffect } from "react";
-const AdminSchedule = ({
-  name,
-  speciality,
-  phone,
-  address,
-  email,
-  pic = image,
-  provider,
-  schedule,
-}) => {
-  const [Sky, setSky] = useState([]);
-  // useEffect(() => {
-  //   // Sky.push(schedule)
-  //   setSky = schedule;
-  //   console.log(schedule);
-  //   console.log(schedule["16"][0].ending);
-  //   // setSky(provider.pivot.schedule);
-  // }, [provider]);
+import { useRouter } from "next/router";
+
+const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
+  // const [Sky, setSky] = useState([]);
+
   const myLoader = ({ src, width, quality }) => {
     return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+  };
+  const router = useRouter();
+  const handlePush = (e) => {
+    e.preventDefault();
+    router.push({
+      pathname: `/Admin/Hospitals/EditSchedule/${provider.id}`,
+      query: {
+        providerId: encodeURI(provider.id),
+        parentId: encodeURI(parent.id),
+      },
+    });
   };
   return (
     <section className="card bg-white px-10 py-6 my-10 rounded-xl drop-shadow-lg">
@@ -75,7 +73,10 @@ const AdminSchedule = ({
           <div className="Dates w-fit text-left">
             {schedule[`${provider.id}`] &&
               schedule[`${provider.id}`].map((item) => (
-                <Schedule time={item} />
+                <Schedule
+                  time={item}
+                  key={item.starting + item.ending + item.day}
+                />
               ))}
           </div>
           <div className="action  flex  w-full gap-5 justify-end mt-10">
@@ -84,7 +85,13 @@ const AdminSchedule = ({
                 <FaEye className="text-xl stroke-1" />
               </a>
             </Link>
-            <button className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+
+            <button
+              onClick={(e) => {
+                handlePush(e);
+              }}
+              className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all"
+            >
               <FaEdit className="text-xl stroke-1 " />
             </button>
             <button className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all">
