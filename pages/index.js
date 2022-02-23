@@ -3,7 +3,16 @@ import Image from "next/image";
 import Features from "../components/sections/Features";
 import Hero from "../components/sections/Hero";
 import Footer from "../components/layouts/Footer";
-export default function Home() {
+import axios from "./../lib/axios";
+
+export default function Home({
+  doctors,
+  diagnostics,
+  hospitals,
+  pharmacy,
+  procedures,
+  medication,
+}) {
   return (
     <div>
       <Head>
@@ -12,8 +21,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Hero />
-        <Features/>
+        <Hero
+          doctors={doctors}
+          diagnostics={diagnostics}
+          hospitals={hospitals}
+          pharmacy={pharmacy}
+          procedures={procedures}
+          medication={medication}
+        />
+        <Features />
       </main>
     </div>
   );
@@ -27,3 +43,23 @@ Home.getLayout = function PageLayout(page) {
     </>
   );
 };
+
+export async function getStaticProps({ query }) {
+  const DoctorsResponse = await axios.get("/api/doctors");
+  const diagnosticResponse = await axios.get("/api/diagnostics");
+  const hospitalResponse = await axios.get("/api/hospitals");
+  const pharmacyResponse = await axios.get("/api/Pharmacy");
+  const procedureResponse = await axios.get("/api/Procedures");
+  const MedicationResponse = await axios.get("/api/Medications");
+
+  return {
+    props: {
+      doctors: DoctorsResponse.data,
+      diagnostics: diagnosticResponse.data,
+      hospitals: hospitalResponse.data,
+      pharmacy: pharmacyResponse.data,
+      procedures: procedureResponse.data,
+      medication: MedicationResponse.data,
+    },
+  };
+}

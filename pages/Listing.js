@@ -14,6 +14,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/router";
 
 const Listing = ({
   doctors,
@@ -22,18 +23,18 @@ const Listing = ({
   pharmacy,
   procedures,
   medication,
+  firstData,
 }) => {
   const [providerData, setProviderData] = useState([]);
-  const [formInput, setformInput] = useState();
   const [provider, setProvider] = useState("Hospital");
   const [providers, setProviders] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("someText");
+  const [searchTerm, setSearchTerm] = useState();
   const [IsLoading, setIsLoading] = useState(false);
   const doctorsList = [];
   const hospitalList = [];
   const diagnosticsList = [];
   const pharmacyList = [];
-  const [counter, setCounter] = useState(0);
+  const { query } = useRouter();
 
   useEffect(() => {
     doctors.map((item) => {
@@ -42,8 +43,10 @@ const Listing = ({
     hospitals.map((item) => {
       hospitalList.push(item.name);
     });
-    setProviders(hospitalList);
-  }, [hospitals, doctors]);
+    setProvider(query.qProvider);
+    setSearchTerm(decodeURI(query.qSearchTerm));
+    setProviderData(firstData);
+  }, []);
 
   //Type Change Function
 
@@ -227,30 +230,27 @@ const Listing = ({
   );
 };
 
-export async function getStaticProps() {
-  // const DoctorNameResponse = await axios.get("/api/Doctors-name");
-  // const DoctorSpecialityResponse = await axios.get("/api/Doctors-speciality");
-  // const DoctorExpertiseResponse = await axios.get("/api/Doctors-expertise");
-
+export async function getServerSideProps({ query }) {
   const DoctorsResponse = await axios.get("/api/doctors");
   const diagnosticResponse = await axios.get("/api/diagnostics");
   const hospitalResponse = await axios.get("/api/hospitals");
   const pharmacyResponse = await axios.get("/api/Pharmacy");
   const procedureResponse = await axios.get("/api/Procedures");
   const MedicationResponse = await axios.get("/api/Medications");
+  let Firstresponse = await axios.get(
+    `/api/search-by-${query.qProvider}/${query.qSearchTerm}`
+  );
+  // console.log(Firstresponse.data);
 
   return {
     props: {
-      // doctors: response.data,
-      // doctorsName: DoctorNameResponse.data,
-      // doctorsSpeciality: DoctorSpecialityResponse.data,
-      // doctorsExpertise: DoctorExpertiseResponse.data,
       doctors: DoctorsResponse.data,
       diagnostics: diagnosticResponse.data,
       hospitals: hospitalResponse.data,
       pharmacy: pharmacyResponse.data,
       procedures: procedureResponse.data,
       medication: MedicationResponse.data,
+      firstData: Firstresponse.data,
     },
   };
 }
