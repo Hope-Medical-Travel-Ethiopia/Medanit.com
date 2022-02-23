@@ -15,8 +15,7 @@ import axios from "../../../lib/axios";
 import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
-
-export default function CreateDoctors({doctors}) {
+export default function CreateDoctors({ doctors }) {
   const serviceList = ["sam", "samue", "muse"];
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
@@ -25,7 +24,7 @@ export default function CreateDoctors({doctors}) {
     name: "",
     speciality: "",
     address: "",
-    picture: "",
+    picture: null,
     expertise: [],
     description: "",
   });
@@ -36,19 +35,24 @@ export default function CreateDoctors({doctors}) {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    // console.log(values);
-    const response = await axios
-      .post("/api/Doctor", {
-        name: values.name,
-        speciality: values.speciality,
-        address: values.address,
-        expertise: values.expertise,
-        description: values.description,
-        profilePicture: values.picture,
-      })
-      .then((response) => {
-        router.push("/Admin/Doctors");
-      });
+
+    let formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("speciality", values.speciality);
+    formData.append("address", values.address);
+    formData.append("coverImage", values.picture);
+    for (const i = 0; i < values.expertise.length; i++) {
+      formData.append("expertise[]", values.expertise[i]);
+    }
+    formData.append("description", values.description);
+
+    const response = axios({
+      url: "/api/Doctor",
+      method: "POST",
+      data: formData,
+    }).then((response) => {
+      router.push("/Admin/Doctors");
+    });
   };
 
   return (
@@ -65,7 +69,7 @@ export default function CreateDoctors({doctors}) {
           First Check if the Doctor Exists
         </h1>
         <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-        <Autocomplete
+          <Autocomplete
             id="select-doctors"
             options={doctors}
             sx={{ width: 600 }}
@@ -145,9 +149,12 @@ export default function CreateDoctors({doctors}) {
                 <TextField
                   id="doctor-registration-picture"
                   type="file"
-                  inputProps={{ accept: "image/" }}
-                  value={values.picture}
-                  onChange={handleChange("picture")}
+                  onChange={(e) =>
+                    setValues({
+                      ...values,
+                      ["picture"]: e.target.files[0],
+                    })
+                  }
                 />
               </FormControl>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -23,7 +23,7 @@ export default function CreatePharmacy() {
     phone: "",
     email: "",
     address: "",
-    logo: "",
+    logo: null,
     opening: "",
     closing: "",
   });
@@ -34,20 +34,27 @@ export default function CreatePharmacy() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios
-      .post("/api/Pharmacy", {
-        name: values.name,
-        email: values.email,
-        address: values.address,
-        logo: values.logo,
-        phone: values.phone,
-        opening: values.opening,
-        closing: values.closing,
-        user_id: user.id,
-      })
-      .then((response) => {
-        router.push("/Admin/Pharmacy");
-      });
+
+    let formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("address", values.address);
+    formData.append("logo", values.logo);
+    formData.append(" phone", values.phone);
+    formData.append("opening", values.opening);
+    formData.append("closing", values.closing);
+    formData.append("user_id", user.id);
+
+    const response = axios({
+      url: "/api/Pharmacy",
+      method: "POST",
+      data: formData,
+    }).then((response) => {
+      router.push("/Admin/Pharmacy");
+    });
+    // const response = await axios.post("/api/Pharmacy", {}).then((response) => {
+    //   router.push("/Admin/Pharmacy");
+    // });
   };
 
   return (
@@ -128,9 +135,11 @@ export default function CreatePharmacy() {
               <TextField
                 id="Pharmacy-registration-logo"
                 type="file"
-                inputProps={{ accept: "image/" }}
-                value={values.logo}
-                onChange={handleChange("logo")}
+                name="file"
+                // value={values.logo}
+                onChange={(e) =>
+                  setValues({ ...values, ["logo"]: e.target.files[0] })
+                }
               />
             </FormControl>
             <div>

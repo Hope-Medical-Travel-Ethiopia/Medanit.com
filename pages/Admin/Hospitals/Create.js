@@ -25,7 +25,7 @@ export default function CreateHospitals() {
     phone: "",
     email: "",
     address: "",
-    logo: "",
+    logo: null,
     services: [],
     description: "",
   });
@@ -38,23 +38,26 @@ export default function CreateHospitals() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await csrf();
-    const response = await axios
-      .post("/api/hospitals", {
-        name: values.name,
-        description: values.description,
-        email: values.email,
-        address: values.address,
-        services: values.services,
-        phone: values.phone,
-        user_id: user.id,
-      })
-      .then((response) => {
-        router.push("/Admin/Hospitals");
-      });
 
-    // const data = await response.json();
-    // console.log(data);
+    let formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("address", values.address);
+    formData.append("logo", values.logo);
+    formData.append("phone", values.phone);
+    for (const i = 0; i < values.services.length; i++) {
+      formData.append("services[]", values.services[i]);
+    }
+    formData.append("description", values.description);
+    formData.append("user_id", user.id);
+
+    const response = axios({
+      url: "/api/hospitals",
+      method: "POST",
+      data: formData,
+    }).then((response) => {
+      router.push("/Admin/Hospitals");
+    });
   };
 
   return (
@@ -125,9 +128,9 @@ export default function CreateHospitals() {
               <TextField
                 id="hospital-registration-logo"
                 type="file"
-                inputProps={{ accept: "image/" }}
-                value={values.logo}
-                onChange={handleChange("logo")}
+                onChange={(e) =>
+                  setValues({ ...values, ["logo"]: e.target.files[0] })
+                }
               />
             </FormControl>
 

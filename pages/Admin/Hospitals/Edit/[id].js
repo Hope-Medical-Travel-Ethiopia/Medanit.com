@@ -20,43 +20,48 @@ export default function EditHospitals({ hospital }) {
   const router = useRouter();
 
   const [values, setValues] = React.useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    logo: "",
-    services: [],
-    description: "",
+    name: hospital.name,
+    phone: hospital.phone,
+    email: hospital.email,
+    address: hospital.address,
+    logo: hospital.logo,
+    services: hospital.services,
+    description: hospital.description,
   });
 
-  useEffect(() => {
-    setValues(hospital);
-  }, [hospital]);
+  // useEffect(() => {
+  //   setValues(hospital);
+  // }, [hospital]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
   // const csrf = () => axios.get("/sanctum/csrf-cookie");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await csrf();
-    const response = await axios
-      .put(`/api/Hospitals/${hospital.id}`, {
-        name: values.name,
-        description: values.description,
-        email: values.email,
-        address: values.address,
-        services: values.services,
-        phone: values.phone,
-      })
-      .then((response) => {
-        router.push("/Admin/Hospitals");
-      });
+    let formData = new FormData();
 
-    // const data = await response.json();
-    // console.log(data);
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("address", values.address);
+    formData.append("logo", values.logo);
+    formData.append("phone", values.phone);
+    for (const i = 0; i < values.services.length; i++) {
+      formData.append("services[]", values.services[i]);
+    }
+    formData.append("description", values.description);
+    formData.append("user_id", user.id);
+
+    const response = axios({
+      url: `/api/Hospitals/${hospital.id}`,
+      method: "POST",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((response) => {
+      console.log(response.data);
+      router.push("/Admin/Hospitals");
+    });
   };
 
   return (
@@ -128,8 +133,9 @@ export default function EditHospitals({ hospital }) {
                 id="hospital-registration-logo"
                 type="file"
                 inputProps={{ accept: "image/" }}
-                value={values.logo}
-                onChange={handleChange("logo")}
+                onChange={(e) =>
+                  setValues({ ...values, ["logo"]: e.target.files[0] })
+                }
               />
             </FormControl>
 
