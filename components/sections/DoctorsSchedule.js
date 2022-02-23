@@ -1,7 +1,8 @@
 import image from "../../public/Doc4.jpg";
 import Image from "next/image";
+import Link from "next/link";
 
-const DoctorsSchedule = () => {
+const DoctorsSchedule = ({ provider, schedule, id }) => {
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
       <div className="flex gap-10">
@@ -12,37 +13,47 @@ const DoctorsSchedule = () => {
           <div className="flex justify-between items-end mb-10 ">
             <div className="nameTag">
               <h1 className="text-xl leading-loose font-bold text-blue-500">
-                Dr. John Doe
+                {provider.name}
               </h1>
-              <p className="text-blue-500 tracking-wider"> Cardiac Surgeon</p>
-              <p className="text-sm  tracking-wide">
-                Addis Ababa, Ethiopia
+              <p className="text-blue-500 tracking-wider">
+                {" "}
+                {provider.speciality}
               </p>
+              <p className="text-sm  tracking-wide">{provider.address}</p>
             </div>
             <div className="align-">
-                <button className="bg-blue-500 text-gray-50 px-6 py-3 rounded-lg">View Profile</button>
+              <Link href={`/Doctors/` + id}>
+                <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
+                  View Profile
+                </a>
+              </Link>
             </div>
           </div>
 
           <div className="Dates w-fit text-left">
-            <div className="Date  my-5 flex justify-between gap-10">
-              <h3>Monday</h3>
-              <div>
-                <h4>9:00 am - 12:00 pm</h4>
-                <h4>3:00 pm - 6:00 pm</h4>
-              </div>
-            </div>
-            <div className="Date my-5 flex justify-between gap-10">
-              <h3>Wednesday</h3>
-              <div>
-                <h4>9:00 am - 12:00 pm</h4>
-                <h4>3:00 pm - 6:00 pm</h4>
-              </div>
-            </div>
+            {schedule[`${provider.id}`] &&
+              schedule[`${provider.id}`].map((item) => (
+                <Schedule time={item} />
+              ))}
           </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const Schedule = ({ time }) => {
+  return (
+    <>
+      <div className="Date  my-5 flex justify-between gap-10">
+        <h3 className="text-gray-600">{time.day}</h3>
+        <div>
+          <h4 className="text-gray-600">
+            {time.starting} - {time.ending}
+          </h4>
+        </div>
+      </div>
+    </>
   );
 };
 

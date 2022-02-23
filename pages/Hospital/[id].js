@@ -1,32 +1,33 @@
 import Image from "next/image";
 import About from "../../components/sections/About";
-import DoctorProfileHeader from "../../components/sections/DoctorProfileHeader";
+import HospitalProfileHeader from "../../components/sections/HospitalProfileHeader";
 import Expertise from "../../components/sections/ExpertiseSection";
-import HospitalSchedule from "../../components/sections/HospitalSchedule";
+import DoctorsSchedule from "../../components/sections/DoctorsSchedule";
 import image from "../../public/Doc4.jpg";
 import axios from "../../lib/axios";
 
-const DoctorProfile = ({ doctor, schedule }) => {
+const HospitalProfile = ({ hospitals, schedule }) => {
   return (
     <>
       <div className="w-[80%] mx-auto mt-5">
         <section className="header">
-          <DoctorProfileHeader
-            name={doctor.name}
-            address={doctor.address}
-            speciality={doctor.speciality}
+          <HospitalProfileHeader
+            name={hospitals.name}
+            phone={hospitals.phone}
+            address={hospitals.address}
+            email={hospitals.email}
           />
         </section>
         {/*  */}
         <section className="body mt-10">
           <div className="grid grid-cols-3  gap-10">
-            <Expertise title="Expertise" services={doctor.expertise} />
+            <Expertise title="Service" services={hospitals.services} />
             <div className="about row-start-2">
-              <About description={doctor.description} />
+              <About description={hospitals.description} />
             </div>
             <div className="schedules col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
-              {doctor.hospitals.map((hospital) => (
-                <HospitalSchedule key={hospital.id} schedule={schedule} provider={hospital} hospital={hospital} />
+              {hospitals.doctors.map((doctor) => (
+                <DoctorsSchedule provider={doctor} schedule={schedule} id={doctor.id}/>
               ))}
             </div>
           </div>
@@ -35,8 +36,9 @@ const DoctorProfile = ({ doctor, schedule }) => {
     </>
   );
 };
+
 export async function getStaticPaths() {
-  const response = await axios.get("/api/doctors");
+  const response = await axios.get("/api/hospitals");
 
   return {
     fallback: false,
@@ -47,14 +49,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const response = await axios.get(`/api/Doctors/${params.id}`);
-  const scheduleResponse = await axios.get(`/api/scheduleDoctor/${params.id}`);
+  const response = await axios.get(`/api/Hospitals/${params.id}`);
+  const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
+
   return {
     props: {
-      doctor: response.data[0],
-      schedule: scheduleResponse.data
+      hospitals: response.data[0],
+      schedule: scheduleResponse.data,
     },
   };
 }
 
-export default DoctorProfile;
+export default HospitalProfile;
