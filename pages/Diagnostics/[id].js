@@ -7,7 +7,7 @@ import image from "../../public/Doc4.jpg";
 import LabScheduleCard from "../../components/sections/LabScheduleCard";
 import axios from "../../lib/axios";
 
-const DiagnosticsProfile = ({ diagnostics }) => {
+const DiagnosticsProfile = ({ diagnostics, schedule }) => {
   return (
     <>
       <div className="w-[80%] mx-auto mt-5">
@@ -22,14 +22,18 @@ const DiagnosticsProfile = ({ diagnostics }) => {
         {/*  */}
         <section className="body mt-10">
           <div className="grid grid-cols-3  gap-10">
-            <Expertise title="Service" />
+            <Expertise title="Service" services={diagnostics.services} />
             <div className="about row-start-2">
-              <About />
+              <About description={diagnostics.description} />
             </div>
             <div className="schedules col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
-              <LabScheduleCard title="MRI - Cervical Spine (without contrast)" />
-              <LabScheduleCard title="MRI - Cervical Spine (without contrast)" />
-              <LabScheduleCard title="MRI - Cervical Spine (without contrast)" />
+              {diagnostics.procedures.map((procedures) => (
+                <LabScheduleCard
+                  title={procedures.name}
+                  provider={procedures}
+                  schedule={schedule}
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -39,7 +43,7 @@ const DiagnosticsProfile = ({ diagnostics }) => {
 };
 
 export async function getStaticPaths() {
-  const response = await axios.get("/diagnostics");
+  const response = await axios.get("/api/diagnostics");
 
   return {
     fallback: false,
@@ -50,11 +54,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const response = await axios.get(`/Diagnostics/${params.id}`);
+  const response = await axios.get(`/api/Diagnostics/${params.id}`);
+  const scheduleResponse = await axios.get(
+    `/api/Diagnostic_schedule/${params.id}`
+  );
 
   return {
     props: {
-      diagnostics: response.data,
+
+      diagnostics: response.data[0],
+      schedule: scheduleResponse.data,
     },
   };
 }
