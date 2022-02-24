@@ -3,6 +3,7 @@ import Sidebar from "../../components/Admin/Sidebar";
 import Footer from "../../components/layouts/Footer";
 import AdminNav from "../../components/Admin/AdminNav";
 import { useAuth } from "../../hooks/auth";
+import axios from "../../lib/axios";
 
 export default function admin() {
   const { user } = useAuth({ middleware: "auth" });

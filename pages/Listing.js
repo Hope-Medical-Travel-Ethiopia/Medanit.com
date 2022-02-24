@@ -29,6 +29,7 @@ const Listing = ({
   const [provider, setProvider] = useState("Hospital");
   const [providers, setProviders] = useState([]);
   const [searchTerm, setSearchTerm] = useState();
+  const [Med, setMed] = useState();
   const [IsLoading, setIsLoading] = useState(false);
   const doctorsList = [];
   const hospitalList = [];
@@ -96,6 +97,7 @@ const Listing = ({
 
   const search = async (event) => {
     event.preventDefault();
+    setMed(null);
     setIsLoading(true);
     try {
       let response = await axios.get(
@@ -106,6 +108,18 @@ const Listing = ({
       setIsLoading(false);
     } catch (error) {
       setIsLoading(true);
+    }
+
+    if (provider == "Pharmacy") {
+      try {
+        let response = await axios.get(
+          `/api/search-by-medication/${searchTerm}`
+        );
+        let res = await response.data;
+        setMed(res);
+      } catch (error) {
+        // setIsLoading(true);
+      }
     }
   };
 
@@ -200,6 +214,11 @@ const Listing = ({
         {searchTerm && providerData && (
           <h1 className="text-xl font-bold">
             {providerData.length} results were found for {searchTerm}
+            {Med && (
+              <h1 className="text-2xl">
+                Description <br /> {Med.description}
+              </h1>
+            )}
           </h1>
         )}
       </section>

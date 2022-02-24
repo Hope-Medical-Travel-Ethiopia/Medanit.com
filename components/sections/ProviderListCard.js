@@ -37,14 +37,19 @@ const ProviderListCard = ({
             )}
 
             {address && <p className="basis-2/3 text-sm">{address}</p>}
+            {provider == "Pharmacy" &&  <p className="basis-2/3 text-sm">{provider}</p>}
+
           </div>
         </section>
+
         <section className=" self-end justify-self-end">
-          <Link href={`/${provider}/` + id}>
-            <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
-              View Profile
-            </a>
-          </Link>
+          {provider && provider != "Pharmacy" && (
+            <Link href={`/${provider}/` + id}>
+              <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
+                View Profile
+              </a>
+            </Link>
+          )}
         </section>
       </div>
     </>
