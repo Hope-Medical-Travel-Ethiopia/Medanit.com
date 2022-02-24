@@ -14,8 +14,11 @@ import {
   FaUsersCog,
 } from "react-icons/fa";
 import Logo from "../layouts/LogoPic";
+import { useAuth } from "../../hooks/auth";
 
 const Sidebar = () => {
+  const { user } = useAuth({ middleware: "auth" });
+
   return (
     <>
       <div className="sidebar">
@@ -24,7 +27,9 @@ const Sidebar = () => {
         </div>
         <div className="menu">
           <Tab icon={<FaChartPie />} title="Dashboard" link="/Admin" />
-          <Tab icon={<FaUsersCog />} title="Admins" link="/Admin/Admins" />
+          {user && user.role == 0 && (
+            <Tab icon={<FaUsersCog />} title="Admins" link={`/Admin/Admins`} />
+          )}
           <Tab icon={<FaAd />} title="Promotions" link="/Admin/Promotions" />
           <Tab
             icon={<FaHospital />}

@@ -9,11 +9,13 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
+import { MenuItem } from "@mui/material";
 
 import { useAuth } from "../../hooks/auth";
 import axios from "../../lib/axios";
 import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
+import Select from "@mui/material/Select";
 
 export default function CreateDoctors({ doctors }) {
   const router = useRouter();
@@ -62,7 +64,7 @@ export default function CreateDoctors({ doctors }) {
       <div className="m-10 p-5 bg-white">
         <div>
           <form onSubmit={(e) => handleCreate(e)}>
-            <div className="flex justify-between flex-wrap">
+            <div className="flex justify-start gap-5 flex-wrap flex-wrap">
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                 <InputLabel htmlFor={`doctor-registration-name`}>
                   Name
@@ -117,19 +119,18 @@ export default function CreateDoctors({ doctors }) {
               </FormControl>
 
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-                <InputLabel htmlFor={`doctor-registration-address`}>
-                  Role
-                </InputLabel>
-                <OutlinedInput
-                  required
-                  id="doctor-registration-address"
-                  type="number"
-                  min="0"
-                  max="3"
-                  //   value={values.role}
+                <InputLabel htmlFor={`role`}>Role</InputLabel>
+                <Select
+                  labelId="role"
+                  id="role"
+                  name="role"
+                  label="Provider"
                   onChange={handleChange("role")}
-                  label="Agent Role"
-                />
+                >
+                  <MenuItem value="0">Admin</MenuItem>
+                  <MenuItem value="1">Agent</MenuItem>
+                  <MenuItem value="2">Deactivate Agent</MenuItem>
+                </Select>
               </FormControl>
             </div>
             <input

@@ -5,6 +5,8 @@ import Picture from "../reusable/Picture";
 import Link from "next/link";
 import { useAuth } from "../../hooks/auth";
 import { useRouter } from "next/router";
+import { FaEdit } from "react-icons/fa";
+
 const AdminNav = ({ title, current, parent, user }) => {
   const [menu, setMenu] = useState(true);
   const router = useRouter();
@@ -46,6 +48,13 @@ const AdminNav = ({ title, current, parent, user }) => {
             {/* <div className="image overflow-hidden h-14 w-14 rounded-full object-cover">
               <Image src={picture} />
             </div> */}
+            {user && (
+              <Link href={`/Admin/EditAdmin/${user.id}`}>
+                <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+                  <FaEdit className="text-xl stroke-1 " />
+                </a>
+              </Link>
+            )}
             <Picture pic={pic} size="14" />
             <div>
               <h1 className="font-semibold  tracking-normal">
@@ -53,6 +62,7 @@ const AdminNav = ({ title, current, parent, user }) => {
                 {user && user.name}
               </h1>
               <p className="text-xs text-gray-500">Super Admin</p>
+
               <button onClick={logout}>Logout</button>
             </div>
           </div>
