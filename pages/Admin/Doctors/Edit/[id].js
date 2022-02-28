@@ -21,18 +21,18 @@ export default function CreateDoctors({ doctor }) {
   const { user } = useAuth({ middleware: "auth" });
 
   const [values, setValues] = React.useState({
-    name: "",
-    speciality: "",
-    address: "",
-    picture: "",
-    expertise: [],
-    description: "",
+    name: doctor.name,
+    speciality: doctor.speciality,
+    address: doctor.address,
+    profilePicture: doctor.profilePicture,
+    expertise: doctor.expertise,
+    description: doctor.description,
   });
 
-  useEffect(() => {
-    setValues(doctor);
-    console.log(values);
-  }, [doctor]);
+  // useEffect(() => {
+  //   setValues(doctor);
+  //   console.log(values);
+  // }, [doctor]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -40,19 +40,25 @@ export default function CreateDoctors({ doctor }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(values);
-    const response = await axios
-      .put(`/api/Doctors/${doctor.id}`, {
-        name: values.name,
-        speciality: values.speciality,
-        address: values.address,
-        expertise: values.expertise,
-        description: values.description,
-        profilePicture: values.picture,
-      })
-      .then((response) => {
-        router.push("/Admin/Doctors");
-      });
+    let formData = new FormData();
+
+    formData.append("name", values.name);
+    formData.append("speciality", values.speciality);
+    formData.append("address", values.address);
+    formData.append("description", values.description);
+    for (const i = 0; i < values.expertise.length; i++) {
+      formData.append("expertise[]", values.expertise[i]);
+    }
+    formData.append("profilePicture", values.profilePicture);
+
+    const response = await axios({
+      url: `/api/Doctors/${doctor.id}`,
+      method: "POST",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((response) => {
+      router.push("/Admin/Doctors");
+    });
   };
 
   return (
@@ -114,8 +120,13 @@ export default function CreateDoctors({ doctor }) {
                   id="doctor-registration-picture"
                   type="file"
                   inputProps={{ accept: "image/" }}
-                  value={values.picture}
-                  onChange={handleChange("picture")}
+                  // value={values.picture}
+                  onChange={(e) =>
+                    setValues({
+                      ...values,
+                      ["profilePicture"]: e.target.files[0],
+                    })
+                  }
                 />
               </FormControl>
 
@@ -127,7 +138,6 @@ export default function CreateDoctors({ doctor }) {
                   //   defaultValue={[serviceList[1]]}
                   value={values.expertise}
                   onChange={(event, value) => {
-                    // console.log(value);
                     setValues({ ...values, expertise: value });
                   }}
                   freeSolo
@@ -203,10 +213,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
-
   return {
     props: {
-      doctor: response.data,
+      doctor: response.data[0],
     },
   };
 }

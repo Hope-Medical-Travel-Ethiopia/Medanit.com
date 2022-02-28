@@ -38,20 +38,25 @@ export default function CreatePharmacy({ pharmacy }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios
-      .put(`/api/Pharmacy/${pharmacy.id}`, {
-        name: values.name,
-        email: values.email,
-        address: values.address,
-        phone: values.phone,
-        logo: values.logo,
-        opening: values.opening,
-        closing: values.closing,
-        user_id: user.id,
-      })
-      .then((response) => {
-        router.push("/Admin/Pharmacy");
-      });
+
+    let formData = new FormData();
+
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("address", values.address);
+    formData.append("phone", values.phone);
+    formData.append("logo", values.logo);
+    formData.append("opening", values.opening);
+    formData.append("closing", values.closing);
+    formData.append("user_id", values.user_id);
+    const response = await axios({
+      url: `/api/Pharmacy/${pharmacy.id}`,
+      method: "POST",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((response) => {
+      router.push("/Admin/Pharmacy");
+    });
   };
 
   return (
@@ -134,7 +139,9 @@ export default function CreatePharmacy({ pharmacy }) {
                 type="file"
                 inputProps={{ accept: "image/" }}
                 // value={values.logo}
-                onChange={handleChange("logo")}
+                onChange={(e) =>
+                  setValues({ ...values, ["logo"]: e.target.files[0] })
+                }
               />
             </FormControl>
             <div>
@@ -211,7 +218,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Pharmacy/${params.id}`);
-  console.log(response.data[0]);
   return {
     props: {
       pharmacy: response.data[0],

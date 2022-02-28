@@ -40,7 +40,7 @@ export default function CreateDoctors({ doctors }) {
     formData.append("name", values.name);
     formData.append("speciality", values.speciality);
     formData.append("address", values.address);
-    formData.append("coverImage", values.picture);
+    formData.append("profilePicture", values.picture);
     for (const i = 0; i < values.expertise.length; i++) {
       formData.append("expertise[]", values.expertise[i]);
     }
@@ -51,6 +51,7 @@ export default function CreateDoctors({ doctors }) {
       method: "POST",
       data: formData,
     }).then((response) => {
+      console.log(response.data);
       router.push("/Admin/Doctors");
     });
   };

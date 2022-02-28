@@ -20,8 +20,8 @@ const ProfileHeader = ({ pic, type, provider }) => {
   const [image, setimage] = useState();
 
   useEffect(() => {
-    if (provider.coverImage) {
-      setimage(provider.coverImage);
+    if (provider.profilePicture) {
+      setimage(provider.profilePicture);
     } else if (provider.logo) {
       setimage(provider.logo);
     }

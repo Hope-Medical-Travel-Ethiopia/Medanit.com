@@ -29,13 +29,18 @@ export default function Diagnostic({ diagnostics, schedule }) {
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <RegisterLink
               text="Add New Schedule"
-              link={`/Admin/Diagnostics/CreateSchedule/`}
+              link={`/Admin/Diagnostics/CreateSchedule`}
               provider={diagnostics.id}
             />
             <div className="schedules flex flex-col gap-10">
               {" "}
-              {diagnostics.procedures.map((doctor) => (
-                <AdminSchedule provider={doctor} schedule={schedule} />
+              {diagnostics.procedures.map((procedure) => (
+                <AdminSchedule
+                  parent={diagnostics}
+                  provider={procedure}
+                  schedule={schedule}
+                  key={procedure.id}
+                />
               ))}
             </div>
           </div>
@@ -74,10 +79,6 @@ export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
   const scheduleResponse = await axios.get(
     `/api/Diagnostic_schedule/${params.id}`
-  );
-
-  console.log(
-    "the response here is " + response + "and the other response is "
   );
   return {
     props: {

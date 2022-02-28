@@ -74,7 +74,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
   const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
-
+  console.log(scheduleResponse.data);
   return {
     props: {
       hospital: response.data[0],

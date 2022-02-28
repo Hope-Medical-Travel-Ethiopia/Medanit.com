@@ -13,7 +13,7 @@ import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 import { Router, useRouter } from "next/router";
 
-export default function Doctor({ doctors }) {
+export default function Doctor({ doctors, schedule }) {
   const id = 1;
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
@@ -31,14 +31,14 @@ export default function Doctor({ doctors }) {
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <div className="schedules">
-              {/* <AdminSchedule
-                name="Hospital Long Name goes here"
-                phone="+251987654321"
-                address="bole 4 kilo biyasa around ayer tena"
-                email="hospitalemail@email.com"
-                pic={hospital}
-                provider={doctors}
-              /> */}
+              {doctors.hospitals.map((hospital) => (
+                <AdminSchedule
+                  parent={doctors}
+                  provider={hospital}
+                  schedule={schedule}
+                  key={hospital.id}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -73,10 +73,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
-  console.log(response);
+  const scheduleResponse = await axios.get(`/api/scheduleDoctor/${params.id}`);
+  console.log(scheduleResponse.data);
   return {
     props: {
-      doctors: response.data,
+      doctors: response.data[0],
+      schedule: scheduleResponse.data,
     },
   };
 }

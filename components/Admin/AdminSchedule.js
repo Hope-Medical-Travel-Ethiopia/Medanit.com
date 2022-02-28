@@ -12,6 +12,17 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
   const myLoader = ({ src, width, quality }) => {
     return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
+
+  const [image, setimage] = useState();
+
+  useEffect(() => {
+    if (provider.profilePicture) {
+      setimage(provider.profilePicture);
+    } else if (provider.logo) {
+      setimage(provider.logo);
+    }
+  }, [provider]);
+
   const router = useRouter();
   const handlePush = (e) => {
     e.preventDefault();
@@ -27,10 +38,10 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
     <section className="card bg-white px-10 py-6 my-10 rounded-xl drop-shadow-lg">
       <div className="flex gap-10">
         <div className="overflow-hidden  h-36 w-36 rounded-full relative">
-          {provider.coverImage ? (
+          {image ? (
             <Image
               loader={myLoader}
-              src={provider.coverImage}
+              src={image}
               alt="Picture of the author"
               layout="fill"
               className="border-2 border-red-500 overflow-hidden   rounded-full object-cover"

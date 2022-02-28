@@ -20,18 +20,18 @@ export default function EditDiagnostics({ Diagnostics }) {
   const router = useRouter();
 
   const [values, setValues] = React.useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    logo: "",
-    services: [],
-    description: "",
+    name: Diagnostics.name,
+    phone: Diagnostics.phone,
+    email: Diagnostics.email,
+    address: Diagnostics.address,
+    logo: Diagnostics.logo,
+    services: Diagnostics.services,
+    description: Diagnostics.description,
   });
 
-  useEffect(() => {
-    setValues(Diagnostics);
-  }, [Diagnostics]);
+  // useEffect(() => {
+  //   setValues(Diagnostics);
+  // }, [Diagnostics]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -41,22 +41,26 @@ export default function EditDiagnostics({ Diagnostics }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await csrf();
-    const response = await axios
-      .put(`/api/Diagnostics/${Diagnostics.id}`, {
-        name: values.name,
-        description: values.description,
-        email: values.email,
-        address: values.address,
-        services: values.services,
-        phone: values.phone,
-      })
-      .then((response) => {
-        router.push("/Admin/Diagnostics");
-      });
+    let formData = new FormData();
 
-    // const data = await response.json();
-    // console.log(data);
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("email", values.email);
+    formData.append("address", values.address);
+    for (const i = 0; i < values.services.length; i++) {
+      formData.append("services[]", values.services[i]);
+    }
+    formData.append("phone", values.phone);
+    formData.append("logo", values.logo);
+
+    const response = await axios({
+      url: `/api/Diagnostics/${Diagnostics.id}`,
+      method: "POST",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((response) => {
+      router.push("/Admin/Diagnostics");
+    });
   };
 
   return (
@@ -128,8 +132,9 @@ export default function EditDiagnostics({ Diagnostics }) {
                 id="Diagnostics-registration-logo"
                 type="file"
                 inputProps={{ accept: "image/" }}
-                value={values.logo}
-                onChange={handleChange("logo")}
+                onChange={(e) =>
+                  setValues({ ...values, ["logo"]: e.target.files[0] })
+                }
               />
             </FormControl>
 
@@ -217,7 +222,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
-
   return {
     props: {
       Diagnostics: response.data[0],
