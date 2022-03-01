@@ -1,6 +1,6 @@
 import { FaBars } from "react-icons/fa";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Logo from "./LogoPic";
 
 const Navbar = ({ className }) => {
@@ -8,73 +8,97 @@ const Navbar = ({ className }) => {
 
   return (
     <nav
-      className={`flex sticky 
-    top-0 w-full scroll bg-white drop-shadow-lg
-    justify-between  py-3 sm:items-center  
-    px-5 lg:px-20 md:px-10 flex-col z-10  sm:flex-row ${className}`}
+      id="navigation"
+      class={`p-5 z-100 bg-white  drop-shadow-sm text-center sticky top-0 w-screen overflow-hidden  ${className}`}
     >
-      <div className="  Logo flex items-center justify-between lg:text-2xl text-xl ">
-        <Logo />
-        <FaBars
-          id="menuBar"
-          onClick={() => {
-            setNav(!nav);
-          }}
-          className="sm:hidden cursor-pointer"
-        />
+      <div class="container flex flex-wrap justify-between items-center mx-auto  ">
+        <a href="/" class="flex">
+          <span class="self-center text-lg font-semibold whitespace-nowrap ">
+            <Logo />
+          </span>
+        </a>
+        <button
+          data-collapse-toggle="mobile-menu"
+          type="button"
+          onClick={() => setNav(!nav)}
+          class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="mobile-menu-2"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <svg
+            class="hidden w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        {nav && (
+          <>
+            {" "}
+            <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
+              <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm ">
+                <li>
+                  <a
+                    href="#"
+                    class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                    aria-current="page"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0  "
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0  "
+                  >
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0  "
+                  >
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
+              <button className="bg-blue-500 text-white rounded px-8 py-2 text-sm">
+                Login
+              </button>
+            </div>
+          </>
+        )}
       </div>
-      <ul
-        id="navList"
-        className={` ${
-          nav
-            ? "hidden transition-all duration-300 "
-            : "flex transition-all duration-300 "
-        }  text-sm  sm:flex flex-col sm:flex-row  items-center mt-10 sm:mt-0 transition-all duration-300 `}
-        // className="gap-5 text-sm flex sm:flex flex-col sm:flex-row items-center mt-10 sm:mt-0"
-      >
-        <li>
-          <Link href="/">
-            <a className="  hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out text-blue-500 tracking-wider px-4 py-2 rounded-sm ">
-              Home
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/Listing">
-            <a className="  hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out text-blue-500 tracking-wider px-4 py-2 rounded-sm ">
-              Listing
-            </a>
-          </Link>
-        </li>
-        {/* <li>
-          <Link href="/Hospitals">
-            <a className="  hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out text-blue-500 tracking-wider px-4 py-2 rounded-sm ">
-              Hospitals
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/Diagnostics">
-            <a className="  hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out text-blue-500 tracking-wider px-4 py-2 rounded-sm ">
-              Diagnostics
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/Laboratories">
-            <a className="  hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out text-blue-500 tracking-wider px-4 py-2 rounded-sm ">
-              Laboratories
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/Pharmacy">
-            <a className="  hover:bg-blue-500 hover:text-white transition-all duration-300 ease-in-out text-blue-500 tracking-wider px-4 py-2 rounded-sm ">
-              Pharmacy
-            </a>
-          </Link>
-        </li> */}
-      </ul>
     </nav>
   );
 };
