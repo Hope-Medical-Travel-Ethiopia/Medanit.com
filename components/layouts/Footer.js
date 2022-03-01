@@ -2,11 +2,21 @@ import Logo from "./LogoPic";
 
 const Footer = () => {
   return (
-    <>
-      <footer className=" border-2 border-red-500  drop-shadow-4xl bg-gray-100  w-full h-10 flex gap-10 justify-evenly md:justify-center items-center">
-        <Logo /> <p className=" text-center text-sm"> © Copy right 2022</p>
-      </footer>
-    </>
+    <footer id="Footer" class="p-4  sm:p-6 page-turner">
+      <div class="sm:flex flex-col sm:items-center sm:justify-center">
+        <span class="text-sm text-gray-900 sm:text-center ">
+          © 2022{" "}
+          <a
+            href="https://flowbite.com"
+            target="_blank"
+            class="hover:underline"
+          >
+            Medanit™
+          </a>
+          {"  "}All Rights Reserved.
+        </span>
+      </div>
+    </footer>
   );
 };
 
