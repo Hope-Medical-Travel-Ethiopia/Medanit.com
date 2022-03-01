@@ -24,10 +24,7 @@ const AboutUs = () => {
             width="560"
             height="315"
             src="https://www.youtube.com/embed/MuwNW137674?rel=0&showinfo=0&autohide=1"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            title="MEDANIT"
           ></iframe>
         </section>
         <section className="description md:w-1/2 w-full  md:h-full flex flex-col justify-center">

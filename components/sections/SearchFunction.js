@@ -108,7 +108,7 @@ const SearchFunction = ({
             onSubmit={(e) => handlePush(e)}
             className=" w-full flex flex-wrap gap-5 items-center text-white h-36"
           >
-            <FormControl className=" md:w-32 w-[100%]" full-width>
+            <FormControl className=" md:w-32 w-[100%]">
               <InputLabel id="demo-simple-select-label">Provider</InputLabel>
               <Select
                 labelId="demo-simple-select-label"

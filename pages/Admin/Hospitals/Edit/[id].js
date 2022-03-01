@@ -192,8 +192,11 @@ export default function EditHospitals({ hospital }) {
 }
 
 EditHospitals.getLayout = function PageLayout(page) {
-  const { user } = useAuth({ middleware: "auth" });
+  const { user, isLoading } = useAuth({ middleware: "auth" });
 
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <div>
       <Sidebar />

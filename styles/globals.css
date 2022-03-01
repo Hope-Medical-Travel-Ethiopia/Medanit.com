@@ -7,6 +7,7 @@ body {
   font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 0 !important;
   margin: 0 !important;
+  scroll-behavior: smooth;
 }
 
 #navigation {
@@ -27,20 +28,24 @@ body {
   /* background-color: brown; */
 }
 
-#Header {
-  background-size: contain;
+#Header,
+.scatter {
+  background-size: cover;
   background-position: right;
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: left;
   background-image: linear-gradient(
       to left,
-      rgba(252, 252, 252, 0),
+      rgba(252, 252, 252, 0.26),
       rgb(216, 216, 216)
     ),
-    url("../public/MedBG.jpg");
+    url("../public/doct.jpg");
 }
 
 #scatter,
-#Footer {
+#Footer,
+.shapes {
   background-attachment: fixed;
   background-image: linear-gradient(
       to left,

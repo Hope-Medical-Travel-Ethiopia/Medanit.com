@@ -147,7 +147,9 @@ export default function CreateDoctors({ doctors }) {
 
 CreateDoctors.getLayout = function PageLayout(page) {
   const { user } = useAuth({ middleware: "auth" });
-
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <div>
       <Sidebar />

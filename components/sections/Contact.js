@@ -114,7 +114,7 @@ const Contact = () => {
                 <FaInstagram className="text-2xl  transform duration-100 hover:fill-blue-500" />
               </a>
             </Link>
-            <Link href="">
+            <Link href="https://www.instagram.com/medanit.medical/">
               <a>
                 <FaTelegram className="text-2xl transform duration-100  hover:fill-blue-500" />
               </a>

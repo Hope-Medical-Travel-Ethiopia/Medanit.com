@@ -42,7 +42,11 @@ export default function Pharmacy({ pharmacy }) {
 }
 
 Pharmacy.getLayout = function PageLayout(page) {
-  const { user } = useAuth({ middleware: "auth" });
+  const { user, isLoading } = useAuth({ middleware: "auth" });
+
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <div>
       <Sidebar />

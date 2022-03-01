@@ -127,17 +127,17 @@ const Listing = ({
   //return
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen pt-28 shapes">
       <Head>
-        <title>Diagnostics</title>
+        <title>MEDANIT | Search for Health Care service</title>
       </Head>
-      <section className="searchSection bg-white  flex justify-center p-10 items-center flex-col">
+      <section className="searchSection  flex flex-wrap justify-center lg:p-10 items-center flex-col ">
         <div>
           <form
             onSubmit={search}
-            className=" w-full flex gap-5 items-center text-white h-36"
+            className=" w-full flex flex-wrap gap-5 items-center text-white "
           >
-            <FormControl className="bg-white w-32">
+            <FormControl className=" md:w-32 min-w-fit w-[100%] m-auto">
               <InputLabel id="demo-simple-select-label">Provider</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -154,16 +154,16 @@ const Listing = ({
               </Select>
             </FormControl>
 
-            <FormControl className="flex justify-between bg-white">
+            <FormControl className="md:w-96 min-w-fit w-[100%] m-auto">
               <Autocomplete
-                className="text-white"
+                className="text-blue-500 border-blue-500"
                 id="select-providers"
                 name="searchTerm"
                 options={providers}
                 freeSolo
                 required
                 // value={providers}
-                sx={{ width: 600, color: "red" }}
+                // sx={{ width: 600, color: "red" }}
                 autoHighlight
                 getOptionLabel={(option) => option}
                 onInputChange={(event, newValue) => {
@@ -213,8 +213,9 @@ const Listing = ({
           </form>
         </div>
         {searchTerm && providerData && (
-          <h1 className="text-xl font-bold">
-            {providerData.length} results were found for {searchTerm}
+          <h1 className="text-xl  text-center mt-10 px-5">
+            <span className="text-2xl font-bold">{providerData.length} </span>{" "}
+            results were found for {searchTerm}
             {Med && (
               <h1 className="text-2xl">
                 Description <br /> {Med.description}
@@ -224,7 +225,7 @@ const Listing = ({
         )}
       </section>
       {/* <h1 className="text-2xl">Searching For {searchTerm}</h1> */}
-      <section className="list mt-10 flex flex-col justify-center items-center m-auto">
+      <section className="list pt-10 flex  flex-col justify-center items-center m-auto">
         {IsLoading ? (
           <>
             <h1 className="text-2xl">Searching For {searchTerm}</h1>

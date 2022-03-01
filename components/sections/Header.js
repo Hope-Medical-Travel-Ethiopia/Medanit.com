@@ -13,12 +13,12 @@ const Header = ({
   return (
     <section
       id="Header"
-      className="  text-gray-800 h-screen flex flex-col justify-center pb-10"
+      className="text-gray-800 min-h-screen sm:h-screen flex flex-col justify-center"
     >
-      <Navbar className="md:px-20 bg-transparent" />
-      <div className="flex justify-center lg:px-20  p-10 flex-col ">
+      <Navbar className=" opacity:25" />
+      <div className="flex justify-center lg:px-20  mt-20 md:mt-0 p-10 flex-col ">
         <div id="" className="flex flex-col lg:w-2/3 w-100 ">
-          <h1 className="md:text-5xl text-5xl uppercase font-black  tracking-wider ">
+          <h1 className="md:text-5xl text-3xl uppercase font-black  tracking-wider ">
             Medanit! Health Care Just Got Better.
           </h1>
           <p className="my-4 md:w-[75%] xs:text-sm md:text-base">

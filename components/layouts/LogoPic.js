@@ -6,9 +6,8 @@ const Logo = () => {
   return (
     <div className="h-10 w-32 overflow-hidden">
       <Link href="/">
-        <a >
-        <Image src={logo}  className=" " alt="MEDANIT" />
-
+        <a>
+          <Image src={logo} className=" " alt="MEDANIT" />
         </a>
       </Link>
     </div>

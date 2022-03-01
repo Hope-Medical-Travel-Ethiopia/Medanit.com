@@ -39,7 +39,7 @@ const Services = () => {
   return (
     <>
       <div
-        className="Services w-100 text-[#333] lg:p-20 p-5 lg:px-30 z-0"
+        className="Services w-100 text-[#333] lg:p-20 p-5 lg:px-40 z-0"
         id="scatter"
       >
         {/*  */}
@@ -90,8 +90,8 @@ const ServiceComponent = ({ title, description, picture, id }) => {
 
       <div className=" flex items-center ">
         <div className="servieDesc w-full justify-self-start">
-          <h1 className="serviceTitle text-4xl font-black uppercase  "></h1>
-          <h1 class="text-4xl font-extrabold text-blue-500">{title}</h1>
+          <h1 className="serviceTitle text-4xl font-black uppercase"></h1>
+          <h1 className="text-4xl font-extrabold text-blue-500">{title}</h1>
           <p className="serviceDesc text-sm py-5">{description}</p>
           <button className="serviceButton  lg:px-6 px-3 py-3 rounded-full border border-cyan-700 hover:bg-blue-500 hover:border-white transition-all  box-border hover:text-white">
             Search For {title}
