@@ -129,7 +129,7 @@ export default function CreateDoctors({ doctors }) {
                 >
                   <MenuItem value="0">Admin</MenuItem>
                   <MenuItem value="1">Agent</MenuItem>
-                  <MenuItem value="2">Deactivate Agent</MenuItem>
+                  {/* <MenuItem value="2">Deactivate Agent</MenuItem> */}
                 </Select>
               </FormControl>
             </div>
@@ -146,7 +146,7 @@ export default function CreateDoctors({ doctors }) {
 }
 
 CreateDoctors.getLayout = function PageLayout(page) {
-  const { user } = useAuth({ middleware: "auth" });
+  const { user, isLoading } = useAuth({ middleware: "auth" });
   if (isLoading) {
     return <></>;
   }
