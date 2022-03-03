@@ -127,7 +127,7 @@ const Listing = ({
   //return
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-28 shapes">
+    <div className="bg-gray-100 min-h-screen pt-28 px-10 shapes">
       <Head>
         <title>MEDANIT | Search for Health Care service</title>
       </Head>
@@ -235,14 +235,9 @@ const Listing = ({
           providerData.map((item) => (
             <ProviderListCard
               key={item.id + item.name}
-              name={item.name}
-              address={item.address}
-              phone={item.phone}
-              email={item.email}
-              speciality={item.speciality}
-              picture={image}
+              pic={image}
+              providers={item}
               provider={provider}
-              id={item.id}
             />
           ))
         )}

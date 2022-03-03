@@ -9,7 +9,7 @@ import axios from "../../lib/axios";
 const HospitalProfile = ({ hospitals, schedule }) => {
   return (
     <>
-      <div className="w-[80%] mx-auto mt-5">
+      <div className="md:w-[80%] w-full mx-auto mt-20 ">
         <section className="header">
           <HospitalProfileHeader
             name={hospitals.name}
@@ -19,15 +19,19 @@ const HospitalProfile = ({ hospitals, schedule }) => {
           />
         </section>
         {/*  */}
-        <section className="body mt-10">
-          <div className="grid grid-cols-3  gap-10">
+        <section className=" mt-10 w-full md:px-10 px-5">
+          <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
             <Expertise title="Service" services={hospitals.services} />
-            <div className="about row-start-2">
+            <div className="about lg:row-start-2 ">
               <About description={hospitals.description} />
             </div>
-            <div className="schedules col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
+            <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10 ">
               {hospitals.doctors.map((doctor) => (
-                <DoctorsSchedule provider={doctor} schedule={schedule} id={doctor.id}/>
+                <DoctorsSchedule
+                  provider={doctor}
+                  schedule={schedule}
+                  id={doctor.id}
+                />
               ))}
             </div>
           </div>

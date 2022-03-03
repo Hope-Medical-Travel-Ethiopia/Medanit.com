@@ -1,10 +1,10 @@
-import Picture from "../reusable/Picture";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
-import axios from "../../lib/axios";
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
 import Image from "next/image";
+import axios from "../../lib/axios";
+import Picture from "../reusable/Picture";
 import { useState, useEffect } from "react";
+import { Router, useRouter } from "next/router";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 
 const Card = ({ pic, provider, type }) => {
   const myLoader = ({ src, width, quality }) => {
@@ -41,7 +41,7 @@ const Card = ({ pic, provider, type }) => {
             src={image}
             alt="Picture of the author"
             layout="fill"
-            className="border-2 border-red-500 overflow-hidden   rounded-full object-cover"
+            className="border-2  overflow-hidden   rounded-full object-cover"
           />
         ) : (
           <Picture pic={pic} size={36} />

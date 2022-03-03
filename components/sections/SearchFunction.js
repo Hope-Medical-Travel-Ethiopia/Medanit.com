@@ -100,7 +100,7 @@ const SearchFunction = ({
   };
 
   return (
-    <section className="SearchSection flex items-center ">
+    <section id="search" className="SearchSection flex items-center ">
       {/* The Form Goes Here */}
       <section className="SearchSection drop-shadow-lg">
         <div>

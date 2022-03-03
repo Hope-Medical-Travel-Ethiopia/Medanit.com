@@ -9,6 +9,9 @@ body {
   margin: 0 !important;
   scroll-behavior: smooth;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 #navigation {
   z-index: 100 !important;
@@ -37,6 +40,7 @@ body {
   background-position: left;
   background-image: linear-gradient(
       to left,
+      rgba(252, 252, 252, 0),
       rgba(252, 252, 252, 0.26),
       rgb(216, 216, 216)
     ),
