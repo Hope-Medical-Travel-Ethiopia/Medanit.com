@@ -32,6 +32,7 @@ export default function Procedures({ Procedure }) {
                 name={option.name}
                 description={option.description}
                 id={option.id}
+                fromMed={true}
                 type="Procedures"
               />
             ))}

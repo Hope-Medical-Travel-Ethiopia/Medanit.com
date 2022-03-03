@@ -32,6 +32,7 @@ export default function Medication({ medications }) {
               description={option.description}
               id={option.id}
               type="Medications"
+              fromMed={true}
             />
           ))}
         </section>

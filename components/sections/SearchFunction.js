@@ -120,16 +120,16 @@ const SearchFunction = ({
                 onChange={handleType}
               >
                 <MenuItem className="" value="Hospital">
-                  hospital
+                  Hospital
                 </MenuItem>
                 <MenuItem className="" value="Diagnostics">
-                  diagnostics
+                  Diagnostics
                 </MenuItem>
                 <MenuItem className="" value="Doctors">
-                  doctor
+                  Doctor
                 </MenuItem>
                 <MenuItem className="" value="Pharmacy">
-                  pharmacy
+                  Pharmacy
                 </MenuItem>
               </Select>
             </FormControl>

@@ -35,7 +35,7 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
   const handlePush = (e) => {
     e.preventDefault();
     router.push({
-      pathname: `/Admin/Hospitals/EditSchedule/${provider.id}`,
+      pathname: `/Admin/Diagnostics/EditSchedule/${provider.id}`,
       query: {
         providerId: encodeURI(provider.id),
         parentId: encodeURI(parent.id),
@@ -53,11 +53,11 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
     setOpen(true);
   };
 
-  const handleDelete = async (hospital, doctor) => {
+  const handleDelete = async (diagnostics, procedures) => {
     const response = await axios
-      .delete(`/api/scheduleDoctor/${hospital}/${doctor}`)
+      .delete(`/api/Procedure_schedule/${diagnostics}/${procedures}`)
       .then((response) => {
-        router.push(`/Admin/Hospitals/${hospital}`);
+        router.push(`/Admin/Diagnostics/${diagnostics}`);
       });
   };
   return (
@@ -84,68 +84,21 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <section className="card bg-white px-10 py-6 my-10 rounded-xl drop-shadow-lg">
-        <div className="flex gap-10">
-          <div className="overflow-hidden  h-36 w-36 rounded-full relative">
-            {image ? (
-              <Image
-                loader={myLoader}
-                src={image}
-                alt="Picture of the author"
-                layout="fill"
-                className="border-2 border-red-500 overflow-hidden   rounded-full object-cover"
-              />
-            ) : (
-              <Picture pic={pic} size={36} />
-            )}
-          </div>
-          <div className="textSection basis-2/3 pt-2">
-            <div className="flex justify-between items-end mb-10 ">
-              <div className="nameTag">
-                <h1 className="text-xl leading-loose font-bold text-blue-500">
-                  {provider.name}
-                </h1>
-                {provider.speciality && (
-                  <p className="text-blue-500 tracking-wider">
-                    {" "}
-                    {provider.speciality}
-                  </p>
-                )}
-                {provider.phone && (
-                  <p className="text-blue-500 tracking-wider">
-                    {" "}
-                    {provider.phone}
-                  </p>
-                )}
-                {provider.email && (
-                  <p className="text-sm text-gray-700 tracking-wide">
-                    {provider.email}
-                  </p>
-                )}
-                {provider.address && (
-                  <p className="text-sm text-gray-700 tracking-wide">
-                    {provider.address}
-                  </p>
-                )}
-              </div>
-            </div>
+      <section className="card bg-white px-10 py-6 my-5 rounded-xl drop-shadow-lg">
+        <div className="">
+          <div className="flex justify-between items-end flex-wrap">
+            <div className="nameTag">
+              <h1 className="text-xl leading-loose font-bold text-blue-500">
+                {provider.name}
+              </h1>
 
-            <div className="Dates w-fit text-left">
-              {schedule[`${provider.id}`] &&
-                schedule[`${provider.id}`].map((item) => (
-                  <Schedule
-                    time={item}
-                    key={item.starting + item.ending + item.day}
-                  />
-                ))}
+              {provider.description && (
+                <p className="text-sm text-gray-700 tracking-wide">
+                  {provider.description}
+                </p>
+              )}
             </div>
-            <div className="action  flex  w-full gap-5 justify-end mt-10">
-              <Link href={`/Admin/Doctors/${provider.id}`}>
-                <a className="px-4 py-2 border border-blue-500 rounded-md text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
-                  <FaEye className="text-xl stroke-1" />
-                </a>
-              </Link>
-
+            <div className="action  flex gap-5 justify-end">
               <button
                 onClick={(e) => {
                   handlePush(e);
@@ -161,6 +114,15 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
                 <FaTrash className="text-xl stroke-1 " />
               </button>
             </div>
+          </div>
+          <div className="Dates w-fit text-left">
+            {schedule[`${provider.id}`] &&
+              schedule[`${provider.id}`].map((item) => (
+                <Schedule
+                  time={item}
+                  key={item.starting + item.ending + item.day}
+                />
+              ))}
           </div>
         </div>
       </section>

@@ -1,21 +1,47 @@
 import Image from "next/image";
-import image from "../../public/hospital.jpg";
+import pic from "../../public/hospital.jpg";
+import { useState, useEffect } from "react";
+import Picture from "../reusable/Picture";
 
-const HospitalProfileHeader = ({ name, phone, address, email }) => {
+
+const HospitalProfileHeader = ({ providers }) => {
+  const myLoader = ({ src, width, quality }) => {
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+  };
+
+  const [image, setimage] = useState();
+
+  useEffect(() => {
+    if (providers.profilePicture) {
+      setimage(providers.profilePicture);
+    } else if (providers.logo) {
+      setimage(providers.logo);
+    }
+  }, [providers]);
   return (
-    <div className="profileBar lg:h-52 md:rounded-lg bg-blue-500 lg:px-20 p-10 px-5 flex lg:flex-nowrap flex-wrap justify-center lg:justify-start gap-10 items-center">
-      <div className="overflow-hidden h-40 w-40  rounded-full object-cover">
-        <Image src={image} objectFit="fill" />
+    <div className="profileBar lg:h-52 rounded-lg bg-blue-500 lg:px-20 p-10 px-5 flex lg:flex-nowrap flex-wrap justify-center lg:justify-start gap-10 items-center">
+      <div className="overflow-hidden relative lg:w-48 h-40 w-40 rounded-full">
+        {image ? (
+          <Image
+            loader={myLoader}
+            src={image}
+            alt="Picture of the author"
+            layout="fill"
+            className="border-2  overflow-hidden   rounded-full object-cover"
+          />
+        ) : (
+          <Picture pic={pic} size={36} />
+        )}{" "}
       </div>
       <div className="nameTag text-gray-50 w-full text-center lg:text-left">
         <h1 className="lg:text-3xl md:text-2xl text-xl  font-bold mb-5">
-          {name}
+          {providers.name}
         </h1>
-        <h3 className="md:text-xl  tracking-wider">{phone}</h3>
-        <h3 className="md:text-xl tracking-wider">{email}</h3>
+        <h3 className="md:text-xl  tracking-wider">{providers.phone}</h3>
+        <h3 className="md:text-xl tracking-wider">{providers.email}</h3>
 
         <p className="text-sm lg:w-96 w-full">
-          {address}
+          {providers.address}
           {/* Bole Shewa dabo, Getu commercial Trading, 4th floor, office 406 */}
         </p>
       </div>

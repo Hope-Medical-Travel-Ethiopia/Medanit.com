@@ -9,7 +9,7 @@ import ProfileHeader from "../../../components/Admin/ProfileHeader";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import LabScheduleCard from "../../../components/sections/LabScheduleCard";
 import axios from "../../../lib/axios";
-import AdminSchedule from "../../../components/Admin/AdminSchedule";
+import LabSchedule from "../../../components/Admin/LabSchedule";
 
 import { useAuth } from "../../../hooks/auth";
 export default function Diagnostic({ diagnostics, schedule }) {
@@ -32,10 +32,10 @@ export default function Diagnostic({ diagnostics, schedule }) {
               link={`/Admin/Diagnostics/CreateSchedule`}
               provider={diagnostics.id}
             />
-            <div className="schedules flex flex-col gap-10">
+            <div className="schedules flex flex-col">
               {" "}
               {diagnostics.procedures.map((procedure) => (
-                <AdminSchedule
+                <LabSchedule
                   parent={diagnostics}
                   provider={procedure}
                   schedule={schedule}

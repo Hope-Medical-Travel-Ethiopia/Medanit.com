@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Logo from "./LogoPic";
 
-const Navbar = () => {
+const Navbar = ({ home }) => {
   const [nav, setNav] = useState(true);
   const [lang, setLang] = useState({});
   const [language, setLanguage] = useState(false);
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setLang(eng);
-  }, [lang]);
+  }, []);
 
   return (
     <nav
@@ -50,27 +50,31 @@ const Navbar = () => {
         } gap-5 text-sm  sm:flex flex-col  sm:flex-row items-center mt-10 sm:mt-0`}
         // className="gap-5 text-sm flex sm:flex flex-col sm:flex-row items-center mt-10 sm:mt-0"
       >
-        <li className="my-1">
-          <Link href="#Header" className="">
-            <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-              {lang.search}
-            </a>
-          </Link>
-        </li>
-        <li className="my-1">
-          <Link href="#services">
-            <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-              {lang.service}
-            </a>
-          </Link>
-        </li>
-        <li className="my-1">
-          <Link href="#contact">
-            <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-              {lang.contact}
-            </a>
-          </Link>
-        </li>
+        { home && 
+          <>
+            <li className="my-1">
+              <Link href="#Header" className="">
+                <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
+                  {lang.search}
+                </a>
+              </Link>
+            </li>
+            <li className="my-1">
+              <Link href="#services">
+                <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
+                  {lang.service}
+                </a>
+              </Link>
+            </li>
+            <li className="my-1">
+              <Link href="#contact">
+                <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
+                  {lang.contact}
+                </a>
+              </Link>
+            </li>
+          </>
+        }
         {lang ? (
           <li>
             <Link href="#">

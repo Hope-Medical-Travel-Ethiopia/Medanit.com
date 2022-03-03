@@ -147,10 +147,10 @@ const Listing = ({
                 label="Provider"
                 onChange={handleType}
               >
-                <MenuItem value="Hospital">hospital</MenuItem>
-                <MenuItem value="Diagnostics">diagnostics</MenuItem>
-                <MenuItem value="Doctors">doctor</MenuItem>
-                <MenuItem value="Pharmacy">pharmacy</MenuItem>
+                <MenuItem value="Hospital">Hospital</MenuItem>
+                <MenuItem value="Diagnostics">Diagnostics</MenuItem>
+                <MenuItem value="Doctors">Doctor</MenuItem>
+                <MenuItem value="Pharmacy">Pharmacy</MenuItem>
               </Select>
             </FormControl>
 
@@ -217,9 +217,9 @@ const Listing = ({
             <span className="text-2xl font-bold">{providerData.length} </span>{" "}
             results were found for {searchTerm}
             {Med && (
-              <h1 className="text-2xl">
+              <p className="text-2xl">
                 Description <br /> {Med.description}
-              </h1>
+              </p>
             )}
           </h1>
         )}

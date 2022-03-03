@@ -4,8 +4,11 @@ const LabScheduleCard = ({ title, schedule, provider }) => {
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
       <div>
         <h1 className="text-2xl font-bold tracking-wide text-blue-500">
-          {title}
+          {provider.name}
         </h1>
+        <p>
+          {provider.description}
+        </p>
         <div className="Dates w-fit text-left">
           {schedule[`${provider.id}`] &&
             schedule[`${provider.id}`].map((item) => <Schedule time={item} />)}

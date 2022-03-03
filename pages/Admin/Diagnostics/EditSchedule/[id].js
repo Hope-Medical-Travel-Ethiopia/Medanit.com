@@ -8,7 +8,12 @@ import { useAuth } from "../../../../hooks/auth";
 import axios from "../../../../lib/axios";
 import { Router, useRouter } from "next/router";
 
-export default function EditSchedule({ doctorId, hospitalId, schedule, pivot }) {
+export default function EditSchedule({
+  doctorId,
+  hospitalId,
+  schedule,
+  pivot,
+}) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
 
@@ -44,14 +49,14 @@ export default function EditSchedule({ doctorId, hospitalId, schedule, pivot }) 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios
-      .put(`/api/Hospital_schedule/${pivot.id}`, {
+      .put(`/api/Procedure_schedule/${pivot.id}`, {
         hospital_id: hospitalId,
         doctor_id: doctorId,
         schedule: schedules,
       })
       .then((response) => {
         console.log(response.data);
-        router.push(`/Admin/Hospitals/${hospitalId}`);
+        router.push(`/Admin/Diagnostics/${hospitalId}`);
       });
   };
   return (
@@ -179,14 +184,13 @@ EditSchedule.getLayout = function PageLayout(page) {
 };
 
 export async function getServerSideProps({ query }) {
-  const response = await axios.get(`/api/Hospitals/${query.parentId}`);
-  const Doctors = await axios.get(`/api/Doctors/${query.providerId}`);
-  const scheduleResponse = await axios.get(`/api/schedule/${query.parentId}`);
+  const scheduleResponse = await axios.get(`/api/Diagnostic_schedule/${query.parentId}`);
   const pivot = await axios.get(
-    `/api/HospitalDoctorPivot/${query.parentId}/${query.providerId}`
+    `/api/Procedure_schedule/${query.parentId}/${query.providerId}`
   );
 
   console.log(scheduleResponse.data);
+
   return {
     props: {
       doctorId: query.providerId,

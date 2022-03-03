@@ -17,6 +17,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useAuth } from "../../../../hooks/auth";
 import axios from "../../../../lib/axios";
+import ProviderListCard from "../../../../components/sections/ProviderListCard";
 
 import { Router, useRouter } from "next/router";
 
@@ -55,20 +56,25 @@ export default function CreateSchedule({ doctors, hospital }) {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    const response = await axios
-      .post("/api/Doctor", {
-        name: values.name,
-        speciality: values.speciality,
-        address: values.address,
-        expertise: values.expertise,
-        description: values.description,
-        profilePicture: values.picture,
-      })
-      .then((response) => {
-        setDoctor(response.data);
-        setShowDoctor(true);
-        setShowDoctorForm(false);
-      });
+
+    let formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("speciality", values.speciality);
+    formData.append("address", values.address);
+    formData.append("profilePicture", values.picture);
+    for (const i = 0; i < values.expertise.length; i++) {
+      formData.append("expertise[]", values.expertise[i]);
+    }
+    formData.append("description", values.description);
+    const response = await axios({
+      url: "/api/Doctor",
+      method: "POST",
+      data: formData,
+    }).then((response) => {
+      setDoctor(response.data);
+      setShowDoctor(true);
+      setShowDoctorForm(false);
+    });
   };
 
   const [schedule, setSchedule] = useState([]);
@@ -166,11 +172,11 @@ export default function CreateSchedule({ doctors, hospital }) {
         <div className="card my-5">
           {doctor && showDoctor && (
             <div>
-              <Card
-                pic={pic}
-                provider={doctor}
-                type="Doctors"
+              <ProviderListCard
                 key={doctor.id}
+                pic={pic}
+                providers={doctor}
+                provider={"doctor"}
               />
             </div>
           )}
@@ -228,8 +234,13 @@ export default function CreateSchedule({ doctors, hospital }) {
                     id="doctor-registration-picture"
                     type="file"
                     inputProps={{ accept: "image/" }}
-                    value={values.picture}
-                    onChange={handleChange("picture")}
+                    // value={values.picture}
+                    onChange={(e) =>
+                      setValues({
+                        ...values,
+                        ["picture"]: e.target.files[0],
+                      })
+                    }
                   />
                 </FormControl>
 

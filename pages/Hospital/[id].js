@@ -9,17 +9,14 @@ import axios from "../../lib/axios";
 const HospitalProfile = ({ hospitals, schedule }) => {
   return (
     <>
-      <div className="md:w-[80%] w-full mx-auto mt-20 ">
+      <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
           <HospitalProfileHeader
-            name={hospitals.name}
-            phone={hospitals.phone}
-            address={hospitals.address}
-            email={hospitals.email}
+            providers={hospitals}
           />
         </section>
         {/*  */}
-        <section className=" mt-10 w-full md:px-10 px-5">
+        <section className=" mt-10 w-full ">
           <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
             <Expertise title="Service" services={hospitals.services} />
             <div className="about lg:row-start-2 ">

@@ -5,7 +5,7 @@ import Picture from "../reusable/Picture";
 import Link from "next/link";
 import { useAuth } from "../../hooks/auth";
 import { useRouter } from "next/router";
-import { FaEdit } from "react-icons/fa";
+import { FaUser, FaSignOutAlt } from "react-icons/fa";
 
 const AdminNav = ({ title, current, parent, user }) => {
   const [menu, setMenu] = useState(true);
@@ -48,23 +48,29 @@ const AdminNav = ({ title, current, parent, user }) => {
             {/* <div className="image overflow-hidden h-14 w-14 rounded-full object-cover">
               <Image src={picture} />
             </div> */}
-            {user && (
-              <Link href={`/Admin/EditAdmin/${user.id}`}>
-                <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
-                  <FaEdit className="text-xl stroke-1 " />
-                </a>
-              </Link>
-            )}
-            <Picture pic={pic} size="14" />
-            <div>
+            <div className="">
               <h1 className="font-semibold  tracking-normal">
                 {" "}
                 {user && user.name}
               </h1>
-              <p className="text-xs text-gray-500">Super Admin</p>
-
-              <button onClick={logout}>Logout</button>
+              <p className="text-xs text-gray-500">
+                {user.role == 0 ? "Super Admin" : "Agent"}
+              </p>
             </div>
+            {user && (
+              <Link href={`/Admin/EditAdmin/${user.id}`}>
+                <a className="flex justify-between gap-2 px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+                  <FaUser className="text-xl stroke-1 " /> Profile
+                </a>
+              </Link>
+            )}
+
+            <button
+              onClick={logout}
+              className="flex justify-between gap-2 px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600  hover:text-white transition-all"
+            >
+              <FaSignOutAlt className="text-xl stroke-1 " /> Logout
+            </button>
           </div>
         </div>
       </div>

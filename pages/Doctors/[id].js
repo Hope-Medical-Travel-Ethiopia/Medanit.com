@@ -9,24 +9,25 @@ import axios from "../../lib/axios";
 const DoctorProfile = ({ doctor, schedule }) => {
   return (
     <>
-      <div className="w-[80%] mx-auto mt-5">
+      <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
-          <DoctorProfileHeader
-            name={doctor.name}
-            address={doctor.address}
-            speciality={doctor.speciality}
-          />
+          <DoctorProfileHeader providers={doctor} />
         </section>
         {/*  */}
-        <section className="body mt-10">
-          <div className="grid grid-cols-3  gap-10">
+        <section className=" mt-10 w-full ">
+          <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
             <Expertise title="Expertise" services={doctor.expertise} />
-            <div className="about row-start-2">
+            <div className="about lg:row-start-2">
               <About description={doctor.description} />
             </div>
-            <div className="schedules col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
+            <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10 ">
               {doctor.hospitals.map((hospital) => (
-                <HospitalSchedule key={hospital.id} schedule={schedule} provider={hospital} hospital={hospital} />
+                <HospitalSchedule
+                  key={hospital.id}
+                  schedule={schedule}
+                  provider={hospital}
+                  hospital={hospital}
+                />
               ))}
             </div>
           </div>
@@ -52,7 +53,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       doctor: response.data[0],
-      schedule: scheduleResponse.data
+      schedule: scheduleResponse.data,
     },
   };
 }

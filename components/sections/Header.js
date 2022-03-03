@@ -14,7 +14,7 @@ const Header = ({
       id="Header"
       className="text-gray-800 min-h-screen sm:h-screen flex flex-col justify-center"
     >
-      <Navbar className=" opacity:25" />
+      <Navbar className=" opacity:25" home="home" />
       <div className="flex justify-center lg:px-20  mt-30 md:mt-0 p-10 flex-col ">
         <div id="" className="flex flex-col lg:w-2/3 w-100 ">
           <h1 className="md:text-5xl text-3xl uppercase font-black  tracking-wider ">

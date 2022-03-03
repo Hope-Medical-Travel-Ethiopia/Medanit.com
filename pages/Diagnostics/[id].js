@@ -10,26 +10,20 @@ import axios from "../../lib/axios";
 const DiagnosticsProfile = ({ diagnostics, schedule }) => {
   return (
     <>
-      <div className="w-[80%] mx-auto mt-5">
+      <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
-          <HospitalProfileHeader
-            name={diagnostics.name}
-            phone={diagnostics.phone}
-            email={diagnostics.email}
-            address={diagnostics.address}
-          />
+          <HospitalProfileHeader providers={diagnostics} />
         </section>
         {/*  */}
-        <section className="body mt-10">
-          <div className="grid grid-cols-3  gap-10">
+        <section className="mt-10 w-full">
+          <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
             <Expertise title="Service" services={diagnostics.services} />
-            <div className="about row-start-2">
+            <div className="about lg:row-start-2">
               <About description={diagnostics.description} />
             </div>
-            <div className="schedules col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
+            <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10">
               {diagnostics.procedures.map((procedures) => (
                 <LabScheduleCard
-                  title={procedures.name}
                   provider={procedures}
                   schedule={schedule}
                 />
@@ -61,7 +55,6 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-
       diagnostics: response.data[0],
       schedule: scheduleResponse.data,
     },

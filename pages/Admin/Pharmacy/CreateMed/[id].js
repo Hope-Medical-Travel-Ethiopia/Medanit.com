@@ -44,6 +44,7 @@ export default function CreateMed({ medications, pharmacy }) {
         medication_id: medication.id,
       })
       .then((response) => {
+        console.log(response.data);
         router.push(`/Admin/Pharmacy/${pharmacy.id}`);
       });
   };

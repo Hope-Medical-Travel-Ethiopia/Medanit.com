@@ -1,35 +1,60 @@
-import image from "../../public/hospital.jpg";
+import pic from "../../public/hospital.jpg";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import Picture from "../reusable/Picture";
 
-const HospitalSchedule = ({hospital, schedule, provider}) => {
+const HospitalSchedule = ({ hospital, schedule, provider }) => {
+  const myLoader = ({ src, width, quality }) => {
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+  };
+
+  const [image, setimage] = useState();
+
+  useEffect(() => {
+    if (hospital.profilePicture) {
+      setimage(hospital.profilePicture);
+    } else if (hospital.logo) {
+      setimage(hospital.logo);
+    }
+  }, [hospital]);
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
-      <div className="flex gap-10">
-        <div className="Image basis-auto overflow-hidden h-40 w-40 rounded-full object-cover">
-          <Image src={image} objectFit="fill" />
-        </div>
-        <div className="textSection basis-2/3 pt-2">
-          <div className="nameTag mb-10">
-            <h1 className="text-xl leading-loose font-bold text-blue-500">
-              {hospital.name}
-            </h1>
-            <p className="text-blue-500 tracking-wider"> {hospital.phone}</p>
-            <p className="text-sm w-80 tracking-wide">
-              {hospital.address}
-            </p>
-          </div>
-          <div className="Dates w-fit text-left">
-            {schedule[`${provider.id}`] && schedule[`${provider.id}`].map((item)=>(
-              <Schedule time={item}/>
-            )
-            )}
+      <div className="flex  lg:flex-nowrap flex-wrap lg:gap-10 gap-5 justify-center">
+      <div className="overflow-hidden relative h-40 w-40 rounded-full">
+        {image ? (
+          <Image
+            loader={myLoader}
+            src={image}
+            alt="Picture of the author"
+            layout="fill"
+            className="border-2  overflow-hidden   rounded-full object-cover"
+          />
+        ) : (
+          <Picture pic={pic} size={40} />
+        )}{" "}
+      </div>
+        <div className="textSection lg:basis-2/3 pt-2 flex flex-col items-center lg:items-start">
+          <div className="flex flex-wrap text-center lg:text-left lg:gap-10 gap-5 md:justify-between justify-center items-end lg:mb-10 mb-5 ">
+            <div className="nameTag">
+              <h1 className="text-xl leading-loose font-bold text-blue-500">
+                {hospital.name}
+              </h1>
+              <p className="text-blue-500 tracking-wider"> {hospital.phone}</p>
+              <p className="text-sm w-80 tracking-wide">{hospital.address}</p>
+            </div>
+
+            <div className="Dates w-fit text-left">
+              {schedule[`${provider.id}`] &&
+                schedule[`${provider.id}`].map((item) => (
+                  <Schedule time={item} />
+                ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-
 
 const Schedule = ({ time }) => {
   return (
