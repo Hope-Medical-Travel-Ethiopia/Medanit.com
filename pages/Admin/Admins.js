@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useAuth } from "../../hooks/auth";
 import axios from "../../lib/axios";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Router, useRouter } from "next/router";
+
 
 const handleDelete = async (id) => {
   const response = await axios
@@ -16,6 +18,7 @@ const handleDelete = async (id) => {
 };
 export default function Admins({ admin }) {
   const { user } = useAuth({ middleware: "auth" });
+  const router = useRouter();
 
   return (
     <>

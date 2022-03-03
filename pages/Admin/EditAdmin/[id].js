@@ -24,7 +24,7 @@ export default function CreateDoctors({ agent, id }) {
   const [values, setValues] = React.useState({
     name: agent.name,
     email: agent.email,
-    role: agent.role,
+    // role: agent.role,
     password: "",
     password_confirmation: "",
   });
@@ -39,7 +39,7 @@ export default function CreateDoctors({ agent, id }) {
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
-    formData.append("role", values.role);
+    // formData.append("role", values.role);
     formData.append("password", values.password);
     formData.append("password_confirmation", values.password_confirmation);
 
@@ -101,7 +101,7 @@ export default function CreateDoctors({ agent, id }) {
                     // required
                     id="doctor-registration-address"
                     type="password"
-                    //   value={values.password}
+                      // value=""
                     onChange={handleChange("password")}
                     label="Agent Password"
                   />
@@ -119,7 +119,7 @@ export default function CreateDoctors({ agent, id }) {
                     label="Agent Password Confirmation"
                   />
                 </FormControl>
-                <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
+                {/* <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                   <InputLabel htmlFor={`role`}>Role</InputLabel>
                   <Select
                     labelId="role"
@@ -133,7 +133,7 @@ export default function CreateDoctors({ agent, id }) {
                     <MenuItem value="1">Agent</MenuItem>
                     <MenuItem value="2">Deactivate Agent</MenuItem>
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </div>
               <input
                 type="submit"
