@@ -50,7 +50,7 @@ const Navbar = ({ home }) => {
         } gap-5 text-sm  sm:flex flex-col  sm:flex-row items-center mt-10 sm:mt-0`}
         // className="gap-5 text-sm flex sm:flex flex-col sm:flex-row items-center mt-10 sm:mt-0"
       >
-        { home && 
+        {home && (
           <>
             <li className="my-1">
               <Link href="#Header" className="">
@@ -74,7 +74,7 @@ const Navbar = ({ home }) => {
               </Link>
             </li>
           </>
-        }
+        )}
         {lang ? (
           <li>
             <Link href="#">
