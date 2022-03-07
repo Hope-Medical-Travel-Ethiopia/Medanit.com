@@ -87,7 +87,7 @@ const Diagnostics = ({ diagnostics }) => {
   );
 };
 export async function getStaticProps() {
-  const response = await axios.get("/diagnostics");
+  const response = await axios.get("/api/diagnostics");
 
   return {
     props: {

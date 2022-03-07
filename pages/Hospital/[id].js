@@ -11,9 +11,7 @@ const HospitalProfile = ({ hospitals, schedule }) => {
     <>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
-          <HospitalProfileHeader
-            providers={hospitals}
-          />
+          <HospitalProfileHeader providers={hospitals} />
         </section>
         {/*  */}
         <section className=" mt-10 w-full ">
@@ -28,6 +26,7 @@ const HospitalProfile = ({ hospitals, schedule }) => {
                   provider={doctor}
                   schedule={schedule}
                   id={doctor.id}
+                  key={doctor.id}
                 />
               ))}
             </div>

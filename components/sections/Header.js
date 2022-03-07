@@ -1,6 +1,8 @@
 import Navbar from "../layouts/Navbar";
 import { FiArrowDownCircle, FiArrowRight } from "react-icons/fi";
 import SearchFunction from "./SearchFunction";
+import ReactTypingEffect from "react-typing-effect";
+
 const Header = ({
   doctors,
   diagnostics,
@@ -14,11 +16,23 @@ const Header = ({
       id="Header"
       className="text-gray-800 min-h-screen sm:h-screen flex flex-col justify-center"
     >
-      <Navbar className=" opacity:25" home="home" />
+      <Navbar className="lg:mb-24" home="home" />
       <div className="flex justify-center lg:px-20  mt-30 md:mt-0 p-10 flex-col ">
         <div id="" className="flex flex-col lg:w-2/3 w-100 ">
-          <h1 className="md:text-5xl text-3xl uppercase font-black  tracking-wider ">
-            Medanit! Health Care Just Got Better.
+          <h1 className="md:text-5xl text-3xl uppercase font-black  tracking-wider stroke-w ">
+            <ReactTypingEffect
+              text={[
+                " Medanit! Health Care Just Got Better.",
+                "You can seach for Specialist Doctors!",
+                "You can seach for Speciality Hospitals!",
+                "የሚያስፈልጎትን መድሀኒት በመጻፍ ብቻ የት እንደሚገኝ ማወቅ የሚችሉበት ",
+              ]}
+              speed="100"
+              eraseSpeed="50"
+              eraseDelay="2500"
+              cursor=""
+              typingDelay="500"
+            />
           </h1>
           <p className="my-4 md:w-[75%] xs:text-sm md:text-base">
             It requires a more contemporary and simplified solution than ever

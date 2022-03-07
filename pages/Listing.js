@@ -127,20 +127,24 @@ const Listing = ({
   //return
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-28 px-10 shapes">
+    <div className="bg-gray-100 min-h-screen  shapes pt-20">
       <Head>
         <title>MEDANIT | Search for Health Care service</title>
       </Head>
-      <section className="searchSection  flex flex-wrap justify-center lg:p-10 items-center flex-col ">
+      <section className="searchSection lg:p-14 p-5 py-10 bg-blue-500 text-white flex flex-wrap justify-center  items-center flex-col ">
         <div>
           <form
             onSubmit={search}
             className=" w-full flex flex-wrap gap-5 items-center text-white "
           >
-            <FormControl className=" md:w-32 min-w-fit w-[100%] m-auto">
+            <FormControl
+              variant="filled"
+              className=" md:w-32 min-w-fit w-[100%] m-auto bg-white"
+            >
               <InputLabel id="demo-simple-select-label">Provider</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
+                className="bg-white"
                 id="select-type"
                 name="select-type"
                 value={provider}
@@ -154,12 +158,16 @@ const Listing = ({
               </Select>
             </FormControl>
 
-            <FormControl className="md:w-96 min-w-fit w-[100%] m-auto">
+            <FormControl
+              variant="filled"
+              className="md:w-96 min-w-fit w-[100%] m-auto"
+            >
               <Autocomplete
-                className="text-blue-500 border-blue-500"
+                className="bg-white"
                 id="select-providers"
                 name="searchTerm"
                 options={providers}
+                variant="filled"
                 freeSolo
                 required
                 // value={providers}
@@ -175,10 +183,10 @@ const Listing = ({
                 }}
                 renderOption={(props, option) => (
                   <Box
-                    className="m-auto w-100"
+                    // className="m-auto w-100"
                     component="li"
                     {...props}
-                    className="border-slate-100 border-2 p-2 cursor-pointer"
+                    className="border-slate-100  border-2 p-2 cursor-pointer"
                   >
                     {option}{" "}
                     <span className="block text-xs">
@@ -192,6 +200,7 @@ const Listing = ({
                   <TextField
                     {...params}
                     label={`Search for a ${provider}`}
+                    variant="filled"
                     inputProps={{
                       ...params.inputProps,
                       autoComplete: "new-password",
@@ -213,14 +222,12 @@ const Listing = ({
           </form>
         </div>
         {searchTerm && providerData && (
-          <h1 className="text-xl  text-center mt-10 px-5">
-            <span className="text-2xl font-bold">{providerData.length} </span>{" "}
-            results were found for {searchTerm}
-            {Med && (
-              <p className="text-2xl">
-                Description <br /> {Med.description}
-              </p>
-            )}
+          <h1 className="  mt-5 text-left">
+            <span className=" font-bold">{providerData.length} </span> results
+            were found for{" "}
+            <span className="text-white block text-2xl font-bold ">
+              {searchTerm}
+            </span>
           </h1>
         )}
       </section>
