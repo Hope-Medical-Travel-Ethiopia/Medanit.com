@@ -104,7 +104,7 @@ const Listing = ({
         `/api/search-by-${provider}/${searchTerm}`
       );
       let res = await response.data;
-      console.log(res);
+      // console.log(res);
       setProviderData(res);
       setIsLoading(false);
     } catch (error) {
