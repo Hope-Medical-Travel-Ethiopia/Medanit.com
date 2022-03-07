@@ -2,29 +2,25 @@ import { FaBars } from "react-icons/fa";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Logo from "./LogoPic";
+import { useRouter } from "next/router";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+
+import en from "../../locales/en";
+import am from "../../locales/am";
 
 const Navbar = ({ home }) => {
   const [nav, setNav] = useState(true);
-  const [lang, setLang] = useState({});
-  const [language, setLanguage] = useState(false);
-  const eng = {
-    notify: "Notify me",
-    contact: "Contact Us",
-    lang: "አማርኛ",
-    service: "service",
-    search: "search",
-  };
-  const amh = {
-    notify: "አስታውቁኝ",
-    contact: "ያናግሩን",
-    lang: "English",
-    service: "አግልግሎታችን",
-    search: "ፈልግ",
-  };
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : am;
 
-  useEffect(() => {
-    setLang(eng);
-  }, []);
+  const changeLanguage = (e) => {
+    const locale = e.target.value;
+    router.push(router.pathname, router.asPath, { locale });
+  };
 
   return (
     <nav
@@ -55,53 +51,41 @@ const Navbar = ({ home }) => {
             <li className="my-1">
               <Link href="#Header" className="">
                 <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-                  {lang.search}
+                  {t.search}
                 </a>
               </Link>
             </li>
             <li className="my-1">
               <Link href="#services">
                 <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-                  {lang.service}
+                  {t.service}
                 </a>
               </Link>
             </li>
             <li className="my-1">
               <Link href="#contact">
                 <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-                  {lang.contact}
+                  {t.contact}
                 </a>
               </Link>
             </li>
           </>
         )}
-        {lang ? (
-          <li>
-            <Link href="#">
-              <a
-                onClick={() => {
-                  setLang(eng);
-                }}
-                className="bg-blue-500 px-5 py-2 rounded-sm text-white rounded-full"
-              >
-                {lang.lang}
-              </a>
-            </Link>
-          </li>
-        ) : (
-          <li>
-            <Link href="#">
-              <a
-                onClick={() => {
-                  setLang(amh);
-                }}
-                className="bg-blue-500 px-5 py-2 rounded-sm text-white rounded-full"
-              >
-                Eng
-              </a>
-            </Link>
-          </li>
-        )}
+
+        <li>
+          <FormControl fullWidth>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Age"
+              defaultValue={locale}
+              onChange={changeLanguage}
+            >
+              <MenuItem value="en">EN</MenuItem>
+              <MenuItem value="am">AM</MenuItem>
+            </Select>
+          </FormControl>
+        </li>
       </ul>
     </nav>
   );

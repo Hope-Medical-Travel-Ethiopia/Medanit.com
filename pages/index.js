@@ -7,6 +7,9 @@ import Header from "../components/sections/Header";
 import Services from "../components/sections/Services";
 import Footer from "../components/layouts/Footer";
 import SearchFunction from "../components/sections/SearchFunction";
+import { useRouter } from "next/router";
+import en from "../locales/en";
+import am from "../locales/am";
 
 export default function Home({
   doctors,
@@ -16,6 +19,10 @@ export default function Home({
   procedures,
   medication,
 }) {
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : am;
+  console.log(locale);
   return (
     <div>
       <Head>
@@ -34,6 +41,7 @@ export default function Home({
           procedures={procedures}
           medication={medication}
           sam="samuel Kedir"
+          content={t}
         />
         <AboutUs />
         <CounterSection />

@@ -10,6 +10,7 @@ const Header = ({
   pharmacy,
   procedures,
   medication,
+  content,
 }) => {
   return (
     <section
@@ -35,8 +36,7 @@ const Header = ({
             />
           </h1>
           <p className="my-4 md:w-[75%] xs:text-sm md:text-base">
-            It requires a more contemporary and simplified solution than ever
-            before. But don't worry , we're here to make a difference.
+            {content.heroDescription}
           </p>
         </div>
         <div className="my-5">
