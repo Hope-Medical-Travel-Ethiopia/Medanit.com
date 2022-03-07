@@ -78,10 +78,9 @@ export default function CreateDoctors({ doctors }) {
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => (
               <Box
-                className="m-auto w-100"
+                className="m-auto w-100 border-2 p-2 cursor-pointer"
                 component="li"
                 {...props}
-                className=" border-2 p-2 cursor-pointer"
               >
                 {option.name}{" "}
                 <span className="block text-xs"> {option.speciality}</span>
@@ -135,7 +134,7 @@ export default function CreateDoctors({ doctors }) {
               </FormControl>
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                 <InputLabel htmlFor={`doctor-registration-address`}>
-                  Doctor's Address
+                  Doctors Address
                 </InputLabel>
                 <OutlinedInput
                   required
@@ -175,6 +174,7 @@ export default function CreateDoctors({ doctors }) {
                       <Chip
                         variant="standard"
                         label={option}
+                        key={index}
                         {...getTagProps({ index })}
                       />
                     ))

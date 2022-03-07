@@ -155,10 +155,9 @@ const SearchFunction = ({
                 }}
                 renderOption={(props, option) => (
                   <Box
-                    className="m-auto w-100"
+                    className="m-auto w-100 border-slate-100 border-2 p-2 cursor-pointer"
                     component="li"
                     {...props}
-                    className="border-slate-100 border-2 p-2 cursor-pointer"
                   >
                     {option}{" "}
                     <span className="block text-xs">

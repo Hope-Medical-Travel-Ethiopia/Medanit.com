@@ -105,7 +105,7 @@ export default function CreateSchedule({ doctors, hospital }) {
       <div className="Heading">
         <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Create New Doctor's Schedule
+            Create New Doctors Schedule
           </h1>
         </div>
       </div>
@@ -126,10 +126,9 @@ export default function CreateSchedule({ doctors, hospital }) {
             }}
             renderOption={(props, option) => (
               <Box
-                className="m-auto w-100"
+                className="m-auto w-100 border-2 p-2 cursor-pointer"
                 component="li"
                 {...props}
-                className=" border-2 p-2 cursor-pointer"
               >
                 {option.name}{" "}
                 <span className="block text-xs"> {option.speciality}</span>
@@ -218,7 +217,7 @@ export default function CreateSchedule({ doctors, hospital }) {
                 </FormControl>
                 <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                   <InputLabel htmlFor={`doctor-registration-address`}>
-                    Doctor's Address
+                    Doctors Address
                   </InputLabel>
                   <OutlinedInput
                     required
@@ -259,6 +258,7 @@ export default function CreateSchedule({ doctors, hospital }) {
                         <Chip
                           variant="standard"
                           label={option}
+                          key={index}
                           {...getTagProps({ index })}
                         />
                       ))

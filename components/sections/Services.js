@@ -84,7 +84,7 @@ const ServiceComponent = ({ title, description, picture, id }) => {
     >
       <div className="serviceImage flex items-center justify-center">
         <div className=" overflow-hidden z-0 md:h-96 h-[40vh] w-[100%] md:w-[30rem] rounded object-cover">
-          <Image src={picture} />
+          <Image src={picture} alt={`${title} - image`} />
         </div>
       </div>
 

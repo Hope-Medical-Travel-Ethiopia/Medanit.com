@@ -14,7 +14,7 @@ const DoctorsListCard = ({
       <div className="card flex my-5 rounded-2xl bg-white drop-shadow-lg p-10 gap-10">
         <section className="imageSection">
           <div className="overflow-hidden h-48 w-48 rounded-full object-cover">
-            <Image src={picture} objectFit="fill" />
+            <Image src={picture} alt="Doctors image" objectFit="fill" />
           </div>
         </section>
         <section className="descSection flex flex-col justify-between">

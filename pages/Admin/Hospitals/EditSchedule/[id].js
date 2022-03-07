@@ -8,7 +8,12 @@ import { useAuth } from "../../../../hooks/auth";
 import axios from "../../../../lib/axios";
 import { Router, useRouter } from "next/router";
 
-export default function EditSchedule({ doctorId, hospitalId, schedule, pivot }) {
+export default function EditSchedule({
+  doctorId,
+  hospitalId,
+  schedule,
+  pivot,
+}) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
 
@@ -23,7 +28,7 @@ export default function EditSchedule({ doctorId, hospitalId, schedule, pivot }) 
       //   });
       schedule[doctorId] && setschedules(schedule[doctorId]);
     }
-  }, []);
+  }, [doctorId, schedule]);
 
   let handleScheduleChange = (i, e) => {
     let newschedules = [...schedules];
@@ -59,7 +64,7 @@ export default function EditSchedule({ doctorId, hospitalId, schedule, pivot }) 
       <div className="Heading">
         <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Edit Doctor's Schedule
+            Edit Doctors Schedule
           </h1>
         </div>
       </div>

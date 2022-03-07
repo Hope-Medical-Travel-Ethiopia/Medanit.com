@@ -63,10 +63,9 @@ export default function CreateMed({ medications }) {
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => (
               <Box
-                className="m-auto w-100"
+                className="m-auto w-100 border-2 my-2 cursor-pointer"
                 component="li"
                 {...props}
-                className=" border-2 my-2 cursor-pointer"
               >
                 {option.name}{" "}
                 <span className="block text-xs">

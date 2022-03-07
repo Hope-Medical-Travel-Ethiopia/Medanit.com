@@ -32,8 +32,7 @@ const Card = ({ pic, provider, type }) => {
   return (
     <div className="card w-72 p-10 rounded-lg bg-white overflow-hidden flex flex-col items-center justify-between gap-5">
       <div
-        className="image"
-        className="overflow-hidden  h-36 w-36 rounded-full relative"
+        className="image overflow-hidden  h-36 w-36 rounded-full relative"
       >
         {image ? (
           <Image

@@ -25,7 +25,7 @@ const ProfileHeader = ({ pic, type, provider }) => {
     } else if (provider.logo) {
       setimage(provider.logo);
     }
-  }, [provider.image]);
+  }, [provider.logo, provider.profilePicture]);
   return (
     <div className="profileBar h-52 rounded-lg bg-blue-500 px-20  gap-10 flex justify-between ">
       <div className="Information flex items-center gap-5">

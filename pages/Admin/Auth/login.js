@@ -30,15 +30,13 @@ const Login = () => {
     } else {
       setStatus(null);
     }
-  });
+  }, [router.query.reset, errors.length]);
 
   const submitForm = async (event) => {
     event.preventDefault();
 
     login({ email, password, setErrors, setStatus });
   };
-
-  
 
   return (
     <GuestLayout>

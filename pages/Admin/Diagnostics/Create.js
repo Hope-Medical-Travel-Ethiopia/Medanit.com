@@ -145,6 +145,7 @@ export default function CreateDiagnostics() {
                     <Chip
                       variant="standard"
                       label={option}
+                      key={index}
                       {...getTagProps({ index })}
                     />
                   ))

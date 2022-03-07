@@ -24,6 +24,7 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
             <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10">
               {diagnostics.procedures.map((procedures) => (
                 <LabScheduleCard
+                  key={procedures.id}
                   provider={procedures}
                   schedule={schedule}
                 />

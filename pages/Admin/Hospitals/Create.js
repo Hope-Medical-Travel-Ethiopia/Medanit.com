@@ -149,6 +149,7 @@ export default function CreateHospitals() {
                     <Chip
                       variant="standard"
                       label={option}
+                      key={index}
                       {...getTagProps({ index })}
                     />
                   ))

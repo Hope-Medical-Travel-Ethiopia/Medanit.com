@@ -153,6 +153,7 @@ export default function EditDiagnostics({ Diagnostics }) {
                     <Chip
                       variant="standard"
                       label={option}
+                      key={index}
                       {...getTagProps({ index })}
                     />
                   ))

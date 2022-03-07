@@ -42,7 +42,7 @@ export default function Admins({ admin }) {
               <List item={element} user={user} key={element.id} />
             ))
           ) : (
-            <p>You're not An Admin</p>
+            <p>You are not An Admin</p>
           )}
         </section>
       </div>

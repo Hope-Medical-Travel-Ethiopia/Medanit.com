@@ -92,7 +92,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
       <div className="Heading">
         <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Create New Procedure's Schedule
+            Create New Procedures Schedule
           </h1>
         </div>
       </div>
@@ -113,10 +113,9 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
             }}
             renderOption={(props, option) => (
               <Box
-                className="m-auto w-100"
+                className="m-auto w-100 border-2 p-2 cursor-pointer"
                 component="li"
                 {...props}
-                className=" border-2 p-2 cursor-pointer"
               >
                 {option.name}{" "}
                 <span className="block text-xs"> {option.description}</span>
@@ -212,8 +211,8 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         <h1 className="textClip text-xl font-bold my-5 ml-2">Add Schedule</h1>
         {schedules[0].day ? (
           schedules.map((item) => (
-            <div>
-              <h1 key={item.day}>{item.day} </h1>
+            <div key={item.day + item.starting}>
+              <h1> {item.day} </h1>
               <p>
                 {" "}
                 {item.starting} - to - {item.ending}{" "}

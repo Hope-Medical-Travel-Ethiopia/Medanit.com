@@ -154,6 +154,7 @@ export default function EditHospitals({ hospital }) {
                     <Chip
                       variant="standard"
                       label={option}
+                      key={index}
                       {...getTagProps({ index })}
                     />
                   ))

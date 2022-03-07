@@ -28,7 +28,7 @@ export default function EditSchedule({
       //   });
       schedule[doctorId] && setschedules(schedule[doctorId]);
     }
-  }, []);
+  }, [doctorId, schedule]);
 
   let handleScheduleChange = (i, e) => {
     let newschedules = [...schedules];
@@ -64,7 +64,7 @@ export default function EditSchedule({
       <div className="Heading">
         <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
-            Edit Doctor's Schedule
+            Edit Doctors Schedule
           </h1>
         </div>
       </div>
@@ -184,7 +184,9 @@ EditSchedule.getLayout = function PageLayout(page) {
 };
 
 export async function getServerSideProps({ query }) {
-  const scheduleResponse = await axios.get(`/api/Diagnostic_schedule/${query.parentId}`);
+  const scheduleResponse = await axios.get(
+    `/api/Diagnostic_schedule/${query.parentId}`
+  );
   const pivot = await axios.get(
     `/api/Procedure_schedule/${query.parentId}/${query.providerId}`
   );

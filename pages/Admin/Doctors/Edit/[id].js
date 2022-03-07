@@ -104,7 +104,7 @@ export default function CreateDoctors({ doctor }) {
               </FormControl>
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                 <InputLabel htmlFor={`doctor-registration-address`}>
-                  Doctor's Address
+                  Doctors Address
                 </InputLabel>
                 <OutlinedInput
                   required
@@ -146,6 +146,7 @@ export default function CreateDoctors({ doctor }) {
                       <Chip
                         variant="standard"
                         label={option}
+                        key={index}
                         {...getTagProps({ index })}
                       />
                     ))

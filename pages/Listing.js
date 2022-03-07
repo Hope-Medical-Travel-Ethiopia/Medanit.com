@@ -2,12 +2,10 @@ import ProviderListCard from "./../components/sections/ProviderListCard";
 import image from "./../public/Diagnostics.jpg";
 import axios from "./../lib/axios";
 import Head from "next/head";
-import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -47,7 +45,13 @@ const Listing = ({
     setProvider(query.qProvider);
     setSearchTerm(decodeURI(query.qSearchTerm));
     setProviderData(firstData);
-  }, []);
+  }, [
+    doctors,
+    firstData,
+    hospitals,
+    query.qProvider,
+    query.qSearchTerm,
+  ]);
 
   //Type Change Function
 

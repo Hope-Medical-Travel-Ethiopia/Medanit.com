@@ -5,7 +5,7 @@ import AdminNav from "../../components/Admin/AdminNav";
 import { useAuth } from "../../hooks/auth";
 import axios from "../../lib/axios";
 
-export default function admin() {
+export default function Admin() {
   const { user } = useAuth({ middleware: "auth" });
 
   return (

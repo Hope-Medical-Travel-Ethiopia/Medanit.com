@@ -95,10 +95,9 @@ export default function CreateMed({ medications, pharmacy }) {
             }}
             renderOption={(props, option) => (
               <Box
-                className="m-auto w-100"
+                className="m-auto w-100 p-2 cursor-pointer"
                 component="li"
                 {...props}
-                className=" p-2 cursor-pointer"
               >
                 {option.name}{" "}
               </Box>
