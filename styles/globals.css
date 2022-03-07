@@ -30,7 +30,7 @@ html {
       rgba(252, 252, 252, 0.26),
       rgb(216, 216, 216)
     ),
-    /* url("../public/doct.jpg"); */
+    url("../public/doct.jpg");
 }
 
 #scatter,

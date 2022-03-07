@@ -54,7 +54,7 @@ const AdminNav = ({ title, current, parent, user }) => {
                 {user && user.name}
               </h1>
               <p className="text-xs text-gray-500">
-                {user.role == 0 ? "Super Admin" : "Agent"}
+                {user && user.role == 0 ? "Super Admin" : "Agent"}
               </p>
             </div>
             {user && (

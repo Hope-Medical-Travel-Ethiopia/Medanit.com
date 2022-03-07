@@ -17,6 +17,7 @@ const SearchFunction = ({
   pharmacy,
   procedures,
   medication,
+  content,
 }) => {
   //variables
 
@@ -109,7 +110,9 @@ const SearchFunction = ({
             className=" w-full flex flex-wrap gap-5 items-center text-white h-36"
           >
             <FormControl className=" md:w-32 w-[100%]">
-              <InputLabel id="demo-simple-select-label">Provider</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                {content.Provider}
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="select-type"
@@ -120,16 +123,16 @@ const SearchFunction = ({
                 onChange={handleType}
               >
                 <MenuItem className="" value="Hospital">
-                  Hospital
+                  {content.Hospital}
                 </MenuItem>
                 <MenuItem className="" value="Diagnostics">
-                  Diagnostics
+                  {content.Diagnostics}
                 </MenuItem>
                 <MenuItem className="" value="Doctors">
-                  Doctor
+                  {content.Doctor}
                 </MenuItem>
                 <MenuItem className="" value="Pharmacy">
-                  Pharmacy
+                  {content.Pharmacy}
                 </MenuItem>
               </Select>
             </FormControl>
@@ -170,7 +173,7 @@ const SearchFunction = ({
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={`Search for a ${provider}`}
+                    label={`${content.SearchFor} ${provider}`}
                     inputProps={{
                       ...params.inputProps,
                       autoComplete: "new-password",
@@ -186,7 +189,7 @@ const SearchFunction = ({
                 className="h-12 bg-blue-500 w-32 py-3 flex items-center px-6 text-lg lowercase font-light"
                 endIcon={<SearchIcon />}
               >
-                Search
+                {content.Search}
               </Button>
             </FormControl>
           </form>

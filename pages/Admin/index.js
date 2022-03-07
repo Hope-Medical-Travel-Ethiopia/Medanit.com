@@ -40,11 +40,8 @@ export default function Admin() {
   );
 }
 
-admin.getLayout = function PageLayout(page) {
+Admin.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });
-  if (isLoading) {
-    return <></>;
-  }
   return (
     <div>
       <Sidebar />

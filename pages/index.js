@@ -6,7 +6,6 @@ import CounterSection from "../components/sections/CounterSection";
 import Header from "../components/sections/Header";
 import Services from "../components/sections/Services";
 import Footer from "../components/layouts/Footer";
-import SearchFunction from "../components/sections/SearchFunction";
 import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
@@ -41,12 +40,12 @@ export default function Home({
           procedures={procedures}
           medication={medication}
           sam="samuel Kedir"
-          content={t}
+          content={t.home}
         />
-        <AboutUs />
-        <CounterSection />
+        <AboutUs content={t.about} />
+        <CounterSection content={t.counter} />
         <Services />
-        <Contact />
+        <Contact contact={t.contact} />
       </main>
     </div>
   );
@@ -61,7 +60,7 @@ Home.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps({ query }) {
+export async function getStaticProps() {
   const DoctorsResponse = await axios.get("/api/doctors");
   const diagnosticResponse = await axios.get("/api/diagnostics");
   const hospitalResponse = await axios.get("/api/hospitals");

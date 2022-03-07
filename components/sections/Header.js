@@ -22,12 +22,7 @@ const Header = ({
         <div id="" className="flex flex-col lg:w-2/3 w-100 ">
           <h1 className="md:text-5xl text-3xl uppercase font-black  tracking-wider stroke-w ">
             <ReactTypingEffect
-              text={[
-                " Medanit! Health Care Just Got Better.",
-                "You can seach for Specialist Doctors!",
-                "You can seach for Speciality Hospitals!",
-                "የሚያስፈልጎትን መድሀኒት በመጻፍ ብቻ የት እንደሚገኝ ማወቅ የሚችሉበት ",
-              ]}
+              text={content.type}
               speed="100"
               eraseSpeed="50"
               eraseDelay="2500"
@@ -41,6 +36,7 @@ const Header = ({
         </div>
         <div className="my-5">
           <SearchFunction
+            content={content}
             doctors={doctors}
             diagnostics={diagnostics}
             hospitals={hospitals}

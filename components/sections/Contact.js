@@ -5,24 +5,10 @@ import {
   FaMailBulk,
   FaMap,
   FaPhone,
-  FaTelegram,
   FaUsers,
 } from "react-icons/fa";
 
-const Contact = () => {
-  const contact = {
-    title: "Contact Us",
-    desc:
-      "if you want to know about our system or want to work with Us leave us a message.",
-    name: "Full Name",
-    email: "Email",
-    message: "Message",
-    writeMessage: "Write your message here ...",
-    send: "send",
-    contactTitle: "Contact Information",
-    contactDesc: " Here's our contact Information , Let's keep in touch",
-    address: "Getu Commercial , Office 406 - Bole,Addis Ababa",
-  };
+const Contact = ({ contact }) => {
   return (
     <div
       id="contact"

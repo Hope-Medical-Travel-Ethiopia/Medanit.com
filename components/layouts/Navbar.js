@@ -51,21 +51,21 @@ const Navbar = ({ home }) => {
             <li className="my-1">
               <Link href="#Header" className="">
                 <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-                  {t.search}
+                  {t.nav.search}
                 </a>
               </Link>
             </li>
             <li className="my-1">
               <Link href="#services">
                 <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-                  {t.service}
+                  {t.nav.service}
                 </a>
               </Link>
             </li>
             <li className="my-1">
               <Link href="#contact">
                 <a className="bg-blue-500   px-5 py-2 rounded-sm text-white rounded-full">
-                  {t.contact}
+                  {t.nav.contact}
                 </a>
               </Link>
             </li>
@@ -77,7 +77,6 @@ const Navbar = ({ home }) => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              label="Age"
               defaultValue={locale}
               onChange={changeLanguage}
             >
