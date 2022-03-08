@@ -61,11 +61,19 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
           </div>
         </section>
 
-        {provider && provider != "Pharmacy" && (
+        {provider && provider != "Pharmacy" ? (
           <section className=" self-end justify-self-end">
             <Link href={`/${provider}/` + providers.id}>
               <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
                 View Profile
+              </a>
+            </Link>
+          </section>
+        ) : (
+          <section className=" self-end justify-self-end">
+            <Link href={`tel:${providers.phone}`}>
+              <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
+                Call
               </a>
             </Link>
           </section>

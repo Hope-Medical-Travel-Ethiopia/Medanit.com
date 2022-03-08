@@ -273,7 +273,6 @@ export async function getServerSideProps({ query }) {
       medication: MedicationResponse.data,
       firstData: Firstresponse.data,
     },
-    revalidate: 1,
   };
 }
 
