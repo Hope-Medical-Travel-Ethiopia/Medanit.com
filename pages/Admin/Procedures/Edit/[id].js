@@ -153,17 +153,17 @@ EditProcedure.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/Procedures");
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/Procedures");
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Procedure/${params.id}`);
   const procedureResponse = await axios.get("/api/Procedures");
   return {

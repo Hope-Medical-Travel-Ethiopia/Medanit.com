@@ -20,8 +20,8 @@ export default function Home({
 }) {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : am;
-  console.log(locale);
+  const t = locale === "en" ? am : en;
+
   return (
     <div>
       <Head>
@@ -77,5 +77,6 @@ export async function getStaticProps() {
       procedures: procedureResponse.data,
       medication: MedicationResponse.data,
     },
+    revalidate: 1,
   };
 }

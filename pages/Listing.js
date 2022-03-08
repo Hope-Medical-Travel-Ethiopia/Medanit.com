@@ -45,13 +45,7 @@ const Listing = ({
     setProvider(query.qProvider);
     setSearchTerm(decodeURI(query.qSearchTerm));
     setProviderData(firstData);
-  }, [
-    doctors,
-    firstData,
-    hospitals,
-    query.qProvider,
-    query.qSearchTerm,
-  ]);
+  }, []);
 
   //Type Change Function
 
@@ -279,6 +273,7 @@ export async function getServerSideProps({ query }) {
       medication: MedicationResponse.data,
       firstData: Firstresponse.data,
     },
+    revalidate: 1,
   };
 }
 

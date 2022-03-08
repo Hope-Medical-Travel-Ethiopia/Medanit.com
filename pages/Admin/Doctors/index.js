@@ -45,7 +45,7 @@ Doctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const Doctors = await axios.get("/api/doctors");
 
   return {

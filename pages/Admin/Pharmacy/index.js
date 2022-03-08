@@ -48,7 +48,7 @@ Pharmacy.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const Hospitals = await axios.get("/api/Pharmacy");
 
   return {

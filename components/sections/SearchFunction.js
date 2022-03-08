@@ -56,7 +56,7 @@ const SearchFunction = ({
       hospitalList.push(item.name);
     });
     setProviders(hospitalList);
-  }, [hospitals, doctors]);
+  }, []);
 
   const handleType = (event) => {
     setProvider(event.target.value);

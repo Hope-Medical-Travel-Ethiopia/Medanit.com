@@ -204,18 +204,18 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/doctors");
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/doctors");
 
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
   return {
     props: {

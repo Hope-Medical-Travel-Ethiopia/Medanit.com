@@ -65,20 +65,20 @@ Hospital.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/hospitals");
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/hospitals");
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
   const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
-  console.log(scheduleResponse.data);
+  // console.log(scheduleResponse.data);
   return {
     props: {
       hospital: response.data[0],

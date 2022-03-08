@@ -59,7 +59,7 @@ export default function EditHospitals({ hospital }) {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       router.push("/Admin/Hospitals");
     });
   };
@@ -214,18 +214,18 @@ EditHospitals.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/hospitals");
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/hospitals");
 
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
 
   return {

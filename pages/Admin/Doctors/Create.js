@@ -51,7 +51,7 @@ export default function CreateDoctors({ doctors }) {
       method: "POST",
       data: formData,
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       router.push("/Admin/Doctors");
     });
   };
@@ -232,7 +232,7 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await axios.get("/api/doctors");
 
   return {

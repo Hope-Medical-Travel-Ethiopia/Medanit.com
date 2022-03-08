@@ -56,9 +56,9 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
       })
       .then((response) => {
         setProcedure(response.data);
-        console.log(response);
-        console.log("the procedure below");
-        console.log(Procedure);
+        // console.log(response);
+        // console.log("the procedure below");
+        // console.log(Procedure);
       });
     setShowProcedureForm(false);
     setShowProcedure(true);
@@ -83,7 +83,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         schedule: schedules,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         router.push(`/Admin/Diagnostics/${Diagnostics.id}`);
       });
   };
@@ -118,7 +118,6 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                 {...props}
               >
                 {option.name}{" "}
-                <span className="block text-xs"> {option.description}</span>
               </Box>
             )}
             renderInput={(params) => (
@@ -352,17 +351,17 @@ CreateSchedule.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/diagnostics");
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/diagnostics");
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
   const Procedures = await axios.get("/api/Procedures");
 

@@ -19,7 +19,7 @@ const AboutUs = ({ content }) => {
             className="md:w-[45vw] w-[90vw] m-auto"
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/MuwNW137674?rel=0&showinfo=0&autohide=1"
+            src="https://www.youtube.com/embed/flQkubck0j4"
             title="MEDANIT"
           ></iframe>
         </section>

@@ -39,7 +39,7 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
         </section>
         <section className="descSection text-center md:text-left flex flex-col justify-between w-64">
           <div className="nameTag">
-            <h1 className="text-2xl font-bold text-blue-500">
+            <h1 className="text-xl font-bold text-blue-500">
               {providers.name}
             </h1>
             {providers.speciality && (
@@ -55,11 +55,9 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
             )}
 
             {providers.address && (
-              <p className="basis-2/3 text-sm">{providers.address}</p>
+              <p className=" text-sm">{providers.address}</p>
             )}
-            {provider == "Pharmacy" && (
-              <p className="basis-2/3 text-sm">{provider}</p>
-            )}
+            {provider == "Pharmacy" && <p className=" text-sm">{provider}</p>}
           </div>
         </section>
 

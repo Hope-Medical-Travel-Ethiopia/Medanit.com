@@ -55,6 +55,7 @@ export async function getStaticProps({ params }) {
       doctor: response.data[0],
       schedule: scheduleResponse.data,
     },
+    revalidate: 1,
   };
 }
 

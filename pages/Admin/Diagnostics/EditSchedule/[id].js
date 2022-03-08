@@ -55,7 +55,7 @@ export default function EditSchedule({
         schedule: schedules,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         router.push(`/Admin/Diagnostics/${hospitalId}`);
       });
   };
@@ -191,7 +191,7 @@ export async function getServerSideProps({ query }) {
     `/api/Procedure_schedule/${query.parentId}/${query.providerId}`
   );
 
-  console.log(scheduleResponse.data);
+  // console.log(scheduleResponse.data);
 
   return {
     props: {

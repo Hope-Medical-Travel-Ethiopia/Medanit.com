@@ -162,7 +162,7 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await axios.get("/api/doctors");
 
   return {
