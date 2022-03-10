@@ -36,18 +36,18 @@ const DoctorProfile = ({ doctor, schedule }) => {
     </>
   );
 };
-export async function getStaticPaths() {
-  const response = await axios.get("/api/doctors");
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/doctors");
 
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
   const scheduleResponse = await axios.get(`/api/scheduleDoctor/${params.id}`);
   return {
@@ -55,7 +55,6 @@ export async function getStaticProps({ params }) {
       doctor: response.data[0],
       schedule: scheduleResponse.data,
     },
-    revalidate: 1,
   };
 }
 

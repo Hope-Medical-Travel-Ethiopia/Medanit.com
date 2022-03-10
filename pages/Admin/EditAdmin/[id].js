@@ -101,7 +101,7 @@ export default function CreateDoctors({ agent, id }) {
                     // required
                     id="doctor-registration-address"
                     type="password"
-                      // value=""
+                    // value=""
                     onChange={handleChange("password")}
                     label="Agent Password"
                   />
@@ -137,7 +137,7 @@ export default function CreateDoctors({ agent, id }) {
               </div>
               <input
                 type="submit"
-                value="Register Doctor"
+                value="Update"
                 className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white transition-all hover:bg-emerald-700 hover:cursor-pointer"
               />
             </form>

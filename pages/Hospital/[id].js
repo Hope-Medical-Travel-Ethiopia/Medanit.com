@@ -37,18 +37,18 @@ const HospitalProfile = ({ hospitals, schedule }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/hospitals");
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/hospitals");
 
-  return {
-    fallback: false,
-    paths: response.data.map((item) => ({
-      params: { id: item.id.toString() },
-    })),
-  };
-}
+//   return {
+//     fallback: false,
+//     paths: response.data.map((item) => ({
+//       params: { id: item.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);
   const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
 
@@ -57,7 +57,6 @@ export async function getStaticProps({ params }) {
       hospitals: response.data[0],
       schedule: scheduleResponse.data,
     },
-    revalidate: 1,
   };
 }
 

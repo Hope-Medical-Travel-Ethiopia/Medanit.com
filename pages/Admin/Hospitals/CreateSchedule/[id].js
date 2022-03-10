@@ -131,7 +131,6 @@ export default function CreateSchedule({ doctors, hospital }) {
                 {...props}
               >
                 {option.name}{" "}
-                {/* <span className="block text-xs"> {option.speciality}</span> */}
               </Box>
             )}
             renderInput={(params) => (

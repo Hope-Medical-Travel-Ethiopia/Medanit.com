@@ -37,18 +37,18 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const response = await axios.get("/api/diagnostics");
+// export async function getStaticPaths() {
+//   const response = await axios.get("/api/diagnostics");
 
-  return {
-    fallback: false,
-    paths: response.data.map((diagnostic) => ({
-      params: { id: diagnostic.id.toString() },
-    })),
-  };
-}
+//   return {
+//     fallback: false,
+//     paths: response.data.map((diagnostic) => ({
+//       params: { id: diagnostic.id.toString() },
+//     })),
+//   };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
   const scheduleResponse = await axios.get(
     `/api/Diagnostic_schedule/${params.id}`
@@ -59,7 +59,6 @@ export async function getStaticProps({ params }) {
       diagnostics: response.data[0],
       schedule: scheduleResponse.data,
     },
-    revalidate: 1,
   };
 }
 

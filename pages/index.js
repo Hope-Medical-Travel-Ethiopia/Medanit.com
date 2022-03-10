@@ -60,7 +60,7 @@ Home.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const DoctorsResponse = await axios.get("/api/doctors");
   const diagnosticResponse = await axios.get("/api/diagnostics");
   const hospitalResponse = await axios.get("/api/hospitals");
@@ -77,6 +77,5 @@ export async function getStaticProps() {
       procedures: procedureResponse.data,
       medication: MedicationResponse.data,
     },
-    revalidate: 1,
   };
 }
