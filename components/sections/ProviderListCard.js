@@ -5,9 +5,7 @@ import { useState, useEffect } from "react";
 
 const ProviderListCard = ({ className, provider, providers, pic }) => {
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
 
   const [image, setimage] = useState();
@@ -40,7 +38,7 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
           </div>
         </section>
         <section className="descSection text-center md:text-left flex flex-col justify-between w-64">
-          <div className="nameTag">
+          <div className="nameTag ">
             <h1 className="text-xl font-bold text-blue-500">
               {providers.name}
             </h1>
@@ -60,6 +58,16 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
               <p className=" text-sm">{providers.address}</p>
             )}
             {provider == "Pharmacy" && <p className=" text-sm">{provider}</p>}
+
+            {providers.opening && (
+              <p className="mt-3">
+                Working Hour{" "}
+                <span className="ml-3 font-bold text-blue-500 tracking-wide">
+                  {" "}
+                  {providers.opening} - {providers.closing}
+                </span>
+              </p>
+            )}
           </div>
         </section>
 

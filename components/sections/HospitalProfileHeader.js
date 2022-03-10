@@ -3,11 +3,9 @@ import pic from "../../public/hospital.jpg";
 import { useState, useEffect } from "react";
 import Picture from "../reusable/Picture";
 
-const HospitalProfileHeader = ({ providers }) => {
+const HospitalProfileHeader = ({ providers, DefaultImage }) => {
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
 
   const [image, setimage] = useState();
@@ -31,7 +29,7 @@ const HospitalProfileHeader = ({ providers }) => {
             className="border-2  overflow-hidden   rounded-full object-cover"
           />
         ) : (
-          <Picture pic={pic} size={36} />
+          <Picture pic={DefaultImage} size={36} />
         )}{" "}
       </div>
       <div className="nameTag text-gray-50 w-full text-center lg:text-left">

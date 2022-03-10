@@ -7,8 +7,6 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Chip from "@mui/material/Chip";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 import { useRouter } from "next/router";
@@ -17,7 +15,7 @@ export default function CreatePharmacy() {
   const serviceList = ["sam", "samue", "muse"];
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
-
+  const [disableButton, setdisableButton] = useState(false);
   const [values, setValues] = React.useState({
     name: "",
     phone: "",
@@ -34,7 +32,7 @@ export default function CreatePharmacy() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setdisableButton(true);
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -173,11 +171,18 @@ export default function CreatePharmacy() {
               </FormControl>
             </div>
           </div>
-          <input
-            type="submit"
-            value="Submit"
-            className=" rounded-lg w-fit py-3 px-20  m-2 bg-emerald-500 text-white"
-          />
+          {!disableButton ? (
+            <input
+              type="submit"
+              value="Submit"
+              className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+            />
+          ) : (
+            <input
+              value="Loading ..."
+              className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+            />
+          )}
         </form>
       </div>
     </div>

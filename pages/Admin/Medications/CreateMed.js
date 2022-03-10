@@ -24,13 +24,14 @@ export default function CreateMed({ medications }) {
   });
 
   const [schedule, setSchedule] = useState([]);
-
+  const [disableButton, setdisableButton] = useState(false);
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setdisableButton(true);
     const response = await axios
       .post("/api/Medications", {
         name: values.name,
@@ -68,10 +69,7 @@ export default function CreateMed({ medications }) {
                 {...props}
               >
                 {option.name}{" "}
-                <span className="block text-xs">
-                  {" "}
-                  {option.speciality} {option.description}
-                </span>
+                <span className="block text-xs"> {option.speciality}</span>
               </Box>
             )}
             renderInput={(params) => (
@@ -119,11 +117,18 @@ export default function CreateMed({ medications }) {
                     />
                   </FormControl>
                 </div>
-                <input
-                  type="submit"
-                  value="Register medication"
-                  className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white transition-all hover:bg-emerald-700 hover:cursor-pointer"
-                />
+                {!disableButton ? (
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+                  />
+                ) : (
+                  <input
+                    value="Loading ..."
+                    className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                  />
+                )}
               </form>
             </div>
           </div>

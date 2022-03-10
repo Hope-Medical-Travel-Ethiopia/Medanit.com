@@ -4,6 +4,8 @@ import Doc4 from "../../public/Doc4.jpg";
 import Hospital from "../../public/pharmacy.jpg";
 import { useState } from "react";
 
+import Link from "next/link";
+
 const Services = () => {
   const serviceData = [
     {
@@ -95,9 +97,11 @@ const ServiceComponent = ({ title, description, picture, id }) => {
             {title}
           </h1>
           <p className="serviceDesc text-sm py-5">{description}</p>
-          <button className="serviceButton lg:px-4 px-2 py-2 text-sm md:text-xs lg:text-sm rounded-full border border-cyan-700 hover:bg-blue-500 hover:border-white transition-all  box-border hover:text-white">
-            Search For {title}
-          </button>
+          <Link href="#Header">
+            <a className="serviceButton lg:px-4 px-2 py-2 text-sm md:text-xs lg:text-sm rounded-full border border-cyan-700 hover:bg-blue-500 hover:border-white transition-all  box-border hover:text-white">
+              Search For {title}
+            </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -73,5 +73,4 @@ export default {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
     },
   ],
-  
 };

@@ -3,7 +3,7 @@ import About from "../../components/sections/About";
 import HospitalProfileHeader from "../../components/sections/HospitalProfileHeader";
 import Expertise from "../../components/sections/ExpertiseSection";
 import DoctorsSchedule from "../../components/sections/DoctorsSchedule";
-import image from "../../public/Doc4.jpg";
+import image from "../../public/hospitalDefault.jpg";
 import axios from "../../lib/axios";
 
 const HospitalProfile = ({ hospitals, schedule }) => {
@@ -11,7 +11,7 @@ const HospitalProfile = ({ hospitals, schedule }) => {
     <>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
-          <HospitalProfileHeader providers={hospitals} />
+          <HospitalProfileHeader providers={hospitals} DefaultImage={image} />
         </section>
         {/*  */}
         <section className=" mt-10 w-full ">

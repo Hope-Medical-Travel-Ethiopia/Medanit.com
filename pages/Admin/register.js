@@ -20,7 +20,7 @@ import Select from "@mui/material/Select";
 export default function CreateDoctors({ doctors }) {
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
-
+  const [disableButton, setdisableButton] = useState(false);
   const [values, setValues] = React.useState({
     name: "",
     email: "",
@@ -35,7 +35,7 @@ export default function CreateDoctors({ doctors }) {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-
+    setdisableButton(true);
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -133,11 +133,18 @@ export default function CreateDoctors({ doctors }) {
                 </Select>
               </FormControl>
             </div>
-            <input
-              type="submit"
-              value="Register Doctor"
-              className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white transition-all hover:bg-emerald-700 hover:cursor-pointer"
-            />
+            {!disableButton ? (
+              <input
+                type="submit"
+                value="Submit"
+                className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+              />
+            ) : (
+              <input
+                value="Loading ..."
+                className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+              />
+            )}
           </form>
         </div>
       </div>

@@ -1,5 +1,9 @@
 import ProviderListCard from "./../components/sections/ProviderListCard";
-import image from "./../public/Diagnostics.jpg";
+// import image from "./../public/Diagnostics.jpg";
+import hospitalPic from "./../public/hospitalDefault.jpg";
+import labPic from "./../public/labDefault.jpg";
+import doctorPic from "./../public/DocDefault.jpg";
+import pharmaPic from "./../public/pharmacyDefault.jpg";
 import axios from "./../lib/axios";
 import Head from "next/head";
 import { useState, useEffect } from "react";
@@ -22,12 +26,14 @@ const Listing = ({
   procedures,
   medication,
   firstData,
+  qProvider,
 }) => {
   const [providerData, setProviderData] = useState([]);
-  const [provider, setProvider] = useState("Hospital");
+  const [provider, setProvider] = useState(qProvider);
   const [providers, setProviders] = useState([]);
   const [searchTerm, setSearchTerm] = useState();
   const [Med, setMed] = useState();
+  const [image, setImage] = useState();
   const [IsLoading, setIsLoading] = useState(false);
   const doctorsList = [];
   const hospitalList = [];
@@ -45,6 +51,16 @@ const Listing = ({
     setProvider(query.qProvider);
     setSearchTerm(decodeURI(query.qSearchTerm));
     setProviderData(firstData);
+
+    if (provider == "Diagnostics") {
+      setImage(labPic);
+    } else if (provider == "Hospital") {
+      setImage(hospitalPic);
+    } else if (provider == "Doctors") {
+      setImage(doctorPic);
+    } else if (provider == "Pharmacy") {
+      setImage(pharmaPic);
+    }
   }, []);
 
   //Type Change Function
@@ -120,6 +136,16 @@ const Listing = ({
         // setIsLoading(true);
       }
     }
+
+    if (provider == "Diagnostics") {
+      setImage(labPic);
+    } else if (provider == "Hospital") {
+      setImage(hospitalPic);
+    } else if (provider == "Doctors") {
+      setImage(doctorPic);
+    } else if (provider == "Pharmacy") {
+      setImage(pharmaPic);
+    }
   };
 
   //return
@@ -166,6 +192,7 @@ const Listing = ({
                 name="searchTerm"
                 options={providers}
                 variant="filled"
+                autocomplete="new-password"
                 freeSolo
                 required
                 // value={providers}
@@ -199,6 +226,7 @@ const Listing = ({
                     {...params}
                     label={`Search for a ${provider}`}
                     variant="filled"
+                    autocomplete="new-password"
                     inputProps={{
                       ...params.inputProps,
                       autoComplete: "new-password",
@@ -272,6 +300,7 @@ export async function getServerSideProps({ query }) {
       procedures: procedureResponse.data,
       medication: MedicationResponse.data,
       firstData: Firstresponse.data,
+      qProvider: query.qProvider,
     },
   };
 }

@@ -20,7 +20,7 @@ export default function Home({
 }) {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? am : en;
+  const t = locale === "en" ? en : en;
 
   return (
     <div>

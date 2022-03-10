@@ -10,6 +10,12 @@ import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 export default function Diagnostic({ diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
+
+
+
+
+
+  
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">

@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 export default function CreateTest({ procedure }) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
-
+  const [disableButton, setdisableButton] = useState(false);
   const [values, setValues] = React.useState({
     name: "",
     description: "",
@@ -30,6 +30,7 @@ export default function CreateTest({ procedure }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setdisableButton(true);
     const response = await axios
       .post("/api/Procedure", {
         name: values.name,
@@ -114,11 +115,18 @@ export default function CreateTest({ procedure }) {
                     />
                   </FormControl>
                 </div>
-                <input
-                  type="submit"
-                  value="Register procedure"
-                  className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white transition-all hover:bg-emerald-700 hover:cursor-pointer"
-                />
+                {!disableButton ? (
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+                  />
+                ) : (
+                  <input
+                    value="Loading ..."
+                    className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                  />
+                )}
               </form>
             </div>
           </div>

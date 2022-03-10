@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Logo from "./LogoPic";
 import { useRouter } from "next/router";
 import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -26,7 +25,7 @@ const Navbar = ({ home }) => {
     <nav
       className="flex fixed 
     top-0 w-full scroll scatter
-    justify-between  py-5 sm:items-center  
+    justify-between  py-3 sm:items-center  
     px-5 lg:px-20 md:px-10 flex-col z-10  sm:flex-row "
     >
       <div className="Logo flex items-center justify-between lg:text-2xl text-xl ">
@@ -73,12 +72,13 @@ const Navbar = ({ home }) => {
         )}
 
         <li>
-          <FormControl fullWidth>
+          <FormControl fullWidth className="overflow-hidden">
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               defaultValue={locale}
               onChange={changeLanguage}
+              className="h-10"
             >
               <MenuItem value="en">EN</MenuItem>
               <MenuItem value="am">AM</MenuItem>

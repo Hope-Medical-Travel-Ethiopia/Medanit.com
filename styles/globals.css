@@ -90,6 +90,19 @@ html {
   @apply bg-clip-text text-transparent  bg-gradient-to-br from-blue-500 via-cyan-500  to-emerald-500;
 }
 
+.comingSoon {
+  @apply bg-clip-text text-transparent 
+  text-9xl font-black uppercase text-center 
+  tracking-widest bg-gradient-to-br from-indigo-500 
+  via-purple-500  via-pink-500 to-pink-900;
+}
+.notfound {
+  @apply bg-clip-text text-transparent 
+  text-9xl font-black uppercase text-center 
+  tracking-widest bg-gradient-to-br from-gray-900 
+   to-slate-900;
+}
+
 .registerButton {
   @apply px-10 h-16 bg-gradient-to-r from-cyan-500 to-emerald-500
   text-white rounded-lg flex items-center 
@@ -98,4 +111,16 @@ html {
 
 Image {
   z-index: 0;
+}
+
+.reportCard {
+  @apply h-64 w-64 flex-wrap bg-gradient-to-br bg-white shadow-xl 
+ to-slate-900 gap-3 p-5 rounded-xl flex flex-col justify-center items-center text-center;
+}
+
+.reportCard h1 {
+  @apply text-6xl tracking-widest font-black;
+}
+.reportCard h3 {
+  @apply text-lg tracking-widest font-light;
 }

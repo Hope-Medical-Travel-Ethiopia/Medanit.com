@@ -14,6 +14,7 @@ import { Router, useRouter } from "next/router";
 
 export default function EditDiagnostics({ Diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
+  const [disableButton, setdisableButton] = useState(false);
 
   const serviceList = ["sam", "samue", "muse"];
 
@@ -42,6 +43,7 @@ export default function EditDiagnostics({ Diagnostics }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
+    setdisableButton(true);
 
     formData.append("name", values.name);
     formData.append("description", values.description);
@@ -180,11 +182,18 @@ export default function EditDiagnostics({ Diagnostics }) {
               />
             </FormControl>
           </div>
-          <input
-            type="submit"
-            value="Submit"
-            className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-700 hover:cursor-pointer transition-all ease-linear"
-          />
+          {!disableButton ? (
+            <input
+              type="submit"
+              value="Submit"
+              className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+            />
+          ) : (
+            <input
+              value="Loading ..."
+              className=" rounded-lg w-fit py-3 px-20 m-2 bg-gray-500 text-white "
+            />
+          )}
         </form>
       </div>
     </div>

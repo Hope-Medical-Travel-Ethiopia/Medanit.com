@@ -24,7 +24,7 @@ import { Router, useRouter } from "next/router";
 export default function CreateSchedule({ doctors, hospital }) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
-
+  const [disableButton, setdisableButton] = useState(false);
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
   ]);
@@ -89,6 +89,7 @@ export default function CreateSchedule({ doctors, hospital }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setdisableButton(true);
     const response = await axios
       .post("/api/Hospital_schedule", {
         hospital_id: hospital.id,
@@ -284,11 +285,18 @@ export default function CreateSchedule({ doctors, hospital }) {
                   />
                 </FormControl>
               </div>
-              <input
-                type="submit"
-                value="Register Doctor"
-                className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white transition-all hover:bg-emerald-700 hover:cursor-pointer"
-              />
+              {!disableButton ? (
+                <input
+                  type="submit"
+                  value="Submit"
+                  className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+                />
+              ) : (
+                <input
+                  value="Loading ..."
+                  className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                />
+              )}
             </form>
           </div>
         </div>
@@ -378,12 +386,18 @@ export default function CreateSchedule({ doctors, hospital }) {
               >
                 Add
               </button>
-              <button
-                className="button bg-emerald-500 hover:bg-emerald-700 transition-all px-10 py-4 m rounded-sm text-white cursor-pointer"
-                type="submit"
-              >
-                Submit
-              </button>
+              {!disableButton ? (
+                <input
+                  type="submit"
+                  value="Submit"
+                  className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+                />
+              ) : (
+                <input
+                  value="Loading ..."
+                  className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                />
+              )}
             </div>
           </form>
         </div>

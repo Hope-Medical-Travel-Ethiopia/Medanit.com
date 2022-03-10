@@ -21,6 +21,7 @@ import { Router, useRouter } from "next/router";
 export default function CreateSchedule({ Procedures, Diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
+  const [disableButton, setdisableButton] = useState(false);
 
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
@@ -49,6 +50,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+
     const response = await axios
       .post("/api/Procedure", {
         name: values.name,
@@ -59,9 +61,9 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         // console.log(response);
         // console.log("the procedure below");
         // console.log(Procedure);
+        setShowProcedureForm(false);
+        setShowProcedure(true);
       });
-    setShowProcedureForm(false);
-    setShowProcedure(true);
   };
 
   const [schedule, setSchedule] = useState([]);
@@ -76,6 +78,8 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setdisableButton(true);
+
     const response = await axios
       .post("/api/Diagnostic_schedule", {
         diagnostics_id: Diagnostics.id,
@@ -315,12 +319,18 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
             >
               Add
             </button>
-            <button
-              className="button bg-emerald-500 hover:bg-emerald-700 transition-all px-10 py-4 m rounded-sm text-white cursor-pointer"
-              type="submit"
-            >
-              Submit
-            </button>
+            {!disableButton ? (
+              <input
+                type="submit"
+                value="Submit"
+                className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+              />
+            ) : (
+              <input
+                value="Loading ..."
+                className=" rounded-lg w-fit py-3 px-20 m-2 bg-gray-500 text-white "
+              />
+            )}
           </div>
         </form>
       </div>

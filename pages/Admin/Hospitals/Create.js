@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 
 export default function CreateHospitals() {
   const { user } = useAuth({ middleware: "auth" });
-
+  const [disableButton, setdisableButton] = useState(false);
   const serviceList = ["sam", "samue", "muse"];
 
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function CreateHospitals() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setdisableButton(true);
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -176,11 +176,18 @@ export default function CreateHospitals() {
               />
             </FormControl>
           </div>
-          <input
-            type="submit"
-            value="Submit"
-            className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white"
-          />
+          {!disableButton ? (
+            <input
+              type="submit"
+              value="Submit"
+              className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+            />
+          ) : (
+            <input
+              value="Loading ..."
+              className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+            />
+          )}
         </form>
       </div>
     </div>

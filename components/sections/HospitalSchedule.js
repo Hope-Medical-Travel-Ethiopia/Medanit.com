@@ -1,13 +1,13 @@
 import pic from "../../public/hospital.jpg";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import Picture from "../reusable/Picture";
+import hospitalDefault from "../../public/hospitalDefault.jpg";
 
 const HospitalSchedule = ({ hospital, schedule, provider }) => {
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
 
   const [image, setimage] = useState();
@@ -21,7 +21,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
   }, [hospital]);
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
-      <div className="flex lg:basis-2/5  flex-wrap lg:gap-10 gap-5 justify-center">
+      <div className="flex  lg:flex-nowrap flex-wrap lg:gap-10 gap-5 justify-center md:justify-evenly">
         <div className="overflow-hidden relative h-40 w-40 rounded-full">
           {image ? (
             <Image
@@ -32,25 +32,49 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
               className="border-2  overflow-hidden   rounded-full object-cover"
             />
           ) : (
-            <Picture pic={pic} size={40} />
+            <Picture pic={hospitalDefault} size={40} />
           )}{" "}
         </div>
-        <div className="textSection lg:basis-3/5 pt-2 flex flex-col items-center lg:items-start">
-          <div className="flex flex-wrap text-center lg:text-left lg:gap-10 gap-5 md:justify-between justify-center items-end lg:mb-10 mb-5 ">
+        <div className=" textSection lg:basis-2/3 pt-2 flex flex-col items-center gap-5 lg:items-stretch ">
+          <div className=" flex flex-col gap-5 lg:gap-8">
             <div className="nameTag">
               <h1 className="text-xl leading-tight mb-2 font-bold text-blue-500">
                 {hospital.name}
               </h1>
-              <p className="text-blue-500 tracking-wider"> {hospital.phone}</p>
-              <p className="text-sm w-full tracking-wide">{hospital.address}</p>
+              {hospital.phone && (
+                <Link href={`tel: ${hospital.phone}`}>
+                  <a className="text w-full block text-blue-500 tracking-widest mt-2">
+                    {hospital.phone}
+                  </a>
+                </Link>
+              )}
+              {hospital.email && (
+                <Link href={`mailTo: ${hospital.email}`}>
+                  <a className="text w-full block text-blue-500">
+                    {hospital.email}
+                  </a>
+                </Link>
+              )}
+              {hospital.address && (
+                <p className="text-sm w-full tracking-wide">
+                  {hospital.address}
+                </p>
+              )}
             </div>
+            <div className=" flex">
+              <Link href={`/Hospital/` + provider.id}>
+                <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
+                  View Profile
+                </a>
+              </Link>
+            </div>
+          </div>
 
-            <div className="Dates w-full text-left">
-              {schedule[`${provider.id}`] &&
-                schedule[`${provider.id}`].map((item) => (
-                  <Schedule time={item} key={item} />
-                ))}
-            </div>
+          <div className="Dates w-full md:text-left text-center">
+            {schedule[`${provider.id}`] &&
+              schedule[`${provider.id}`].map((item, index) => (
+                <Schedule time={item} key={index} />
+              ))}
           </div>
         </div>
       </div>

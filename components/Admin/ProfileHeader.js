@@ -15,9 +15,7 @@ const ProfileHeader = ({ pic, type, provider }) => {
       });
   };
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
   const [image, setimage] = useState();
 
@@ -75,6 +73,15 @@ const ProfileHeader = ({ pic, type, provider }) => {
               Opening Hours :
               <span className="mx-3">
                 {provider.openingTime} - {provider.closingTime}
+              </span>
+            </p>
+          )}
+          {provider.opening && (
+            <p className="mt-3">
+              Working Hour{" "}
+              <span className="ml-3 font-bold tracking-wide">
+                {" "}
+                {provider.opening} - {provider.closing}
               </span>
             </p>
           )}
