@@ -68,7 +68,7 @@ export async function getServerSideProps() {
   const pharmacyResponse = await axios.get("/api/Pharmacy");
   const procedureResponse = await axios.get("/api/Procedures");
   const MedicationResponse = await axios.get("/api/Medications");
-  const CounterResponse = await axios.get("/api/Count");
+  const CounterResponse = await axios.get("/api/CountProviders");
 
   return {
     props: {
