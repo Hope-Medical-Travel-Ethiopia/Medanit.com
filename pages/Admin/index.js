@@ -5,34 +5,36 @@ import AdminNav from "../../components/Admin/AdminNav";
 import { useAuth } from "../../hooks/auth";
 import axios from "../../lib/axios";
 
-export default function Admin() {
+export default function Admin({ counter }) {
   const { user } = useAuth({ middleware: "auth" });
-  const report = [
-    {
-      number: "43",
-      provider: "Hospitals",
-    },
-    {
-      number: "125",
-      provider: "Doctors",
-    },
-    {
-      number: "24",
-      provider: "Diagnostic centers and Laboratories",
-    },
-    {
-      number: "26",
-      provider: "Pharmacies",
-    },
-    {
-      number: "10256",
-      provider: "Medications",
-    },
-    {
-      number: "125",
-      provider: "Laboratory Tests",
-    },
-  ];
+  // const report = [
+  //   {
+  //     number: "43",
+  //     provider: "Hospitals",
+  //   },
+  //   {
+  //     number: "125",
+  //     provider: "Doctors",
+  //   },
+  //   {
+  //     number: "24",
+  //     provider: "Diagnostic centers and Laboratories",
+  //   },
+  //   {
+  //     number: "26",
+  //     provider: "Pharmacies",
+  //   },
+  //   {
+  //     number: "10256",
+  //     provider: "Medications",
+  //   },
+  //   {
+  //     number: "125",
+  //     provider: "Laboratory Tests",
+  //   },
+  // ];
+
+  const report = counter;
 
   return (
     <div className="min-h-screen p-20">
@@ -50,6 +52,11 @@ export default function Admin() {
 
 Admin.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });
+
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
     <div>
       <Sidebar />
@@ -61,3 +68,13 @@ Admin.getLayout = function PageLayout(page) {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  const CounterResponse = await axios.get("/api/Count");
+
+  return {
+    props: {
+      counter: CounterResponse.data,
+    },
+  };
+}

@@ -17,6 +17,7 @@ export default function Home({
   pharmacy,
   procedures,
   medication,
+  counter,
 }) {
   const router = useRouter();
   const { locale } = router;
@@ -43,7 +44,7 @@ export default function Home({
           content={t.home}
         />
         <AboutUs content={t.about} />
-        <CounterSection content={t.counter} />
+        <CounterSection content={t.counter} counter={counter} />
         <Services />
         <Contact contact={t.contact} />
       </main>
@@ -67,6 +68,7 @@ export async function getServerSideProps() {
   const pharmacyResponse = await axios.get("/api/Pharmacy");
   const procedureResponse = await axios.get("/api/Procedures");
   const MedicationResponse = await axios.get("/api/Medications");
+  const CounterResponse = await axios.get("/api/Count");
 
   return {
     props: {
@@ -76,6 +78,7 @@ export async function getServerSideProps() {
       pharmacy: pharmacyResponse.data,
       procedures: procedureResponse.data,
       medication: MedicationResponse.data,
+      counter: CounterResponse.data,
     },
   };
 }
