@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Picture from "../reusable/Picture";
 import DocDefault from "../../public/DocDefault.jpg";
 
-const DoctorsSchedule = ({ provider, schedule, id }) => {
+const DoctorsSchedule = ({ provider, schedule, id, content }) => {
   const myLoader = ({ src, width, quality }) => {
     return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
@@ -51,7 +51,7 @@ const DoctorsSchedule = ({ provider, schedule, id }) => {
             <div className=" flex">
               <Link href={`/Doctors/` + id}>
                 <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
-                  View Profile
+                  {content.profile.viewProfile}
                 </a>
               </Link>
             </div>

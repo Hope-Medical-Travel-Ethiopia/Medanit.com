@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Picture from "../reusable/Picture";
 import hospitalDefault from "../../public/hospitalDefault.jpg";
+import { useRouter } from "next/router";
+import en from "../../locales/en";
+import am from "../../locales/am";
 
 const HospitalSchedule = ({ hospital, schedule, provider }) => {
   const myLoader = ({ src, width, quality }) => {
@@ -19,6 +22,10 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
       setimage(hospital.logo);
     }
   }, [hospital]);
+
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : en;
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
       <div className="flex  lg:flex-nowrap flex-wrap lg:gap-10 gap-5 justify-center md:justify-evenly">
@@ -64,7 +71,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
             <div className=" flex">
               <Link href={`/Hospital/` + provider.id}>
                 <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
-                  View Profile
+                  {t.profile.viewProfile}
                 </a>
               </Link>
             </div>

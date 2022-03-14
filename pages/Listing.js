@@ -17,6 +17,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
+import en from "../locales/en";
+import am from "../locales/am";
 
 const Listing = ({
   doctors,
@@ -40,6 +42,9 @@ const Listing = ({
   const diagnosticsList = [];
   const pharmacyList = [];
   const { query } = useRouter();
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : en;
 
   useEffect(() => {
     doctors.map((item) => {
@@ -165,7 +170,9 @@ const Listing = ({
               variant="filled"
               className=" md:w-32 min-w-fit w-[100%] m-auto bg-white"
             >
-              <InputLabel id="demo-simple-select-label">Provider</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                {t.home.Provider}
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 className="bg-white"
@@ -175,10 +182,10 @@ const Listing = ({
                 label="Provider"
                 onChange={handleType}
               >
-                <MenuItem value="Hospital">Hospital</MenuItem>
-                <MenuItem value="Diagnostics">Diagnostics</MenuItem>
-                <MenuItem value="Doctors">Doctor</MenuItem>
-                <MenuItem value="Pharmacy">Pharmacy</MenuItem>
+                <MenuItem value="Hospital">{t.home.Hospital}</MenuItem>
+                <MenuItem value="Diagnostics">{t.home.Diagnostics}</MenuItem>
+                <MenuItem value="Doctors">{t.home.Doctor}</MenuItem>
+                <MenuItem value="Pharmacy">{t.home.Pharmacy}</MenuItem>
               </Select>
             </FormControl>
 
@@ -224,7 +231,7 @@ const Listing = ({
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={`Search for a ${provider}`}
+                    label={`${t.home.SearchFor} ${provider}`}
                     variant="filled"
                     autocomplete="new-password"
                     inputProps={{
@@ -242,15 +249,15 @@ const Listing = ({
                 className="bg-blue-500 py-3 flex items-center px-6 text-lg lowercase font-light"
                 endIcon={<SearchIcon />}
               >
-                Search
+                {t.listings.search}
               </Button>
             </FormControl>
           </form>
         </div>
         {searchTerm && providerData && (
           <h1 className="  mt-5 text-left">
-            <span className=" font-bold">{providerData.length} </span> results
-            were found for{" "}
+            <span className=" font-bold">{providerData.length} </span>{" "}
+            {t.listings.result}{" "}
             <span className="text-white block text-2xl font-bold ">
               {searchTerm}
             </span>
@@ -271,6 +278,7 @@ const Listing = ({
               pic={image}
               providers={item}
               provider={provider}
+              content={t}
             />
           ))
         )}
