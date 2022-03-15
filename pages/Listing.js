@@ -44,7 +44,7 @@ const Listing = ({
   const { query } = useRouter();
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
 
   useEffect(() => {
     doctors.map((item) => {

@@ -13,7 +13,7 @@ import Head from "next/head";
 const HospitalProfile = ({ hospitals, schedule }) => {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
 
   return (
     <>

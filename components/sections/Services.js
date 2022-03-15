@@ -3,37 +3,39 @@ import seo from "../../public/laboratory.jpg";
 import Doc4 from "../../public/Doc4.jpg";
 import Hospital from "../../public/pharmacy.jpg";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import en from "../../locales/en";
+import am from "../../locales/am";
 
 import Link from "next/link";
 
 const Services = () => {
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : am;
   const serviceData = [
     {
       id: 1,
-      title: "Specialist Doctors",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+      title: t.service[0].title,
+      description:t.service[0].description,
       picture: seo,
     },
     {
       id: 2,
-      title: "Hospitals",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+      title: t.service[1].title,
+      description:t.service[1].description,
       picture: Doc4,
     },
     {
       id: 3,
-      title: "Laboratory & Diagnostics",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+      title: t.service[2].title,
+      description:t.service[2].description,
       picture: Hospital,
     },
     {
       id: 4,
-      title: "Pharmacies & Medications",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+      title: t.service[3].title,
+      description:t.service[3].description,
       picture: seo,
     },
   ];
@@ -51,7 +53,7 @@ const Services = () => {
           text-transparent bg-clip-text bg-gradient-to-br from-blue-500 
           via-sky-600 to-cyan-500"
           >
-            Services
+            {t.nav.service}
           </h1>
           <p className="text-gray-600 text-sm">
             Lorem ipsum dolor sit Lorem ipsum dolor sit, amet consectetur
