@@ -38,11 +38,11 @@ html {
 .shapes {
   background-attachment: fixed;
   background-image: linear-gradient(
-      to left,
-      rgba(252, 252, 252, 0),
-      rgb(216, 216, 216)
-    ),
-    url("../public/scatter.svg");
+    to left,
+    rgba(252, 252, 252, 0),
+    rgb(216, 216, 216)
+  );
+  /* url("../public/scatter.svg"); */
 }
 .page-turner {
   background-attachment: fixed;

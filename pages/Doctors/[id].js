@@ -5,8 +5,14 @@ import Expertise from "../../components/sections/ExpertiseSection";
 import HospitalSchedule from "../../components/sections/HospitalSchedule";
 import image from "../../public/DocDefault.jpg";
 import axios from "../../lib/axios";
+import { useRouter } from "next/router";
+import en from "../../locales/en";
+import am from "../../locales/am";
 
 const DoctorProfile = ({ doctor, schedule }) => {
+  const router = useRouter();
+  const {locale} = router;
+  const t = locale === "en" ? en : en;
   return (
     <>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
@@ -16,9 +22,9 @@ const DoctorProfile = ({ doctor, schedule }) => {
         {/*  */}
         <section className=" mt-10 w-full ">
           <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
-            <Expertise title="Expertise" services={doctor.expertise} />
+            <Expertise title={t.profile.expertise} services={doctor.expertise} />
             <div className="about lg:row-start-2">
-              <About description={doctor.description} />
+              <About description={doctor.description} content={t}/>
             </div>
             <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10 ">
               {doctor.hospitals.map((hospital) => (

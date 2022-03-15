@@ -1,8 +1,8 @@
 export default {
   nav: {
-    search: "search",
-    service: "service",
-    contact: "contact",
+    search: "Search",
+    service: "Service",
+    contact: "Contact",
   },
   home: {
     heroDescription:
@@ -18,7 +18,7 @@ export default {
     Pharmacy: "Pharmacy",
     Doctor: "Doctor",
     Search: "Search",
-    SearchFor: "Search For a",
+    SearchFor: "Search for a",
   },
   contact: {
     title: "Contact Us",
@@ -73,4 +73,15 @@ export default {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
     },
   ],
+  listings: {
+    result: "results were found for",
+    search: "Search",
+  },
+  profile: {
+    services: "Services",
+    description: "Descriptions",
+    viewProfile: "View Profiles",
+    call: "Calls",
+    expertise: "Expertise",
+  },
 };

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Picture from "../reusable/Picture";
 import { useState, useEffect } from "react";
 
-const ProviderListCard = ({ className, provider, providers, pic }) => {
+const ProviderListCard = ({ className, provider, providers, pic, content }) => {
   const myLoader = ({ src, width, quality }) => {
     return `https://api.medanit.com/storage/${src}?w=${width}&q=${
       quality || 75
@@ -77,7 +77,7 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
           <section className=" self-end justify-self-end">
             <Link href={`/${provider}/` + providers.id}>
               <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
-                View Profile
+                {content.profile.viewProfile}
               </a>
             </Link>
           </section>
@@ -85,7 +85,7 @@ const ProviderListCard = ({ className, provider, providers, pic }) => {
           <section className=" self-end justify-self-end">
             <Link href={`tel:${providers.phone}`}>
               <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
-                Call
+                {content.profile.call}
               </a>
             </Link>
           </section>
