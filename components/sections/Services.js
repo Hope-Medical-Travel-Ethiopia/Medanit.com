@@ -30,7 +30,7 @@ const Services = () => {
       id: 3,
       title: t.service[2].title,
       description:t.service[2].description,
-      picture: Hospital,
+      picture: seo,
     },
     {
       id: 4,
