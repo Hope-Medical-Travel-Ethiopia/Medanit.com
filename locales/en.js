@@ -1,8 +1,8 @@
 export default {
   nav: {
-    search: "search",
-    service: "service",
-    contact: "contact",
+    search: "Search",
+    service: "Service",
+    contact: "Contact",
   },
   home: {
     heroDescription:
@@ -82,6 +82,6 @@ export default {
     description: "Descriptions",
     viewProfile: "View Profiles",
     call: "Calls",
-    expertise: "Expertise"
+    expertise: "Expertise",
   },
 };

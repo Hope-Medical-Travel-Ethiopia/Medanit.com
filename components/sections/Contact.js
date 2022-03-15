@@ -68,7 +68,7 @@ const Contact = ({ contact }) => {
         </div>
         <div
           className="info w-full lg:basis-2/5 text-base
-         text-blue-500 mt-12 md:p-10 p-5 flex flex-col   h-fit shapes md:bg-white md:rounded-xl drop-shadow-2xl"
+         text-blue-500 mt-12 md:p-10 p-5 flex flex-col   h-fit shapes mx-5 md:mx-0 bg-white md:rounded-xl drop-shadow-2xl"
         >
           <h1 className="lg:text-4xl text-3xl font-bold">
             {contact.contactTitle}
