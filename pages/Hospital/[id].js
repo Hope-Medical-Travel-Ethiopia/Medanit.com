@@ -11,9 +11,8 @@ import am from "../../locales/am";
 
 const HospitalProfile = ({ hospitals, schedule }) => {
   const router = useRouter();
-  const {locale} = router;
+  const { locale } = router;
   const t = locale === "en" ? en : en;
-
 
   return (
     <>
@@ -24,7 +23,10 @@ const HospitalProfile = ({ hospitals, schedule }) => {
         {/*  */}
         <section className=" mt-10 w-full ">
           <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
-            <Expertise title={t.profile.services} services={hospitals.services} />
+            <Expertise
+              title={t.profile.services}
+              services={hospitals.services}
+            />
             <div className="about lg:row-start-2 ">
               <About content={t} description={hospitals.description} />
             </div>

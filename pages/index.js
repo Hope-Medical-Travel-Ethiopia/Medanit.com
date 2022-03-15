@@ -21,7 +21,7 @@ export default function Home({
 }) {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
 
   return (
     <div>
