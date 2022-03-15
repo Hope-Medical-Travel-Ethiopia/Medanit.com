@@ -85,4 +85,5 @@ export default {
     call: "Calls",
     expertise: "Expertise",
   },
+  serviceDetail: "Medanit.com has come to change the health care system. Here are some features this system provide."
 };

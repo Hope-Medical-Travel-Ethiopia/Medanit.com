@@ -56,9 +56,7 @@ const Services = () => {
             {t.nav.service}
           </h1>
           <p className="text-gray-600 text-sm">
-            Lorem ipsum dolor sit Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Non, error? amet consectetur adipisicing elit.
-            Totam, saepe.
+            {t.serviceDetail}
           </p>
         </div>
         <div>
