@@ -199,7 +199,6 @@ const Listing = ({
                 name="searchTerm"
                 options={providers}
                 variant="filled"
-                autocomplete="new-password"
                 freeSolo
                 required
                 // value={providers}
@@ -233,7 +232,7 @@ const Listing = ({
                     {...params}
                     label={`${t.home.SearchFor} ${provider}`}
                     variant="filled"
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     inputProps={{
                       ...params.inputProps,
                       autoComplete: "new-password",
