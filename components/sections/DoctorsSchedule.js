@@ -51,7 +51,7 @@ const DoctorsSchedule = ({ provider, schedule, id, content }) => {
               <p className="text-sm  tracking-wide">{provider.address}</p>
             </div>
             <div className=" flex">
-              <Link href={`/Doctors/` + id + " - " + provider.name}>
+              <Link href={`/Doctors/` + id}>
                 <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
                   {content.profile.viewProfile}
                 </a>

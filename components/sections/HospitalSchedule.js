@@ -71,7 +71,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
               )}
             </div>
             <div className=" flex">
-              <Link href={`/Hospital/` + provider.id + " - " + provider.name} >
+              <Link href={`/Hospital/` + provider.id}>
                 <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
                   {t.profile.viewProfile}
                 </a>
