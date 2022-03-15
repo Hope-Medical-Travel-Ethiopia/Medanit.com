@@ -2,29 +2,29 @@ const CounterSection = ({ content, counter }) => {
   return (
     <section className="page-turner">
       <section className="flex lg:justify-between justify-center flex-wrap p-20 gap-10 text-white tracking-widest font-bold uppercase">
-        {counter.map((item, index) => (
+        {/* {counter.map((item, index) => (
           <div className="flex flex-col justify-baseline items-center w-48 text-center " key={index}>
             <h1 className="text-5xl my-5 font-black">{item.number}+</h1>
             <p>{item.provider} </p>
           </div>
-        ))}
-        {/* <div className="flex flex-col justify-baseline items-center w-48 text-center ">
-          <h1 className="text-5xl my-5 font-black">{counter.doctors}+</h1>
+        ))} */}
+        <div className="flex flex-col justify-baseline items-center w-48 text-center ">
+          <h1 className="text-5xl my-5 font-black">{counter[0].number}+</h1>
           <p>{content.Doctors} </p>
         </div>
         <div className="flex flex-col justify-baseline items-center w-48 text-center">
-          <h1 className="text-5xl my-5 font-black">{counter.hospitals}+</h1>
+          <h1 className="text-5xl my-5 font-black">{counter[1].number}+</h1>
           <p>{content.Hospitals} </p>
         </div>
         <div className="flex flex-col justify-baselinebaseline items-center w-64 text-center">
-          <h1 className="text-5xl my-5 font-black">{counter.diagnostics}+</h1>
+          <h1 className="text-5xl my-5 font-black">{counter[2].number}+</h1>
           <p>{content.Diagnostic} </p>
         </div>
         <div className="flex flex-col justify-baseline items-center w-48 text-center">
-          <h1 className="text-5xl my-5 font-black">{counter.pharmacies}+</h1>
+          <h1 className="text-5xl my-5 font-black">{counter[3].number}+</h1>
           <p>{content.Pharmacies} </p>
         </div>
-        <div className="flex flex-col justify-baseline items-center w-48 text-center">
+        {/* <div className="flex flex-col justify-baseline items-center w-48 text-center">
           <h1 className="text-5xl my-5 font-black">{counter.medications}+</h1>
           <p>{content.Medications} </p>
         </div> */}

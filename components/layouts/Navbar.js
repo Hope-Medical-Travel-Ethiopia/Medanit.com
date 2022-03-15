@@ -14,7 +14,7 @@ const Navbar = ({ home }) => {
   const [nav, setNav] = useState(true);
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
 
   const changeLanguage = (e) => {
     const locale = e.target.value;
