@@ -7,8 +7,39 @@ import {
   FaPhone,
   FaUsers,
 } from "react-icons/fa";
+import axios from "../../lib/axios";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 const Contact = ({ contact }) => {
+  const router = useRouter();
+
+  const [values, setValues] = React.useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const [disableButton, setdisableButton] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setdisableButton(true);
+    const response = await axios
+      .post("/api/contactUs", {
+        name: values.name,
+        email: values.email,
+        message: values.message,
+      })
+      .then((response) => {
+        setdisableButton(false);
+        setValues({ ...values, ["name"]: "", ["email"]: "", ["message"]: "" });
+      });
+  };
   return (
     <div
       id="contact"
@@ -27,14 +58,19 @@ const Contact = ({ contact }) => {
       </div>
       <div className="flex flex-wrap justify-evenly  ">
         <div className="form w-full lg:basis-3/5 lg:pr-28 p-5 md:p-0">
-          <form action="" className="my-5 md:text-base text-sm">
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="my-5 md:text-base text-sm"
+          >
             <div className="form-group my-5 flex flex-col">
               <label htmlFor="FullName">{contact.name}</label>
               <input
                 className="md:py-5 md:px-10 px-4 py-3 w-full rounded-sm mt-2 text-gray-700"
                 type="text"
                 name="FullName"
+                onChange={handleChange("name")}
                 id=""
+                value={values.name}
                 placeholder={contact.name}
               />
             </div>
@@ -44,6 +80,8 @@ const Contact = ({ contact }) => {
                 className="md:py-5 md:px-10 px-4 py-3 w-full rounded-sm mt-2 text-gray-700"
                 type="email"
                 name="Email"
+                value={values.email}
+                onChange={handleChange("email")}
                 id="Email"
                 placeholder={contact.email}
               />
@@ -56,14 +94,24 @@ const Contact = ({ contact }) => {
                 id="Message"
                 cols="20"
                 rows="5"
+                value={values.message}
+                onChange={handleChange("message")}
                 placeholder={contact.writeMessage}
               ></textarea>
             </div>
-            <input
-              type="submit"
-              className="bg-green-400 drop-shadow-lg px-20 py-2 w-fit hover:cursor-pointer text-white"
-              value={contact.send}
-            />
+
+            {!disableButton ? (
+              <input
+                type="submit"
+                className="bg-green-400 drop-shadow-lg px-20 py-2 w-fit hover:cursor-pointer text-white"
+                value={contact.send}
+              />
+            ) : (
+              <input
+                className="bg-gray-500 drop-shadow-lg pl-20 py-2 w-fit hover:cursor-pointer text-white"
+                value={contact.loading}
+              />
+            )}
           </form>
         </div>
         <div
