@@ -28,7 +28,7 @@ const ProviderListCard = ({ className, provider, providers, pic, content }) => {
               <Image
                 loader={myLoader}
                 src={image}
-                alt="Picture of the author"
+                alt={providers.name}
                 layout="fill"
                 className="border-2  overflow-hidden   rounded-full object-cover"
               />
@@ -73,7 +73,9 @@ const ProviderListCard = ({ className, provider, providers, pic, content }) => {
 
         {provider && provider != "Pharmacy" ? (
           <section className=" self-end justify-self-end">
-            <Link href={`/${provider}/` + providers.id}>
+            <Link
+              href={`/${provider}/` + providers.id + " - " + providers.name}
+            >
               <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
                 {content.profile.viewProfile}
               </a>

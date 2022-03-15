@@ -28,7 +28,7 @@ const DoctorsSchedule = ({ provider, schedule, id, content }) => {
             <Image
               loader={myLoader}
               src={image}
-              alt="Picture of the author"
+              alt={provider.name}
               layout="fill"
               className="border-2  overflow-hidden   rounded-full object-cover"
             />
@@ -49,7 +49,7 @@ const DoctorsSchedule = ({ provider, schedule, id, content }) => {
               <p className="text-sm  tracking-wide">{provider.address}</p>
             </div>
             <div className=" flex">
-              <Link href={`/Doctors/` + id}>
+              <Link href={`/Doctors/` + id + " - " + provider.name}>
                 <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
                   {content.profile.viewProfile}
                 </a>

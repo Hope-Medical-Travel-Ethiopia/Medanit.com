@@ -34,7 +34,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
             <Image
               loader={myLoader}
               src={image}
-              alt="Picture of the author"
+              alt={hospital.name}
               layout="fill"
               className="border-2  overflow-hidden   rounded-full object-cover"
             />
@@ -69,7 +69,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
               )}
             </div>
             <div className=" flex">
-              <Link href={`/Hospital/` + provider.id}>
+              <Link href={`/Hospital/` + provider.id + " - " + provider.name} >
                 <a className="px-4 py-2 text-base bg-blue-500 text-gray-50 rounded-lg">
                   {t.profile.viewProfile}
                 </a>

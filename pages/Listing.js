@@ -156,7 +156,7 @@ const Listing = ({
   //return
 
   return (
-    <div className="bg-gray-100 min-h-screen  shapes pt-20">
+    <div className="bg-gray-100 min-h-screen  shapes pt-16">
       <Head>
         <title>MEDANIT | Search for Health Care service</title>
       </Head>

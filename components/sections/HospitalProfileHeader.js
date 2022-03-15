@@ -24,7 +24,7 @@ const HospitalProfileHeader = ({ providers, DefaultImage }) => {
           <Image
             loader={myLoader}
             src={image}
-            alt="Picture of the author"
+            alt={providers.name}
             layout="fill"
             className="border-2  overflow-hidden   rounded-full object-cover"
           />
