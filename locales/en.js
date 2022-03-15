@@ -28,10 +28,11 @@ export default {
     email: "Email",
     message: "Message",
     writeMessage: "Write your message here ...",
-    send: "send",
+    send: "Send",
     contactTitle: "Contact Information",
     contactDesc: " Here's our contact Information , Let's keep in touch",
     address: "Getu Commercial , Office 406 - Bole,Addis Ababa",
+    loading: "Loading ...",
   },
   about: {
     mainDescription: "main description goes here and it shouldn't be long",
