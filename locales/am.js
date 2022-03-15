@@ -52,38 +52,38 @@ export default {
   service: [
     {
       id: 1,
-      title: "Specialist Doctors",
+      title: "ስፔሺያሊስት ሀኪሞች",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "መዳኒት.ኮም ላይ እርስዎ ባስፈለጎት የጤና እክል ላይ ስፔሻላይዝ ያደረጉ ሐኪሞች እና ሆስፒታሎችን ማግኘት ይችላሉ። በመዳኒት.ኮም ላይ የዶከተሮችን የስራ ሰዓት ባሉበት ሆነው ማየት ይችላሉ",
     },
     {
       id: 2,
-      title: "Hospitals",
+      title: "ሆስፒታሎች",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "መዳኒት.ኮምን ተጠቅመው የሚፈልጉትን የጤና ስፔሺያሊቲ ወይም የህመምዎን ምልክቶች በመጻፍ ሰለሚፈልጉት የህክምና ተቋም መረጃ ማግኘት ይችላሉ።",
     },
     {
       id: 3,
-      title: "Laboratory & Diagnostics",
+      title: "የምርመራ ማዕከሎች",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "መዳኒት.ኮም እንደ አልትራሳውንድ ፣ ኤክስሬይ ፣ ኤም አር አይ እና ሌሎችም ምርመራዎች የት እንደሚያገኙ መረጃ ይሰጣችኋል።.",
     },
     {
       id: 4,
-      title: "Pharmacies & Medications",
+      title: "መድኃኒት እና መድኃኒት ቤቶች",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "የሐኪም ማዘዣ ተቀብለው መድኃኒቱን የት እንደሚያገኙ ካላወቂ ፣ መዳኒት.ኮም ብቂ የመድኃኒት አቅራቢዎችን እንዲያገኙ ይረዳዎታል",
     },
   ],
   listings: {
-    result: "results were found for",
-    search: "Search",
+    result: "ውጤቶች ተገኝተዋል ",
+    search: "ፈልግ",
   },
   profile: {
-    services: "Services",
-    description: "Descriptions",
-    viewProfile: "View Profiles",
-    call: "Calls",
+    services: "አገልግሎቶች",
+    description: "ተጨማሪ መረጃ",
+    viewProfile: "በይበልጥ ለመመልከት",
+    call: "ይደውሉ",
     expertise: "Expertise",
   },
 };
