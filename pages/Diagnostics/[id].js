@@ -9,6 +9,7 @@ import axios from "../../lib/axios";
 import { useRouter } from "next/router";
 import en from "../../locales/en";
 import am from "../../locales/am";
+import Head from "next/head";
 
 const DiagnosticsProfile = ({ diagnostics, schedule }) => {
   const router = useRouter();
@@ -16,6 +17,19 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
   const t = locale === "en" ? en : am;
   return (
     <>
+      <Head>
+        <title>
+          {diagnostics.name} | Medanit - find diagnostic centers in Ethiopia!
+        </title>
+        <meta
+          property="og:title"
+          content={`${diagnostics.name} | Medanit - find diagnostic centers in Ethiopia!`}
+        />
+        <meta
+          name="description"
+          content={`${diagnostics.name} is an excellent diagnostic center in Ethiopia. To find top diagnostic centers like ${diagnostics.name} visit Medanit.com`}
+        ></meta>
+      </Head>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
           <HospitalProfileHeader providers={diagnostics} DefaultImage={image} />

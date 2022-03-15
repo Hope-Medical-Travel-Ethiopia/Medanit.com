@@ -36,7 +36,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
             <Image
               loader={myLoader}
               src={image}
-              alt="Picture of the author"
+              alt={hospital.name}
               layout="fill"
               className="border-2  overflow-hidden   rounded-full object-cover"
             />

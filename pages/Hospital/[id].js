@@ -8,6 +8,7 @@ import axios from "../../lib/axios";
 import { useRouter } from "next/router";
 import en from "../../locales/en";
 import am from "../../locales/am";
+import Head from "next/head";
 
 const HospitalProfile = ({ hospitals, schedule }) => {
   const router = useRouter();
@@ -16,6 +17,17 @@ const HospitalProfile = ({ hospitals, schedule }) => {
 
   return (
     <>
+      <Head>
+        <title>{hospitals.name} | Medanit - find hospitals in Ethiopia!</title>
+        <meta
+          property="og:title"
+          content={`${hospitals.name} | Medanit - find hospitals in Ethiopia!`}
+        />
+        <meta
+          name="description"
+          content={`${hospitals.name} is an excellent health care provider in Ethiopia. To find top hospitals like ${hospitals.name} visit Medanit.com`}
+        ></meta>
+      </Head>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">
           <HospitalProfileHeader providers={hospitals} DefaultImage={image} />
