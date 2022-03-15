@@ -5,7 +5,8 @@ export default {
     contact: "Contact",
   },
   home: {
-    heroDescription: "",
+    heroDescription:
+      "Select a provider from the list below, then enter the provider's name, speciality, or complication into the search box and press the search button. ",
     type: [
       "Do you know where to get Medical Diagnostic centers?",
       "Do you have a hard time finding medications you need.",
