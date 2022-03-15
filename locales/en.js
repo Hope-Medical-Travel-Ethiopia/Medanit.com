@@ -5,12 +5,12 @@ export default {
     contact: "Contact",
   },
   home: {
-    heroDescription:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. uia placeat est reiciendis facilis animi quaerat cumque, exercitationem eos sit consectetur quas labore iusto dolorum? Sit tempore ex culpa reprehenderit sequi!",
+    heroDescription: "",
     type: [
-      "something here ",
-      "another thing there",
-      "some other thing everywhere",
+      "Do you know where to get Medical Diagnostic centers?",
+      "Do you have a hard time finding medications you need.",
+      "Do you want to know when and where to find well known Specialist Doctors?",
+      "Do you want to know the address and Contact Information of Hospitals.",
     ],
     Hospital: "Hospital",
     Provider: "Provider",
@@ -35,11 +35,11 @@ export default {
     loading: "Loading ...",
   },
   about: {
-    mainDescription: "main description goes here and it shouldn't be long",
+    mainDescription: "If you want any help regarding the use of this website.",
     mainTitle: "How to Use the System",
     subTitle: "See this video to get to know more about Medanit",
     subDescription:
-      "main description goes here and it shouldn't be longmain description goes here and it shouldn't be longmain description goes here and it shouldn't be longmain description goes here and it shouldn't be long",
+      "Medanit.com is a really easy-to-use website. When you first arrive to the site, you will see a search box. You may enter the term you want to search for and get the results right away. You can learn more about how the system works by watching this video. ",
   },
   counter: {
     Hospitals: "Hospital",
@@ -53,25 +53,25 @@ export default {
       id: 1,
       title: "Specialist Doctors",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "You may locate physicians and hospitals on Medanit depending on the parameters that are most relevant to you. Medanit allows you to view a doctor's schedule and available appointment hours from wherever you are. ",
     },
     {
       id: 2,
       title: "Hospitals",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "On medanit you can search by speciality or symptoms , to easilty find the right provider for you.",
     },
     {
       id: 3,
       title: "Laboratory & Diagnostics",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "Medanit will lead you to where to find Diagnostic imaging like ultrasounds , x-rays , MRIs or CT scans and more",
     },
     {
       id: 4,
       title: "Pharmacies & Medications",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita eum error iste quis quod. Doloremque, accusantium deleniti, vero eveniet ab labore quidem maxime odio quisquam rem et blanditiis aspernatur dolore.",
+        "If you have been given a prescription, Medanit can help you identify reliable providers.",
     },
   ],
   listings: {

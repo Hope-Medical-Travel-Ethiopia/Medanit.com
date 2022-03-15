@@ -84,6 +84,6 @@ export default {
     description: "ተጨማሪ መረጃ",
     viewProfile: "በይበልጥ ለመመልከት",
     call: "ይደውሉ",
-    expertise: "Expertise",
+    expertise: "የሚሰጣቸው ህክምናዎች",
   },
 };

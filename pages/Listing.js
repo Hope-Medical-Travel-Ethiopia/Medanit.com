@@ -44,7 +44,7 @@ const Listing = ({
   const { query } = useRouter();
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
 
   useEffect(() => {
     doctors.map((item) => {
@@ -156,7 +156,7 @@ const Listing = ({
   //return
 
   return (
-    <div className="bg-gray-100 min-h-screen  shapes pt-20">
+    <div className="bg-gray-100 min-h-screen  shapes pt-16">
       <Head>
         <title>MEDANIT | Search for Health Care service</title>
       </Head>
@@ -199,7 +199,6 @@ const Listing = ({
                 name="searchTerm"
                 options={providers}
                 variant="filled"
-                autocomplete="new-password"
                 freeSolo
                 required
                 // value={providers}
@@ -233,7 +232,7 @@ const Listing = ({
                     {...params}
                     label={`${t.home.SearchFor} ${provider}`}
                     variant="filled"
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     inputProps={{
                       ...params.inputProps,
                       autoComplete: "new-password",

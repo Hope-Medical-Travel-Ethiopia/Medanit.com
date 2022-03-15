@@ -27,7 +27,7 @@ const HospitalSchedule = ({ hospital, schedule, provider }) => {
 
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
   return (
     <section className="card bg-white px-10 py-6 rounded-xl drop-shadow-lg">
       <div className="flex  lg:flex-nowrap flex-wrap lg:gap-10 gap-5 justify-center md:justify-evenly">

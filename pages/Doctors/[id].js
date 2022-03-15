@@ -12,7 +12,7 @@ import am from "../../locales/am";
 const DoctorProfile = ({ doctor, schedule }) => {
   const router = useRouter();
   const {locale} = router;
-  const t = locale === "en" ? en : en;
+  const t = locale === "en" ? en : am;
   return (
     <>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
