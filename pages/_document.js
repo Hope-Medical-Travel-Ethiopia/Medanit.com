@@ -10,14 +10,15 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta property="og:type" content="article" />
+          <meta property="og:type" content="website" />
           <meta
             property="og:description"
-            content="DESCRIPTION OF PAGE CONTENT"
+            content="Medanit is the best place to find medical information, doctors, hospitals, pharmacies, laboratories and maps of Ethiopia. Search for the best doctors in Medanit, Ethiopian Online Medical Search Engine. Welcome to the largest online directory of doctors in Ethiopia. Medanit is an global online medical search engine and referral service providing best quality doctors and facilities in Ethiopia."
           />
-          <meta property="og:image" content="LINK TO THE IMAGE FILE" />
+          <meta property="og:image" content="/Logo.png" />
           <meta property="og:url" content="https://www.medanit.com" />
           <meta property="og:site_name" content="Medanit" />
+          <link rel="icon" href="/icon.png" />
         </Head>
         <body className="DOCUMENT overflow-x-hidden ">
           <Main />

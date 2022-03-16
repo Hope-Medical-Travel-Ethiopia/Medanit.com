@@ -1,3 +1,5 @@
+import 'lazysizes';
+
 const AboutUs = ({ content }) => {
   return (
     <section className="lg:p-20 p-5 min-h-screen flex flex-col justify-center">
@@ -16,10 +18,10 @@ const AboutUs = ({ content }) => {
       <section className=" flex  items-start md:flex-row  flex-col  lg:justify-between justify-center items-center pt-10 pb-20  gap-20">
         <section className="Video-section md:w-1/2 rounded-full ">
           <iframe
-            className="md:w-[45vw] w-[90vw] m-auto"
+            className="md:w-[45vw] w-[90vw] m-auto lazyload"
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/flQkubck0j4"
+            data-src="https://www.youtube.com/embed/flQkubck0j4"
             title="MEDANIT"
           ></iframe>
         </section>

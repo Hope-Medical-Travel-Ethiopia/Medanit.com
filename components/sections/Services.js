@@ -1,6 +1,8 @@
 import Image from "next/image";
-import seo from "../../public/laboratory.jpg";
-import Doc4 from "../../public/Doc4.jpg";
+import Hosp from "../../public/hosp2.jpg";
+import Doc4 from "../../public/Doct3.jpg";
+import Lab from "../../public/laboratory.jpg";
+import Phar from "../../public/Phar2.jpg";
 import Hospital from "../../public/pharmacy.jpg";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -18,25 +20,25 @@ const Services = () => {
       id: 1,
       title: t.service[0].title,
       description:t.service[0].description,
-      picture: seo,
+      picture: Doc4,
     },
     {
       id: 2,
       title: t.service[1].title,
       description:t.service[1].description,
-      picture: Doc4,
+      picture: Hosp,
     },
     {
       id: 3,
       title: t.service[2].title,
       description:t.service[2].description,
-      picture: seo,
+      picture: Lab,
     },
     {
       id: 4,
       title: t.service[3].title,
       description:t.service[3].description,
-      picture: seo,
+      picture: Phar,
     },
   ];
 

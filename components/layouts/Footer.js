@@ -1,5 +1,5 @@
 import Logo from "./LogoPic";
-// import MessengerCustomerChat from "react-messenger-customer-chat";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 const Footer = () => {
   return (
@@ -8,10 +8,10 @@ const Footer = () => {
         <span className="text-sm text-gray-900 sm:text-center ">
           © 2022 Medanit™
           {"  "}All Rights Reserved.
-          {/* <MessengerCustomerChat
-            pageId="101286685033878"
-            appId="4678315278947007"
-          /> */}
+          <MessengerCustomerChat
+            pageId="111098201465752"
+            appId="5298413196858444"
+          />
         </span>
       </div>
     </footer>
