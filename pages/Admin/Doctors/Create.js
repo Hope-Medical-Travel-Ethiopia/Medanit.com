@@ -16,7 +16,7 @@ import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
 export default function CreateDoctors({ doctors }) {
-  const serviceList = ["sam", "samue", "muse"];
+  const serviceList = ["Service 1", "Service 2", "Service 3"];
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
   const [disableButton, setdisableButton] = useState(false);

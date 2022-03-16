@@ -16,7 +16,7 @@ export default function EditDiagnostics({ Diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
   const [disableButton, setdisableButton] = useState(false);
 
-  const serviceList = ["sam", "samue", "muse"];
+  const serviceList = ["Service 1", "Service 2", "Service 3"];
 
   const router = useRouter();
 

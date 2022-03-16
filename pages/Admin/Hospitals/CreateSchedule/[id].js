@@ -175,7 +175,7 @@ export default function CreateSchedule({ doctors, hospital }) {
                 key={doctor.id}
                 pic={pic}
                 providers={doctor}
-                provider={"doctor"}
+                provider={"Admin/Doctors"}
               />
             </div>
           )}

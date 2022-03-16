@@ -15,7 +15,7 @@ import { Router, useRouter } from "next/router";
 export default function EditHospitals({ hospital }) {
   const { user } = useAuth({ middleware: "auth" });
 
-  const serviceList = ["sam", "samue", "muse"];
+  const serviceList = ["Service 1", "Service 2", "Service 3"];
 
   const router = useRouter();
 

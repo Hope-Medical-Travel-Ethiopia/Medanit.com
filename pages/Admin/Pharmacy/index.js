@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
-import pic from "../../../public/Doc4.jpg";
+import pic from "../../../public/pharmacyDefault.jpg";
 import Card from "../../../components/Admin/Card";
 import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";

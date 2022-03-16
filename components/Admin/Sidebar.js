@@ -54,7 +54,7 @@ const Sidebar = () => {
           />
           <Tab
             icon={<FaMicroscope />}
-            title="Procedures"
+            title="Lab Tests"
             link="/Admin/Procedures"
           />
         </div>

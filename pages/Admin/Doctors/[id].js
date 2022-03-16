@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
-import pic from "../../../public/Doc4.jpg";
+import pic from "../../../public/DocDefault.jpg";
 import hospital from "../../../public/hospital.jpg";
 import Expertise from "../../../components/sections/ExpertiseSection";
 import About from "../../../components/sections/About";
@@ -37,6 +37,7 @@ export default function Doctor({ doctors, schedule }) {
                   provider={hospital}
                   schedule={schedule}
                   key={hospital.id}
+                  providerType="Hospitals"
                 />
               ))}
             </div>

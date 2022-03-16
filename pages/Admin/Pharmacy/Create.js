@@ -12,7 +12,7 @@ import { useAuth } from "../../../hooks/auth";
 import { useRouter } from "next/router";
 
 export default function CreatePharmacy() {
-  const serviceList = ["sam", "samue", "muse"];
+  const serviceList = ["Service 1", "Service 2", "Service 3"];
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
   const [disableButton, setdisableButton] = useState(false);

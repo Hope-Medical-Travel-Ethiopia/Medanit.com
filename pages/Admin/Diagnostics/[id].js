@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
-import pic from "../../../public/Doc4.jpg";
+import pic from "../../../public/labDefault.jpg";
 import Expertise from "../../../components/sections/ExpertiseSection";
 import About from "../../../components/sections/About";
 import ProfileHeader from "../../../components/Admin/ProfileHeader";

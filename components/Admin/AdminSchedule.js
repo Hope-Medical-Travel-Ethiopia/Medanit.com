@@ -14,7 +14,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "../../lib/axios";
 
-const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
+const AdminSchedule = ({
+  pic = image,
+  provider,
+  schedule,
+  parent,
+  providerType,
+}) => {
   // const [Sky, setSky] = useState([]);
 
   const myLoader = ({ src, width, quality }) => {
@@ -142,26 +148,30 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
                 ))}
             </div>
             <div className="action  flex  w-full gap-5 justify-end mt-10">
-              <Link href={`/Admin/Doctors/${provider.id}`}>
+              <Link href={`/Admin/${providerType}/${provider.id}`}>
                 <a className="px-4 py-2 border border-blue-500 rounded-md text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
                   <FaEye className="text-xl stroke-1" />
                 </a>
               </Link>
 
-              <button
-                onClick={(e) => {
-                  handlePush(e);
-                }}
-                className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all"
-              >
-                <FaEdit className="text-xl stroke-1 " />
-              </button>
-              <button
-                onClick={() => handleClickOpen()}
-                className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
-              >
-                <FaTrash className="text-xl stroke-1 " />
-              </button>
+              {providerType != "Hospitals" && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      handlePush(e);
+                    }}
+                    className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all"
+                  >
+                    <FaEdit className="text-xl stroke-1 " />
+                  </button>
+                  <button
+                    onClick={() => handleClickOpen()}
+                    className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
+                  >
+                    <FaTrash className="text-xl stroke-1 " />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
