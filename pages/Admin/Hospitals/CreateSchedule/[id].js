@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../../components/Admin/Sidebar";
 import Footer from "../../../../components/layouts/Footer";
 import AdminNav from "../../../../components/Admin/AdminNav";
@@ -28,6 +28,18 @@ export default function CreateSchedule({ doctors, hospital }) {
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
   ]);
+  const [serviceList, setServiceList] = useState([]);
+
+  useEffect(() => {
+    doctors.map((item) => {
+      serviceList.push(item.speciality);
+      item.expertise.map((exp) => {
+        serviceList.push(exp);
+      });
+    });
+
+    setServiceList([...new Set(serviceList)]);
+  }, []);
 
   let handleScheduleChange = (i, e) => {
     let newschedules = [...schedules];
@@ -247,7 +259,7 @@ export default function CreateSchedule({ doctors, hospital }) {
                   <Autocomplete
                     multiple
                     id="tags-filled"
-                    options={expertiseList.map((option) => option)}
+                    options={serviceList.map((option) => option)}
                     //   defaultValue={[serviceList[1]]}
                     onChange={(event, value) =>
                       setValues({ ...values, expertise: value })
@@ -405,7 +417,6 @@ export default function CreateSchedule({ doctors, hospital }) {
     </div>
   );
 }
-const expertiseList = ["sam", "samue", "muse"];
 
 CreateSchedule.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });

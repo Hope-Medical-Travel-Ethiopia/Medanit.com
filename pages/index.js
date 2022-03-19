@@ -44,7 +44,6 @@ export default function Home({
           pharmacy={pharmacy}
           procedures={procedures}
           medication={medication}
-          sam="samuel Kedir"
           content={t.home}
         />
         <AboutUs content={t.about} />
@@ -74,12 +73,13 @@ export async function getServerSideProps() {
   // const MedicationResponse = await axios.get("/api/Medications");
   const Response = await axios.get("/api/all");
   const CounterResponse = await axios.get("/api/CountProviders");
-
+  // let array = [1, 1, 1, 2, 3, 1, 5, 1, 3, 2, 1, 2, 1, 2];
+  // console.log([...new Set(array)]);
   // console.log(Response.data.medications);
   return {
     props: {
       doctors: Response.data.doctors,
-      diagnostics: Response.data.medications,
+      diagnostics: Response.data.diagnostics,
       hospitals: Response.data.hospitals,
       pharmacy: Response.data.pharmacies,
       procedures: Response.data.procedures,

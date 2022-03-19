@@ -55,7 +55,7 @@ const SearchFunction = ({
     hospitals.map((item) => {
       hospitalList.push(item.name);
     });
-    setProviders(hospitalList);
+    setProviders([... new Set(hospitalList)]);
   }, []);
 
   const handleType = (event) => {
@@ -69,7 +69,7 @@ const SearchFunction = ({
           doctorsList.push(exp);
         });
       });
-      setProviders(doctorsList);
+      setProviders([...new Set(doctorsList)]);
     }
     if (targetValue == "Diagnostics") {
       diagnostics.map((item) => {
@@ -78,7 +78,7 @@ const SearchFunction = ({
       procedures.map((item) => {
         diagnosticsList.push(item.name);
       });
-      setProviders(diagnosticsList);
+      setProviders([...new Set(diagnosticsList)]);
     }
     if (targetValue == "Hospital") {
       doctors.map((item) => {
@@ -87,7 +87,7 @@ const SearchFunction = ({
       hospitals.map((item) => {
         hospitalList.push(item.name);
       });
-      setProviders(hospitalList);
+      setProviders([...new Set(hospitalList)]);
     }
     if (targetValue == "Pharmacy") {
       pharmacy.map((item) => {
@@ -96,7 +96,7 @@ const SearchFunction = ({
       medication.map((item) => {
         pharmacyList.push(item.name);
       });
-      setProviders(pharmacyList);
+      setProviders([...new Set(pharmacyList)]);
     }
   };
 

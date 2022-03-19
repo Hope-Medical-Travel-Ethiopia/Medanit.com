@@ -137,7 +137,6 @@ export default function CreateMed({ medications }) {
     </div>
   );
 }
-const expertiseList = ["sam", "samue", "muse"];
 
 CreateMed.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });

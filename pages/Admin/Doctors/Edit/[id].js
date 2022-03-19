@@ -15,10 +15,10 @@ import axios from "../../../../lib/axios";
 import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
-export default function CreateDoctors({ doctor }) {
-  const serviceList = ["Service 1", "Service 2", "Service 3"];
+export default function CreateDoctors({ doctor, doctors }) {
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
+  const [serviceList, setServiceList] = useState([]);
 
   const [values, setValues] = React.useState({
     name: doctor.name,
@@ -29,10 +29,16 @@ export default function CreateDoctors({ doctor }) {
     description: doctor.description,
   });
 
-  // useEffect(() => {
-  //   setValues(doctor);
-  //   console.log(values);
-  // }, [doctor]);
+  useEffect(() => {
+    doctors.map((item) => {
+      serviceList.push(item.speciality);
+      item.expertise.map((exp) => {
+        serviceList.push(exp);
+      });
+    });
+
+    setServiceList([...new Set(serviceList)]);
+  }, []);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -134,7 +140,7 @@ export default function CreateDoctors({ doctor }) {
                 <Autocomplete
                   multiple
                   id="tags-filled"
-                  options={expertiseList.map((option) => option)}
+                  options={serviceList.map((option) => option)}
                   //   defaultValue={[serviceList[1]]}
                   value={values.expertise}
                   onChange={(event, value) => {
@@ -184,7 +190,6 @@ export default function CreateDoctors({ doctor }) {
     </div>
   );
 }
-const expertiseList = ["sam", "samue", "muse"];
 
 CreateDoctors.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });
@@ -217,9 +222,11 @@ CreateDoctors.getLayout = function PageLayout(page) {
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
+  const doctorsResponse = await axios.get("/api/doctors");
   return {
     props: {
       doctor: response.data[0],
+      doctors: doctorsResponse.data,
     },
   };
 }

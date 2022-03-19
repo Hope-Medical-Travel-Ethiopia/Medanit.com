@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -16,7 +16,7 @@ import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 
 export default function CreateDoctors({ doctors }) {
-  const serviceList = ["Service 1", "Service 2", "Service 3"];
+  const [serviceList, setServiceList] = useState([]);
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
   const [disableButton, setdisableButton] = useState(false);
@@ -28,6 +28,17 @@ export default function CreateDoctors({ doctors }) {
     expertise: [],
     description: "",
   });
+
+  useEffect(() => {
+    doctors.map((item) => {
+      serviceList.push(item.speciality);
+      item.expertise.map((exp) => {
+        serviceList.push(exp);
+      });
+    });
+
+    setServiceList([...new Set(serviceList)]);
+  }, []);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -161,7 +172,7 @@ export default function CreateDoctors({ doctors }) {
                 <Autocomplete
                   multiple
                   id="tags-filled"
-                  options={expertiseList.map((option) => option)}
+                  options={serviceList.map((option) => option)}
                   //   defaultValue={[serviceList[1]]}
                   onChange={(event, value) => {
                     // console.log(value);
@@ -218,7 +229,6 @@ export default function CreateDoctors({ doctors }) {
     </div>
   );
 }
-const expertiseList = ["sam", "samue", "muse"];
 
 CreateDoctors.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });
