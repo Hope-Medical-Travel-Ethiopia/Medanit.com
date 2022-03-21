@@ -27,6 +27,10 @@ const HospitalProfile = ({ hospitals, schedule }) => {
           name="description"
           content={`${hospitals.name} is an excellent health care provider in Ethiopia. To find top hospitals like ${hospitals.name} visit Medanit.com`}
         ></meta>
+        <meta
+          name="keywords"
+          content={`${hospitals.name}, Hospital in Ethiopia , Hospitals in Addis Ababa `}
+        ></meta>
       </Head>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
         <section className="header">

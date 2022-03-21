@@ -24,7 +24,11 @@ const DoctorProfile = ({ doctor, schedule }) => {
         />
         <meta
           name="description"
-          content={`${doctor.name} is an excellent ${doctor.speciality} in Ethiopia. To find top doctors like ${doctor.name} visit Medanit.com`}
+          content={`${doctor.name} is an excellent ${doctor.speciality} in Ethiopia , Addis Ababa . To find top doctors like ${doctor.name} visit Medanit.com`}
+        ></meta>
+        <meta
+          name="keywords"
+          content={`${doctor.name},${doctor.speciality} , Doctors in Ethiopia Addis Ababa , Ethiopian Doctors , ${doctor.speciality} in Ethiopia Addis Ababa`}
         ></meta>
       </Head>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">

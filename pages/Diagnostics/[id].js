@@ -25,7 +25,11 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
         />
         <meta
           name="description"
-          content={`${diagnostics.name} is an excellent diagnostic center in Ethiopia. To find top diagnostic centers like ${diagnostics.name} visit Medanit.com`}
+          content={`${diagnostics.name} is an excellent diagnostic center in Ethiopia Addis Ababa. To find top diagnostic centers like ${diagnostics.name} visit Medanit.com`}
+        ></meta>
+        <meta
+          name="keywords"
+          content={`${diagnostics.name},diagnostics in Ethiopia , Medical laboratories in Ethiopia , Medical laboratory in Addis ababa`}
         ></meta>
       </Head>
       <div className="md:w-[80%] pb-10 w-full mx-auto mt-28 px-5">
