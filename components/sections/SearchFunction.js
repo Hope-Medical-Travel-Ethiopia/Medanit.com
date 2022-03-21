@@ -55,7 +55,7 @@ const SearchFunction = ({
     hospitals.map((item) => {
       hospitalList.push(item.name);
     });
-    setProviders([... new Set(hospitalList)]);
+    setProviders([...new Set(hospitalList)]);
   }, []);
 
   const handleType = (event) => {
@@ -187,6 +187,8 @@ const SearchFunction = ({
                 variant="contained"
                 type="submit"
                 className="h-12 bg-blue-500 w-32 py-3 flex items-center px-6 text-lg lowercase font-light"
+                
+                
                 endIcon={<SearchIcon />}
               >
                 {content.Search}

@@ -66,6 +66,43 @@ const Listing = ({
     } else if (provider == "Pharmacy") {
       setImage(pharmaPic);
     }
+    if (qProvider == "Doctors") {
+      doctors.map((item) => {
+        doctorsList.push(item.name);
+        doctorsList.push(item.speciality);
+        item.expertise.map((exp) => {
+          doctorsList.push(exp);
+        });
+      });
+      setProviders([...new Set(doctorsList)]);
+    }
+    if (qProvider == "Diagnostics") {
+      diagnostics.map((item) => {
+        diagnosticsList.push(item.name);
+      });
+      procedures.map((item) => {
+        diagnosticsList.push(item.name);
+      });
+      setProviders([...new Set(diagnosticsList)]);
+    }
+    if (qProvider == "Hospital") {
+      doctors.map((item) => {
+        hospitalList.push(item.speciality);
+      });
+      hospitals.map((item) => {
+        hospitalList.push(item.name);
+      });
+      setProviders([...new Set(hospitalList)]);
+    }
+    if (qProvider == "Pharmacy") {
+      pharmacy.map((item) => {
+        pharmacyList.push(item.name);
+      });
+      medication.map((item) => {
+        pharmacyList.push(item.name);
+      });
+      setProviders([...new Set(pharmacyList)]);
+    }
   }, []);
 
   //Type Change Function
@@ -81,7 +118,7 @@ const Listing = ({
           doctorsList.push(exp);
         });
       });
-      setProviders(doctorsList);
+      setProviders([...new Set(doctorsList)]);
     }
     if (targetValue == "Diagnostics") {
       diagnostics.map((item) => {
@@ -90,7 +127,7 @@ const Listing = ({
       procedures.map((item) => {
         diagnosticsList.push(item.name);
       });
-      setProviders(diagnosticsList);
+      setProviders([...new Set(diagnosticsList)]);
     }
     if (targetValue == "Hospital") {
       doctors.map((item) => {
@@ -99,7 +136,7 @@ const Listing = ({
       hospitals.map((item) => {
         hospitalList.push(item.name);
       });
-      setProviders(hospitalList);
+      setProviders([...new Set(hospitalList)]);
     }
     if (targetValue == "Pharmacy") {
       pharmacy.map((item) => {
@@ -108,7 +145,7 @@ const Listing = ({
       medication.map((item) => {
         pharmacyList.push(item.name);
       });
-      setProviders(pharmacyList);
+      setProviders([...new Set(pharmacyList)]);
     }
   };
 

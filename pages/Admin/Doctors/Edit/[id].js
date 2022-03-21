@@ -139,6 +139,8 @@ export default function CreateDoctors({ doctor, doctors }) {
               <FormControl sx={{ m: 1, width: "40ch" }} variant="standard">
                 <Autocomplete
                   multiple
+                required
+
                   id="tags-filled"
                   options={serviceList.map((option) => option)}
                   //   defaultValue={[serviceList[1]]}
