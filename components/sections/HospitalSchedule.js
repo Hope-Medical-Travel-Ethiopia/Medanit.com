@@ -10,9 +10,7 @@ import am from "../../locales/am";
 
 const HospitalSchedule = ({ hospital, schedule, provider }) => {
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
 
   const [image, setimage] = useState();

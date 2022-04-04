@@ -3,11 +3,16 @@ import Image from "next/image";
 import Picture from "../reusable/Picture";
 import { useState, useEffect } from "react";
 
-const ProviderListCard = ({ className, provider, providers, pic, content }) => {
+const ProviderListCard = ({
+  className,
+  provider,
+  providers,
+  pic,
+  content,
+  searchTerm,
+}) => {
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
 
   const [image, setimage] = useState();
@@ -75,11 +80,26 @@ const ProviderListCard = ({ className, provider, providers, pic, content }) => {
 
         {provider && provider != "Pharmacy" ? (
           <section className=" self-end justify-self-end">
-            <Link href={`/${provider}/` + providers.id}>
-              <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
-                {content ? content.profile.viewProfile : "View Profile"}
-              </a>
-            </Link>
+            {provider == "Hospital" ? (
+              <Link
+                href={
+                  `/${provider}/` +
+                  providers.id +
+                  "?searchTerm=" +
+                  searchTerm
+                }
+              >
+                <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
+                  {content ? content.profile.viewProfile : "View Profile"}
+                </a>
+              </Link>
+            ) : (
+              <Link href={`/${provider}/` + providers.id}>
+                <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">
+                  {content ? content.profile.viewProfile : "View Profile"}
+                </a>
+              </Link>
+            )}
           </section>
         ) : (
           <section className=" self-end justify-self-end">

@@ -75,9 +75,12 @@ const HospitalProfile = ({ hospitals, schedule }) => {
 //   };
 // }
 
-export async function getServerSideProps({ params }) {
-  const response = await axios.get(`/api/Hospitals/${params.id}`);
+export async function getServerSideProps({ params, query }) {
+  const response = await axios.get(
+    `/api/Hospitals/${params.id}/${encodeURI(query.searchTerm)}`
+  );
   const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
+  // console.log(query.searchTerm);
 
   return {
     props: {
