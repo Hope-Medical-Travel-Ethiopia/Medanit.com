@@ -42,7 +42,10 @@ html {
     rgba(252, 252, 252, 0),
     rgb(216, 216, 216)
   );
-  /* url("../public/scatter.svg"); */
+}
+.testimonial {
+  background-image: url("../public/scatter.svg");
+  background-attachment: fixed;
 }
 .page-turner {
   background-attachment: fixed;
@@ -123,4 +126,12 @@ Image {
 }
 .reportCard h3 {
   @apply text-lg tracking-widest font-light;
+}
+
+.card {
+  /* @apply text-white w-96 h-48 m-auto flex justify-center items-center; */
+}
+
+.TestimonialImage {
+  /* translate: (-50%); */
 }

@@ -28,9 +28,24 @@ const Sidebar = () => {
         <div className="menu">
           <Tab icon={<FaChartPie />} title="Dashboard" link="/Admin" />
           {user && user.role == 0 && (
-            <Tab icon={<FaUsersCog />} title="Admins" link={`/Admin/Admins`} />
+            <>
+              <Tab
+                icon={<FaUsersCog />}
+                title="Admins"
+                link={`/Admin/Admins`}
+              />
+              <Tab
+                icon={<FaAd />}
+                title="Promotions"
+                link="/Admin/Promotions"
+              />
+              <Tab
+                icon={<FaAd />}
+                title="Testimonial"
+                link="/Admin/testimonial"
+              />
+            </>
           )}
-          <Tab icon={<FaAd />} title="Promotions" link="/Admin/Promotions" />
           <Tab
             icon={<FaHospital />}
             title="Hospitals"

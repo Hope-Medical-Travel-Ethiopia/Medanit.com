@@ -3,6 +3,7 @@ export default {
     search: "ፈልግ",
     service: "አገልግሎታችን",
     contact: "ያናግሩን",
+    testimonial: "አስተያየቶች",
   },
   home: {
     heroDescription:
@@ -88,4 +89,5 @@ export default {
   },
   serviceDetail:
     "መዳኒት የኢትዮጵያ የህክምና መረጃ ስርዓትን ለመለወጥ መቷል። የምንሰጣቸው አገልግሎቶች እነዚህን ያጠቃልላሉ።",
+  testimonialDetail: "ሰለምንሰጠው ችግር ፈቺ አገልግሎት ክተሰጡን አስተያየቶች መካከል ጥቂቶቹ እነሆ!",
 };
