@@ -32,13 +32,15 @@ export const Review = ({ testimonial }) => {
             <div className="TestimonialImage translate-y-10 absolute  mt-0 ">
               {/* <img src="/public/docl.jpg" alt="" size="" /> */}
               {image ? (
-                <Image
-                  loader={myLoader}
-                  src={image}
-                  alt={testimonial.name}
-                  layout="fill"
-                  className="border-2  overflow-hidden   rounded-full object-cover"
-                />
+                <div className="image overflow-hidden  h-20 w-20 rounded-full relative">
+                  <Image
+                    loader={myLoader}
+                    src={image}
+                    alt={testimonial.name}
+                    layout="fill"
+                    className="border-2  overflow-hidden   rounded-full object-cover"
+                  />
+                </div>
               ) : (
                 <Picture
                   pic={pic}
