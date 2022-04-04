@@ -314,6 +314,7 @@ const Listing = ({
               pic={image}
               providers={item}
               provider={provider}
+              searchTerm={searchTerm}
               content={t}
             />
           ))
