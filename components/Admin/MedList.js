@@ -3,7 +3,14 @@ import axios from "../../lib/axios";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 
-export const MedList = ({ name, description, id, type, providerId, fromMed }) => {
+export const MedList = ({
+  name,
+  description,
+  id,
+  type,
+  providerId,
+  fromMed,
+}) => {
   const router = useRouter();
   const handleDelete = async () => {
     if (providerId) {
@@ -29,16 +36,18 @@ export const MedList = ({ name, description, id, type, providerId, fromMed }) =>
         {description}
       </p>
       <div className="action flex  gap-5 justify-center">
-        {fromMed && <Link href={`/Admin/${type}/Edit/${id}`}>
-          <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
-            <FaEdit className="text-xl stroke-1 " />
-          </a>
-        </Link>}
+        {fromMed && (
+          <Link href={`/Admin/${type}/Edit/${id}`}>
+            <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+              <FaEdit className="text-xl stroke-1 " />
+            </a>
+          </Link>
+        )}
         <button
           onClick={() => handleDelete()}
           className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
         >
-          <FaTrash className="text-xl stroke-1 " />
+          <FaTrash className="text-xl stroke-1" />
         </button>
       </div>
     </div>

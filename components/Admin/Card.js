@@ -36,7 +36,7 @@ const Card = ({ pic, provider, type }) => {
           <Image
             loader={myLoader}
             src={image}
-            alt="Picture of the author"
+            alt={provider.name}
             layout="fill"
             className="border-2  overflow-hidden   rounded-full object-cover"
           />

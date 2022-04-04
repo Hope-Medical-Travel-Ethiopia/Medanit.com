@@ -62,6 +62,8 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
   );
 };
 
+
+
 // export async function getStaticPaths() {
 //   const response = await axios.get("/api/diagnostics");
 

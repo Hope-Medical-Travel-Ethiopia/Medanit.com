@@ -3,6 +3,7 @@ export default {
     search: "Search",
     service: "Service",
     contact: "Contact",
+    testimonial: "Testimonial",
   },
   home: {
     heroDescription:
@@ -86,5 +87,8 @@ export default {
     call: "Calls",
     expertise: "Expertise",
   },
-  serviceDetail: "Medanit.com has come to change the health care system. Here are some features this system provide."
+  serviceDetail:
+    "Medanit.com has come to change the health care system. Here are some features this system provide.",
+  testimonialDetail:
+    "Here are some of the testimonies given to our remarkble service.",
 };

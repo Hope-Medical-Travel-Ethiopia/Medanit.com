@@ -9,7 +9,7 @@ import Footer from "../components/layouts/Footer";
 import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
-
+import Testimonial from "../components/sections/Testimonial";
 export default function Home({
   doctors,
   diagnostics,
@@ -18,6 +18,7 @@ export default function Home({
   procedures,
   medication,
   counter,
+  testimonial,
 }) {
   const router = useRouter();
   const { locale } = router;
@@ -52,6 +53,7 @@ export default function Home({
         <AboutUs content={t.about} />
         <CounterSection content={t.counter} counter={counter} />
         <Services />
+        <Testimonial testimonial={testimonial} />
         <Contact contact={t.contact} />
       </main>
     </div>
@@ -75,7 +77,9 @@ export async function getServerSideProps() {
   // const procedureResponse = await axios.get("/api/Procedures");
   // const MedicationResponse = await axios.get("/api/Medications");
   const Response = await axios.get("/api/all");
+  const Testimonial = await axios.get("/api/testimonial");
   const CounterResponse = await axios.get("/api/CountProviders");
+
   // let array = [1, 1, 1, 2, 3, 1, 5, 1, 3, 2, 1, 2, 1, 2];
   // console.log([...new Set(array)]);
   // console.log(Response.data.medications);
@@ -88,6 +92,7 @@ export async function getServerSideProps() {
       procedures: Response.data.procedures,
       medication: Response.data.medications,
       counter: CounterResponse.data,
+      testimonial: Testimonial.data,
     },
   };
 }
