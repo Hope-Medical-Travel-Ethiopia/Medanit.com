@@ -7,32 +7,6 @@ import axios from "../../lib/axios";
 
 export default function Admin({ counter }) {
   const { user } = useAuth({ middleware: "auth" });
-  // const report = [
-  //   {
-  //     number: "43",
-  //     provider: "Hospitals",
-  //   },
-  //   {
-  //     number: "125",
-  //     provider: "Doctors",
-  //   },
-  //   {
-  //     number: "24",
-  //     provider: "Diagnostic centers and Laboratories",
-  //   },
-  //   {
-  //     number: "26",
-  //     provider: "Pharmacies",
-  //   },
-  //   {
-  //     number: "10256",
-  //     provider: "Medications",
-  //   },
-  //   {
-  //     number: "125",
-  //     provider: "Laboratory Tests",
-  //   },
-  // ];
 
   const report = counter;
 
