@@ -12,7 +12,9 @@ export const Review = ({ testimonial }) => {
   }, [testimonial]);
 
   const myLoader = ({ src, width, quality }) => {
-    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
+      quality || 75
+    }`;
   };
   return (
     <>
@@ -24,8 +26,8 @@ export const Review = ({ testimonial }) => {
           <div className="review h-40">
             <p className="font-medium">{testimonial.testimony}</p>
             <div className="nameTag text-center font-medium text-sm mt-3">
-              <div class="text-sky-500  font-bold">{testimonial.name}</div>
-              <div class="text-slate-500">{testimonial.title}</div>
+              <div className="text-sky-500  font-bold">{testimonial.name}</div>
+              <div className="text-slate-500">{testimonial.title}</div>
             </div>
           </div>
           <div className="relative flex justify-center items-center">

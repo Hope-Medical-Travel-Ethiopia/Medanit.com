@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ["http://localhost:8000", "http://api.medanit.com"],
+    domains: ["https://api.medanit.com", "http://api.medanit.com"],
   },
   i18n: {
     locales: ["en", "am"],

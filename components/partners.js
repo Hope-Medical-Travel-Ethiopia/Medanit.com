@@ -1,4 +1,5 @@
 import React from "react";
+import Picture from "./reusable/Picture";
 export function Partners({ pic }) {
   return (
     <div className="flex md:justify-between  justify-between gap-5 flex-wrap ">
