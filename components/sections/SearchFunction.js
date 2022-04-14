@@ -140,7 +140,7 @@ const SearchFunction = ({
             <FormControl className="flex min-w-fit md:w-96 w-[100%] justify-between">
               <Autocomplete
                 className="text-blue-500 border-blue-500"
-                id="select-providers"
+                // id="select-providers"
                 name="searchTerm"
                 options={providers}
                 freeSolo
