@@ -23,12 +23,12 @@ html {
   background-position: right;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: 50% 40%;
   background-image: linear-gradient(
-      to left,
-      rgba(252, 252, 252, 0),
-      rgba(252, 252, 252, 0.26),
-      rgb(216, 216, 216)
+      to right,
+      rgb(255, 255, 255),
+      rgba(255, 255, 255, 0.432),
+      rgba(255, 255, 255, 0.068)
     ),
     url("../public/docl.jpg");
 }

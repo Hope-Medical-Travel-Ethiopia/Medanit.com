@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   nav: {
     search: "Search",
@@ -11,8 +12,8 @@ export default {
     type: [
       "Do you know where to get Medical Diagnostic centers?",
       "Do you have a hard time finding medications you need.",
-      "Do you want to know when and where to find well known Specialist Doctors?",
-      "Do you want to know the address and Contact Information of Hospitals.",
+      "Do you want to know the schedule of Specialist Doctors?",
+      "Do you want to know the Contact Information of Hospitals.",
     ],
     Hospital: "Hospital",
     Provider: "Provider",

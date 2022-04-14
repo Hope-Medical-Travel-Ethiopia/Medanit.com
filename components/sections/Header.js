@@ -20,19 +20,23 @@ const Header = ({
       <Navbar className="lg:mb-24" home="home" />
       <div className="flex justify-center lg:px-20 pt-20 p-10 flex-col ">
         <div id="" className="flex flex-col lg:w-2/3 w-100 ">
-          <h1 className="md:text-5xl text-3xl uppercase font-black tracking-wider stroke-w ">
-            <ReactTypingEffect
-              text={content.type}
-              speed="100"
-              eraseSpeed="50"
-              eraseDelay="2500"
-              cursor=""
-              typingDelay="500"
-            />
-          </h1>
-          <p className="my-4 md:w-[75%] xs:text-sm md:text-base">
-            {content.heroDescription}
-          </p>
+          <div className="typingEffect relative h-32">
+            <h1 className="md:text-4xl text-3xl uppercase font-black tracking-wider stroke-w absolute">
+              <ReactTypingEffect
+                text={content.type}
+                speed="100"
+                eraseSpeed="50"
+                eraseDelay="3500"
+                cursor=""
+                typingDelay="500"
+              />
+            </h1>
+          </div>
+          <div className="heroDescription">
+            <p className="my-4 md:w-[60%] font-normal xs:text-sm md:text-base">
+              {content.heroDescription}
+            </p>
+          </div>
         </div>
         <div className="my-5">
           <SearchFunction
