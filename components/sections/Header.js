@@ -27,13 +27,13 @@ const Header = ({
                 speed="100"
                 eraseSpeed="50"
                 eraseDelay="3500"
-                cursor=""
+                cursor=" "
                 typingDelay="500"
               />
             </h1>
           </div>
           <div className="heroDescription">
-            <p className="my-4 md:w-[60%] font-normal xs:text-sm md:text-base">
+            <p className="md:my-4  my-10 md:w-[60%] font-normal xs:text-sm md:text-base">
               {content.heroDescription}
             </p>
           </div>

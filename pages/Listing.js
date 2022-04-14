@@ -232,7 +232,7 @@ const Listing = ({
             >
               <Autocomplete
                 className="bg-white"
-                // id="select-providers"
+                id="select-providers"
                 name="searchTerm"
                 options={providers}
                 variant="filled"

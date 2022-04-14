@@ -1,4 +1,4 @@
-import 'lazysizes';
+import "lazysizes";
 
 const AboutUs = ({ content }) => {
   return (
@@ -15,7 +15,7 @@ const AboutUs = ({ content }) => {
           <p className="text-gray-600 text-sm">{content.mainDescription}</p>
         </div>
       </section>
-      <section className=" flex  items-start md:flex-row  flex-col  lg:justify-between justify-center items-center pt-10 pb-20  gap-20">
+      <section className=" flex md:flex-row  flex-col  lg:justify-between justify-center items-center pt-10 pb-20  gap-20">
         <section className="Video-section md:w-1/2 rounded-full ">
           <iframe
             className="md:w-[45vw] w-[90vw] m-auto lazyload"
