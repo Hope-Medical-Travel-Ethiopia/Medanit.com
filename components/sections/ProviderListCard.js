@@ -12,7 +12,9 @@ const ProviderListCard = ({
   searchTerm,
 }) => {
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${quality || 75}`;
+    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
+      quality || 75
+    }`;
   };
 
   const [image, setimage] = useState();
@@ -83,10 +85,7 @@ const ProviderListCard = ({
             {provider == "Hospital" ? (
               <Link
                 href={
-                  `/${provider}/` +
-                  providers.id +
-                  "?searchTerm=" +
-                  searchTerm
+                  `/${provider}/` + providers.id + "?searchTerm=" + searchTerm
                 }
               >
                 <a className="px-6 py-3 bg-blue-500 text-gray-50 rounded-lg">

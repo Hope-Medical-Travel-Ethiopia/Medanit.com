@@ -15,7 +15,9 @@ const ProfileHeader = ({ pic, type, provider }) => {
       });
   };
   const myLoader = ({ src, width, quality }) => {
-    return `https://api.medanit.com/storage/${src}?w=${width}&q=${quality || 75}`;
+    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
+      quality || 75
+    }`;
   };
   const [image, setimage] = useState();
 
