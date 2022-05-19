@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Picture from "../reusable/Picture";
 import { useState, useEffect } from "react";
+import { FaPhone } from "react-icons/fa";
 
 const ProviderListCard = ({
   className,
@@ -55,8 +56,9 @@ const ProviderListCard = ({
             {providers.phone && (
               <a
                 href={`tel:${providers.phone}`}
-                className="tracking-wide text-blue-400 text-lg mt-2"
+                className="tracking-wide text-blue-400 text-lg my-2 flex items-center"
               >
+                <FaPhone className="md:text-base  rotate-90 mr-3" />
                 {providers.phone}
               </a>
             )}

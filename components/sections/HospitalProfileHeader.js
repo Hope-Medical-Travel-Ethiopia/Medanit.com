@@ -1,6 +1,8 @@
 import Image from "next/image";
 import pic from "../../public/hospital.jpg";
 import { useState, useEffect } from "react";
+import { FaPhone, FaAt, FaMap } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
 import Picture from "../reusable/Picture";
 
 const HospitalProfileHeader = ({ providers, DefaultImage }) => {
@@ -36,10 +38,20 @@ const HospitalProfileHeader = ({ providers, DefaultImage }) => {
         <h1 className="lg:text-3xl md:text-2xl text-xl  font-bold mb-5">
           {providers.name}
         </h1>
-        <h3 className="md:text-xl  tracking-wider">{providers.phone}</h3>
-        <h3 className="md:text-xl tracking-wider">{providers.email}</h3>
+        <h3 className="md:text-xl mb-2 tracking-wider flex items-center">
+          {" "}
+          <FaPhone className="md:text-base rotate-90 mr-3 " />
+          {providers.phone}
+        </h3>
+        <h3 className="md:text-xl mb-2 tracking-wider flex items-center">
+          {" "}
+          <IoMail className="md:text-base mr-3 " />
+          {providers.email}
+        </h3>
 
-        <p className="text-sm lg:w-96 w-full">
+        <p className="text-sm lg:w-96 w-full flex items-center">
+          <FaMap className="md:text-base mr-3" />
+
           {providers.address}
           {/* Bole Shewa dabo, Getu commercial Trading, 4th floor, office 406 */}
         </p>

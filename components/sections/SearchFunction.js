@@ -173,6 +173,7 @@ const SearchFunction = ({
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    required
                     label={`${content.SearchFor} ${provider}`}
                     inputProps={{
                       ...params.inputProps,
