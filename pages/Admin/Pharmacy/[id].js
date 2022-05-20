@@ -25,7 +25,7 @@ export default function Pharmacy({ pharmacy }) {
         </section>
         <section></section>
         <section>
-          {pharmacy["medications"].map((option) => (
+          {/* {pharmacy["medications"].map((option) => (
             <MedList
               key={option.id}
               name={option.name}
@@ -34,7 +34,13 @@ export default function Pharmacy({ pharmacy }) {
               providerId={pharmacy.id}
               type="Medications"
             />
-          ))}
+          ))} */}
+
+          <MedList
+            medications={pharmacy["medications"]}
+            type="Medications"
+            providerId={pharmacy.id}
+          />
         </section>
       </div>
     </div>

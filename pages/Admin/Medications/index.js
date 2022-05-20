@@ -25,7 +25,7 @@ export default function Medication({ medications }) {
       </div>
       <div className="body">
         <section>
-          {medications.map((option) => (
+          {/* {medications.map((option) => (
             <MedList
               key={option.id}
               name={option.name}
@@ -34,7 +34,13 @@ export default function Medication({ medications }) {
               type="Medications"
               fromMed={true}
             />
-          ))}
+          ))} */}
+
+          <MedList
+            medications={medications}
+            type="Medications"
+            fromMed={true}
+          />
         </section>
       </div>
     </div>
