@@ -15,7 +15,7 @@ export const MedList = ({
   name,
   description,
   // id,
-  // type,
+  type,
   providerId,
   fromMed,
   medications,
@@ -24,16 +24,16 @@ export const MedList = ({
   const handleDelete = async (id) => {
     if (providerId) {
       const response = await axios
-        .delete(`/api/Medications/${providerId}/${id}`)
+        .delete(`/api/${type}/${providerId}/${id}`)
         .then((response) => {
           router.push(`/Admin/Pharmacy/${providerId}`);
           handleClose();
         });
     } else {
       const response = await axios
-        .delete(`/api/Medications/${id}`)
+        .delete(`/api/${type}/${id}`)
         .then((response) => {
-          router.push(`/Admin/Medications`);
+          router.push(`/Admin/${type}`);
           handleClose();
         });
     }
@@ -56,17 +56,21 @@ export const MedList = ({
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
+      maxWidth: "200px",
+      wrap: true,
     },
     {
       name: "Description",
       selector: (row) => row.description,
       sortable: true,
+      // maxWidth: "400px",
+      wrap: true,
     },
     {
       cell: (row) => (
         <>
           {fromMed && (
-            <Link href={`/Admin/Medications/Edit/${row.id}`}>
+            <Link href={`/Admin/${type}/Edit/${row.id}`}>
               <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
                 <FaEdit className="text-xl stroke-1 " />
               </a>
@@ -83,14 +87,14 @@ export const MedList = ({
       ),
       allowOverflow: true,
       button: true,
-      width: "56px",
+      // width: "56px",
     },
   ];
 
   const customStyles = {
     rows: {
       style: {
-        width: "95%",
+        maxWidth: "1000px",
         // minHeight: "72px", // override the row height
       },
     },
@@ -127,6 +131,8 @@ export const MedList = ({
           data={data}
           pagination
           customStyles={customStyles}
+          striped={true}
+
           // paginationComponentOptions={paginationComponentOptions}
         />
       </div>

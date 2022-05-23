@@ -25,7 +25,7 @@ export default function Procedures({ Procedure }) {
       </div>
       <div className="body">
         <section>
-          {Procedure &&
+          {/* {Procedure &&
             Procedure.map((option) => (
               <MedList
                 key={option.id}
@@ -35,7 +35,9 @@ export default function Procedures({ Procedure }) {
                 fromMed={true}
                 type="Procedures"
               />
-            ))}
+            ))} */}
+
+          <MedList medications={Procedure} type="Procedures" fromMed={true} />
         </section>
       </div>
     </div>
