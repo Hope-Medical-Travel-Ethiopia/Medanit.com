@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../../../components/Admin/Sidebar";
 import Footer from "../../../../components/layouts/Footer";
 import AdminNav from "../../../../components/Admin/AdminNav";
-
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -17,6 +18,7 @@ export default function CreatePharmacy({ pharmacy }) {
   const serviceList = ["Service 1", "Service 2", "Service 3"];
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
+  const [disableButton, setdisableButton] = useState(false);
 
   const [values, setValues] = React.useState({
     name: pharmacy.name,
@@ -27,7 +29,14 @@ export default function CreatePharmacy({ pharmacy }) {
     opening: pharmacy.opening,
     closing: pharmacy.closing,
   });
-
+  const [fullDay, setfullDay] = useState(false);
+  const handleFullDay = () => {
+    setfullDay(!fullDay);
+    if (fullDay == false) {
+      setValues({ ...values, closing: "00:00", opening: "00:00" });
+      console.log(values);
+    }
+  };
   // useEffect(() => {
   //   setValues(pharmacy);
   // }, [pharmacy]);
@@ -38,6 +47,7 @@ export default function CreatePharmacy({ pharmacy }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setdisableButton(true);
 
     let formData = new FormData();
 
@@ -144,7 +154,7 @@ export default function CreatePharmacy({ pharmacy }) {
                 }
               />
             </FormControl>
-            <div>
+            <div className="flex items-center">
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -152,14 +162,19 @@ export default function CreatePharmacy({ pharmacy }) {
                 >
                   Openning time
                 </label>
-                <TextField
-                  required
-                  id="pharmacy-openning-time"
-                  type="time"
-                  value={values.opening}
-                  onChange={handleChange("opening")}
-                />
+
+                {fullDay ? (
+                  <TextField type="time" disabled />
+                ) : (
+                  <TextField
+                    required
+                    id="pharmacy-openning-time"
+                    type="time"
+                    onChange={handleChange("opening")}
+                  />
+                )}
               </FormControl>
+
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -167,21 +182,39 @@ export default function CreatePharmacy({ pharmacy }) {
                 >
                   Closing time
                 </label>
-                <TextField
-                  required
-                  id="pharmacy-closing-time"
-                  type="time"
-                  value={values.closing}
-                  onChange={handleChange("closing")}
-                />
+                {fullDay ? (
+                  <TextField disabled type="time" />
+                ) : (
+                  <TextField
+                    required
+                    id="pharmacy-closing-time"
+                    type="time"
+                    onChange={handleChange("closing")}
+                  />
+                )}
               </FormControl>
+              <div className="">
+                <FormControlLabel
+                  control={<Checkbox size="large" onChange={handleFullDay} />}
+                  label="24 hours"
+                />
+              </div>
             </div>
           </div>
-          <input
-            type="submit"
-            value="Submit"
-            className=" rounded-lg w-fit py-3 px-20  m-2 bg-emerald-500 text-white"
-          />
+          {!disableButton ? (
+            <input
+              type="submit"
+              value="Submit"
+              className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+            />
+          ) : (
+            <input
+              value="Loading ..."
+              type="submit"
+              disabled
+              className=" rounded-lg w-fit py-3 px-16 m-2 bg-gray-500 text-white "
+            />
+          )}
         </form>
       </div>
     </div>

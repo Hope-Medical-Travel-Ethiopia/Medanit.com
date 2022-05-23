@@ -45,6 +45,7 @@ const Listing = ({
   const router = useRouter();
   const { locale } = router;
   const t = locale === "en" ? en : am;
+  const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
     doctors.map((item) => {
@@ -188,6 +189,8 @@ const Listing = ({
     } else if (provider == "Pharmacy") {
       setImage(pharmaPic);
     }
+
+    setShowResults(true);
   };
 
   //return
@@ -244,6 +247,7 @@ const Listing = ({
                 getOptionLabel={(option) => option}
                 onInputChange={(event, newValue) => {
                   try {
+                    setShowResults(false);
                     setSearchTerm(newValue);
                   } catch {
                     setSearchTerm("");
@@ -269,6 +273,7 @@ const Listing = ({
                     {...params}
                     label={`${t.home.SearchFor} ${provider}`}
                     variant="filled"
+                    required
                     autoComplete="new-password"
                     inputProps={{
                       ...params.inputProps,
@@ -290,13 +295,14 @@ const Listing = ({
             </FormControl>
           </form>
         </div>
-        {searchTerm && providerData && (
+        {searchTerm && providerData && !IsLoading && showResults && (
           <h1 className="  mt-5 text-left">
             <span className=" font-bold">{providerData.length} </span>{" "}
             {t.listings.result}{" "}
             <span className="text-white block text-2xl font-bold ">
               {searchTerm}
             </span>
+            {provider == "Pharmacy" && console.log(providerData)}
           </h1>
         )}
       </section>

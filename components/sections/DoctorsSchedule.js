@@ -75,9 +75,13 @@ const Schedule = ({ time }) => {
       <div className="Date mb-5 flex flex-wrap justify-center md:justify-start">
         <h3 className="text-gray-600 mr-5">{time.day}</h3>
         <div>
-          <h4 className="text-gray-600">
-            {time.starting} - {time.ending}
-          </h4>
+          {time.starting == time.ending ? (
+            <h4 className="text-gray-600">24 Hours</h4>
+          ) : (
+            <h4 className="text-gray-600">
+              {time.starting} - {time.ending}
+            </h4>
+          )}
         </div>
       </div>
     </>

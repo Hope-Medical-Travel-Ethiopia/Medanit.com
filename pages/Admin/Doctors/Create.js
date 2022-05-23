@@ -171,8 +171,7 @@ export default function CreateDoctors({ doctors }) {
               <FormControl sx={{ m: 1, width: "40ch" }} variant="standard">
                 <Autocomplete
                   multiple
-                required
-
+                  required
                   id="tags-filled"
                   options={serviceList.map((option) => option)}
                   //   defaultValue={[serviceList[1]]}
@@ -222,7 +221,9 @@ export default function CreateDoctors({ doctors }) {
             ) : (
               <input
                 value="Loading ..."
-                className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                type="submit"
+                disabled
+                className=" rounded-lg w-fit  py-3 px-16 m-2 bg-gray-500 text-white "
               />
             )}
           </form>

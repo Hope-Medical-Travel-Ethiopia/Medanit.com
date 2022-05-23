@@ -6,6 +6,8 @@ import AdminNav from "../../../components/Admin/AdminNav";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
@@ -16,6 +18,8 @@ export default function CreatePharmacy() {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
   const [disableButton, setdisableButton] = useState(false);
+  const [fullDay, setfullDay] = useState(false);
+
   const [values, setValues] = React.useState({
     name: "",
     phone: "",
@@ -25,6 +29,13 @@ export default function CreatePharmacy() {
     opening: "",
     closing: "",
   });
+
+  const handleFullDay = () => {
+    setfullDay(!fullDay);
+    if (fullDay == false) {
+      setValues({ ...values, closing: "00:00", opening: "00:00" });
+    }
+  };
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -57,17 +68,14 @@ export default function CreatePharmacy() {
 
   return (
     <div className="min-h-screen">
-      <div className="Heading">
-        <div className="pageTitle m-10 bg-white p-5 flex items-center pl-10 justify-start ">
+      <div className="Heading ">
+        <div className="pageTitle m-10 mb-0 bg-white p-5 flex items-center pl-10 justify-start ">
           <h1 className="text-2xl font-bold tracking-wider uppercase textClip">
             Register New Pharmacy Center
           </h1>
         </div>
       </div>
       <div className="body mx-10 p-10 bg-white">
-        <h1 className="text-xl font-bold  tracking-wider mb-5 uppercase textClip">
-          Add new Schedule
-        </h1>
         <form onSubmit={(e) => handleSubmit(e)} action="#">
           <div className="flex justify-between flex-wrap">
             <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
@@ -140,7 +148,8 @@ export default function CreatePharmacy() {
                 }
               />
             </FormControl>
-            <div>
+
+            <div className="flex items-center">
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -148,13 +157,19 @@ export default function CreatePharmacy() {
                 >
                   Openning time
                 </label>
-                <TextField
-                  required
-                  id="pharmacy-openning-time"
-                  type="time"
-                  onChange={handleChange("opening")}
-                />
+
+                {fullDay ? (
+                  <TextField type="time" disabled />
+                ) : (
+                  <TextField
+                    required
+                    id="pharmacy-openning-time"
+                    type="time"
+                    onChange={handleChange("opening")}
+                  />
+                )}
               </FormControl>
+
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -162,13 +177,23 @@ export default function CreatePharmacy() {
                 >
                   Closing time
                 </label>
-                <TextField
-                  required
-                  id="pharmacy-closing-time"
-                  type="time"
-                  onChange={handleChange("closing")}
-                />
+                {fullDay ? (
+                  <TextField disabled type="time" />
+                ) : (
+                  <TextField
+                    required
+                    id="pharmacy-closing-time"
+                    type="time"
+                    onChange={handleChange("closing")}
+                  />
+                )}
               </FormControl>
+              <div className="">
+                <FormControlLabel
+                  control={<Checkbox size="large" onChange={handleFullDay} />}
+                  label="24 hours"
+                />
+              </div>
             </div>
           </div>
           {!disableButton ? (
@@ -180,7 +205,9 @@ export default function CreatePharmacy() {
           ) : (
             <input
               value="Loading ..."
-              className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+              type="submit"
+              disabled
+              className=" rounded-lg w-fit py-3 px-16 m-2 bg-gray-500 text-white "
             />
           )}
         </form>

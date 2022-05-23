@@ -39,12 +39,17 @@ const HospitalProfile = ({ hospitals, schedule }) => {
         {/*  */}
         <section className=" mt-10 w-full ">
           <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
-            <Expertise
-              title={t.profile.services}
-              services={hospitals.services}
-            />
+            {hospitals.services && hospitals.services != "null" && (
+              <Expertise
+                title={t.profile.services}
+                services={hospitals.services}
+              />
+            )}
+
             <div className="about lg:row-start-2 ">
-              <About content={t} description={hospitals.description} />
+              {hospitals.description && hospitals.description != "null" && (
+                <About content={t} description={hospitals.description} />
+              )}
             </div>
             <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10 ">
               {hospitals.doctors.map((doctor) => (

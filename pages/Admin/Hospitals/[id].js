@@ -22,7 +22,9 @@ export default function Hospital({ hospital, schedule }) {
         <div className="grid grid-cols-3  gap-10">
           <Expertise title="Service" services={hospital.services} />
           <div className="about row-start-2">
-            <About description={hospital.description} />
+            {hospital.description && hospital.description != "null" && (
+              <About description={hospital.description} />
+            )}
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <RegisterLink
