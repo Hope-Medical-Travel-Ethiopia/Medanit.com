@@ -55,38 +55,6 @@ export default function EditProcedure({ procedure, procedures }) {
       </div>
 
       <div className="body">
-        <section className="mx-10 p-5 bg-white flex flex-col justify-center items-center">
-          <h1 className="textClip text-xl font-bold my-5 ml-2 self-start justify-self-start">
-            Check if the Procedure Exists
-          </h1>
-          <Autocomplete
-            id="select-procedure"
-            options={procedures}
-            sx={{ width: 600 }}
-            autoHighlight
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option) => (
-              <Box
-                className="m-auto w-100 p-2 cursor-pointer"
-                component="li"
-                {...props}
-              >
-                {option.name}{" "}
-              </Box>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Check If Procedure already exists "
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password",
-                }}
-              />
-            )}
-          />
-        </section>
-
         <section>
           <div className="m-10 p-5 bg-white">
             <h1 className="textClip text-xl font-bold my-5 ml-2">

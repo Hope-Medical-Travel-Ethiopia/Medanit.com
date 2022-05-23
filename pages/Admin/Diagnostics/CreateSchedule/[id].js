@@ -210,114 +210,132 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
           </div>
         )}
       </section>
-      <div className="scheduleForm m-10 p-5 bg-white">
-        <h1 className="textClip text-xl font-bold my-5 ml-2">Add Schedule</h1>
-        {schedules[0].day ? (
-          schedules.map((item) => (
-            <div key={item.day + item.starting}>
-              <h1> {item.day} </h1>
-              <p>
-                {" "}
-                {item.starting} - to - {item.ending}{" "}
-              </p>
-            </div>
-          ))
-        ) : (
-          <h1> please Add Values </h1>
-        )}
-        <form onSubmit={(e) => handleSubmit(e)}>
-          {schedules.map((element, index) => (
-            <div className="flex items-end  " key={index}>
-              <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-                <label
-                  className="mb-2 text-sm text-gray-600"
-                  htmlFor={`schedule-Date`}
-                >
-                  Day
-                </label>
-                {/* <InputLabel htmlFor={`schedule-Date`}>Day</InputLabel> */}
-                <TextField
-                  required
-                  id="schedule-Date"
-                  type="text"
-                  name="day"
-                  value={element.day || ""}
-                  onChange={(e) => handleScheduleChange(index, e)}
-                  label="Day"
-                />
-              </FormControl>
-
-              <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
-                <label
-                  className="mb-2 text-sm text-gray-600"
-                  htmlFor={`starting-time`}
-                >
-                  Starting time
-                </label>
-                <TextField
-                  required
-                  id="starting-time"
-                  type="time"
-                  name="starting"
-                  value={element.starting || ""}
-                  onChange={(e) => handleScheduleChange(index, e)}
-                />
-              </FormControl>
-
-              <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
-                <label
-                  className="mb-2 text-sm text-gray-600"
-                  htmlFor={`ending-time`}
-                >
-                  ending time
-                </label>
-                <TextField
-                  required
-                  id="ending-time"
-                  type="time"
-                  name="ending"
-                  value={element.ending || ""}
-                  onChange={(e) => handleScheduleChange(index, e)}
-                />
-              </FormControl>
-              <div>
-                {index ? (
-                  <button
-                    type="button"
-                    className="button bg-red-500 hover:bg-red-700 m-2 transition-all px-6 py-4 rounded-sm text-white cursor-pointer"
-                    onClick={() => removeFormFields(index)}
-                  >
-                    Remove
-                  </button>
-                ) : null}
+      {showProcedure && Procedure && (
+        <div className="scheduleForm m-10 p-5 bg-white">
+          <h1 className="textClip text-xl font-bold my-5 ml-2">Add Schedule</h1>
+          {schedules[0].day ? (
+            schedules.map((item) => (
+              <div key={item.day + item.starting}>
+                <h1> {item.day} </h1>
+                <p>
+                  {" "}
+                  {item.starting} - to - {item.ending}{" "}
+                </p>
               </div>
+            ))
+          ) : (
+            <h1> please Add Values </h1>
+          )}
+          <form onSubmit={(e) => handleSubmit(e)}>
+            {schedules.map((element, index) => (
+              <div className="flex items-end  " key={index}>
+                {/* <input
+                type="text"
+                name="day"
+                value={element.day || ""}
+                onChange={(e) => handleScheduleChange(index, e)}
+              /> */}
+                <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
+                  <label
+                    className="mb-2 text-sm text-gray-600"
+                    htmlFor={`schedule-Date`}
+                  >
+                    Day
+                  </label>
+                  {/* <InputLabel htmlFor={`schedule-Date`}>Day</InputLabel> */}
+                  <TextField
+                    required
+                    id="schedule-Date"
+                    type="text"
+                    name="day"
+                    value={element.day || ""}
+                    onChange={(e) => handleScheduleChange(index, e)}
+                    label="Day"
+                  />
+                </FormControl>
+                {/* <label>starting</label> */}
+                {/* <input
+                type="time"
+                name="starting"
+                value={element.starting || ""}
+                onChange={(e) => handleScheduleChange(index, e)}
+              /> */}
+                <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
+                  <label
+                    className="mb-2 text-sm text-gray-600"
+                    htmlFor={`starting-time`}
+                  >
+                    Starting time
+                  </label>
+                  <TextField
+                    required
+                    id="starting-time"
+                    type="time"
+                    name="starting"
+                    value={element.starting || ""}
+                    onChange={(e) => handleScheduleChange(index, e)}
+                  />
+                </FormControl>
+                {/* <label>ending</label> */}
+                {/* <input
+                type="time"
+                name="ending"
+                value={element.ending || ""}
+                onChange={(e) => handleScheduleChange(index, e)}
+              /> */}
+                <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
+                  <label
+                    className="mb-2 text-sm text-gray-600"
+                    htmlFor={`ending-time`}
+                  >
+                    ending time
+                  </label>
+                  <TextField
+                    required
+                    id="ending-time"
+                    type="time"
+                    name="ending"
+                    value={element.ending || ""}
+                    onChange={(e) => handleScheduleChange(index, e)}
+                  />
+                </FormControl>
+                <div>
+                  {index ? (
+                    <button
+                      type="button"
+                      className="button bg-red-500 hover:bg-red-700 m-2 transition-all px-6 py-4 rounded-sm text-white cursor-pointer"
+                      onClick={() => removeFormFields(index)}
+                    >
+                      Remove
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            ))}
+            <div className="button-section flex gap-10 mt-5">
+              <button
+                className="button bg-blue-500 hover:bg-blue-700 transition-all px-10 py-4 m rounded-sm text-white cursor-pointer"
+                type="button"
+                onClick={() => addFormFields()}
+              >
+                Add
+              </button>
+              {!disableButton ? (
+                <input
+                  type="submit"
+                  value="Submit"
+                  className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
+                />
+              ) : (
+                <input
+                  value="Loading ..."
+                  className=" rounded-lg w-fit py-3 px-20 m-2 bg-gray-500 text-white "
+                />
+              )}
             </div>
-          ))}
-          <div className="button-section flex gap-10 mt-5">
-            <button
-              className="button bg-blue-500 hover:bg-blue-700 transition-all px-10 py-4 m rounded-sm text-white cursor-pointer"
-              type="button"
-              onClick={() => addFormFields()}
-            >
-              Add
-            </button>
-            {!disableButton ? (
-              <input
-                type="submit"
-                value="Submit"
-                className=" rounded-lg w-fit py-3 px-20 m-2 bg-emerald-500 text-white hover:bg-emerald-600 transition-all hover:cursor-pointer"
-              />
-            ) : (
-              <input
-                value="Loading ..."
-                type="submit"
-                disable
-                className=" rounded-lg w-fit py-3 px-16 m-2 bg-gray-500 text-white "
-              />
-            )}
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,55 +1,135 @@
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import React from "react";
 import axios from "../../lib/axios";
+import DataTable from "react-data-table-component";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export const MedList = ({
   name,
   description,
-  id,
-  type,
+  // id,
+  // type,
   providerId,
   fromMed,
+  medications,
 }) => {
   const router = useRouter();
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
     if (providerId) {
       const response = await axios
-        .delete(`/api/${type}/${providerId}/${id}`)
+        .delete(`/api/Medications/${providerId}/${id}`)
         .then((response) => {
           router.push(`/Admin/Pharmacy/${providerId}`);
+          handleClose();
         });
     } else {
       const response = await axios
-        .delete(`/api/${type}/${id}`)
+        .delete(`/api/Medications/${id}`)
         .then((response) => {
-          router.push(`/Admin/${type}`);
+          router.push(`/Admin/Medications`);
+          handleClose();
         });
     }
   };
+
+  const [open, setOpen] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setDeleteId(id);
+  };
+
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Description",
+      selector: (row) => row.description,
+      sortable: true,
+    },
+    {
+      cell: (row) => (
+        <>
+          {fromMed && (
+            <Link href={`/Admin/Medications/Edit/${row.id}`}>
+              <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+                <FaEdit className="text-xl stroke-1 " />
+              </a>
+            </Link>
+          )}
+
+          <button
+            onClick={() => handleClickOpen(row.id)}
+            className="px-4 mx-2 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
+          >
+            <FaTrash className="text-xl stroke-1" />
+          </button>
+        </>
+      ),
+      allowOverflow: true,
+      button: true,
+      width: "56px",
+    },
+  ];
+
+  const customStyles = {
+    rows: {
+      style: {
+        width: "95%",
+        // minHeight: "72px", // override the row height
+      },
+    },
+  };
+
+  const data = medications;
+
   return (
-    <div className="medication w-full bg-white px-10 py-5 my-5 rounded-lg flex items-center justify-between flex-wrap">
-      <h1 className="text-xl font-bold tracking-wider text-blue-500 w-48">
-        {name}
-      </h1>
-      <p className="text-sm text-gray-600 text-wrap overflow-hidden justify-self-start  w-96 max-w-96 ">
-        {description}
-      </p>
-      <div className="action flex  gap-5 justify-center">
-        {fromMed && (
-          <Link href={`/Admin/${type}/Edit/${id}`}>
-            <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
-              <FaEdit className="text-xl stroke-1 " />
-            </a>
-          </Link>
-        )}
-        <button
-          onClick={() => handleDelete()}
-          className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
-        >
-          <FaTrash className="text-xl stroke-1" />
-        </button>
+    <>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You cannot undo this action if you proceed with it!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={() => handleDelete(deleteId)} autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <div className="mt-36 ">
+        <DataTable
+          // title="Medications"
+          columns={columns}
+          data={data}
+          pagination
+          customStyles={customStyles}
+          // paginationComponentOptions={paginationComponentOptions}
+        />
       </div>
-    </div>
+    </>
   );
 };

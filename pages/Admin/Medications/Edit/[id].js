@@ -53,42 +53,6 @@ export default function CreateMed({ medications }) {
       </div>
 
       <div className="body">
-        <section className="mx-10 p-5 bg-white flex flex-col justify-center items-center">
-          <h1 className="textClip text-xl font-bold my-5 ml-2 self-start justify-self-start">
-            Check if the medication Exists
-          </h1>
-          <Autocomplete
-            id="select-medications"
-            options={medications}
-            sx={{ width: 600 }}
-            autoHighlight
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option) => (
-              <Box
-                className="m-auto w-100 border-2 my-2 cursor-pointer"
-                component="li"
-                {...props}
-              >
-                {option.name}{" "}
-                <span className="block text-xs">
-                  {" "}
-                  {option.speciality} {option.id}
-                </span>
-              </Box>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Check If medication already exists "
-                inputProps={{
-                  ...params.inputProps,
-                  autoComplete: "new-password",
-                }}
-              />
-            )}
-          />
-        </section>
-
         <section>
           <div className="m-10 p-5 bg-white">
             <h1 className="textClip text-xl font-bold my-5 ml-2">

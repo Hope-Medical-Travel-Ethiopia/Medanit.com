@@ -14,13 +14,13 @@ export default function table({ diagnostics }) {
 
   const columns = [
     {
-      name: "Id",
-      selector: (row) => row.id,
+      name: "Name",
+      selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: "Name",
-      selector: (row) => row.name,
+      name: "Description",
+      selector: (row) => row.description,
       sortable: true,
     },
     {
@@ -37,31 +37,6 @@ export default function table({ diagnostics }) {
 
   const data = diagnostics;
 
-  //   const [filterText, setFilterText] = React.useState("");
-  //   const [resetPaginationToggle, setResetPaginationToggle] = React.useState(
-  //     false
-  //   );
-  //   const filteredItems = fakeUsers.filter(
-  //     (item) =>
-  //       item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
-  //   );
-
-  //   const subHeaderComponentMemo = React.useMemo(() => {
-  //     const handleClear = () => {
-  //       if (filterText) {
-  //         setResetPaginationToggle(!resetPaginationToggle);
-  //         setFilterText("");
-  //       }
-  //     };
-
-  //     return (
-  //       <FilterComponent
-  //         onFilter={(e) => setFilterText(e.target.value)}
-  //         onClear={handleClear}
-  //         filterText={filterText}
-  //       />
-  //     );
-  //   }, [filterText, resetPaginationToggle]);
   return (
     <div className="mt-36">
       <DataTable
@@ -83,3 +58,27 @@ export async function getServerSideProps() {
     },
   };
 }
+
+{/* <div className="medication w-full bg-white px-10 py-5 my-5 rounded-lg flex items-center justify-between flex-wrap">
+  <h1 className="text-xl font-bold tracking-wider text-blue-500 w-48">
+    {name}
+  </h1>
+  <p className="text-sm text-gray-600 text-wrap overflow-hidden justify-self-start  w-96 max-w-96 ">
+    {description}
+  </p>
+  <div className="action flex  gap-5 justify-center">
+    {fromMed && (
+      <Link href={`/Admin/${type}/Edit/${id}`}>
+        <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+          <FaEdit className="text-xl stroke-1 " />
+        </a>
+      </Link>
+    )}
+    <button
+      onClick={() => handleClickOpen()}
+      className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
+    >
+      <FaTrash className="text-xl stroke-1" />
+    </button>
+  </div>
+</div>; */}
