@@ -258,8 +258,7 @@ export default function CreateSchedule({ doctors, hospital }) {
                 <FormControl sx={{ m: 1, width: "40ch" }} variant="standard">
                   <Autocomplete
                     multiple
-                required
-
+                    required
                     id="tags-filled"
                     options={serviceList.map((option) => option)}
                     //   defaultValue={[serviceList[1]]}
@@ -308,6 +307,8 @@ export default function CreateSchedule({ doctors, hospital }) {
               ) : (
                 <input
                   value="Loading ..."
+                  type="submit"
+                  disabled
                   className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
                 />
               )}
@@ -409,6 +410,8 @@ export default function CreateSchedule({ doctors, hospital }) {
               ) : (
                 <input
                   value="Loading ..."
+                  type="submit"
+                  disabled
                   className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
                 />
               )}

@@ -70,19 +70,9 @@ Home.getLayout = function PageLayout(page) {
 };
 
 export async function getServerSideProps() {
-  // const DoctorsResponse = await axios.get("/api/doctors");
-  // const diagnosticResponse = await axios.get("/api/diagnostics");
-  // const hospitalResponse = await axios.get("/api/hospitals");
-  // const pharmacyResponse = await axios.get("/api/Pharmacy");
-  // const procedureResponse = await axios.get("/api/Procedures");
-  // const MedicationResponse = await axios.get("/api/Medications");
   const Response = await axios.get("/api/all");
   const Testimonial = await axios.get("/api/testimonial");
   const CounterResponse = await axios.get("/api/CountProviders");
-
-  // let array = [1, 1, 1, 2, 3, 1, 5, 1, 3, 2, 1, 2, 1, 2];
-  // console.log([...new Set(array)]);
-  // console.log(Response.data.medications);
   return {
     props: {
       doctors: Response.data.doctors,

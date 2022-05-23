@@ -38,12 +38,18 @@ const DoctorProfile = ({ doctor, schedule }) => {
         {/*  */}
         <section className=" mt-10 w-full ">
           <div className="lg:grid lg:grid-cols-3  lg:gap-10 flex flex-col gap-10">
-            <Expertise
-              title={t.profile.expertise}
-              services={doctor.expertise}
-            />
+            {doctor.expertise && doctor.expertise != "null" && (
+              <Expertise
+                title={t.profile.expertise}
+                services={doctor.expertise}
+              />
+            )}
             <div className="about lg:row-start-2">
-              <About description={doctor.description} content={t} />
+              {doctor.description &&
+                doctor.description != null &&
+                doctor.description != "null" && (
+                  <About description={doctor.description} content={t} />
+                )}
             </div>
             <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10 ">
               {doctor.hospitals.map((hospital) => (

@@ -27,7 +27,9 @@ export default function Doctor({ doctors, schedule }) {
         <div className="grid grid-cols-3  gap-10">
           <Expertise title="Expertise" services={doctors.expertise} />
           <div className="about row-start-2">
-            <About description={doctors.description} />
+            {doctors.description && doctors.description != "null" && (
+              <About description={doctors.description} />
+            )}
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <div className="schedules">

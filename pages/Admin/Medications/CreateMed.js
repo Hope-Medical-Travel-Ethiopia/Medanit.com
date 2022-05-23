@@ -126,7 +126,9 @@ export default function CreateMed({ medications }) {
                 ) : (
                   <input
                     value="Loading ..."
-                    className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                    type="submit"
+                    disabled
+                    className=" rounded-lg w-fit py-3 px-16 m-2 bg-gray-500 text-white "
                   />
                 )}
               </form>

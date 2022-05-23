@@ -124,6 +124,8 @@ export default function CreateMed({ testimonial }) {
                 ) : (
                   <input
                     value="Loading ..."
+                    type="submit"
+                    disabled
                     className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
                   />
                 )}

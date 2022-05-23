@@ -46,12 +46,12 @@ export default function EditDiagnostics({ Diagnostics }) {
     setdisableButton(true);
 
     formData.append("name", values.name);
-    formData.append("description", values.description);
     formData.append("email", values.email);
     formData.append("address", values.address);
     for (const i = 0; i < values.services.length; i++) {
       formData.append("services[]", values.services[i]);
     }
+    formData.append("description", values.description);
     formData.append("phone", values.phone);
     formData.append("logo", values.logo);
 
@@ -144,7 +144,6 @@ export default function EditDiagnostics({ Diagnostics }) {
               <Autocomplete
                 multiple
                 required
-
                 id="tags-filled"
                 options={serviceList.map((option) => option)}
                 value={values.services}
@@ -193,7 +192,9 @@ export default function EditDiagnostics({ Diagnostics }) {
           ) : (
             <input
               value="Loading ..."
-              className=" rounded-lg w-fit py-3 px-20 m-2 bg-gray-500 text-white "
+              type="Submit"
+              disabled
+              className=" rounded-lg w-fit py-3 px-16 m-2 bg-gray-500 text-white "
             />
           )}
         </form>

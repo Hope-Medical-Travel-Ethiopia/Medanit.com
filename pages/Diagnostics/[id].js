@@ -43,9 +43,14 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
               title={t.profile.services}
               services={diagnostics.services}
             />
-            <div className="about lg:row-start-2">
-              <About description={diagnostics.description} content={t} />
-            </div>
+            {diagnostics.description &&
+              diagnostics.description != null &&
+              diagnostics.description != "null" && (
+                <div className="about lg:row-start-2">
+                  <About description={diagnostics.description} content={t} />
+                </div>
+              )}
+
             <div className="schedules lg:col-span-2 lg:row-span-6 lg:col-start-2 lg:row-start-1 flex  flex-col gap-10">
               {diagnostics.procedures.map((procedures) => (
                 <LabScheduleCard
@@ -61,8 +66,6 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
     </>
   );
 };
-
-
 
 // export async function getStaticPaths() {
 //   const response = await axios.get("/api/diagnostics");

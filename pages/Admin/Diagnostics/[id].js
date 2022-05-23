@@ -24,7 +24,9 @@ export default function Diagnostic({ diagnostics, schedule }) {
         <div className="grid grid-cols-3  gap-10">
           <Expertise title="Service" services={diagnostics.services} />
           <div className="about row-start-2">
-            <About description={diagnostics.description} />
+            {diagnostics.description && diagnostics.description != "null" && (
+              <About description={diagnostics.description} />
+            )}
           </div>
           <div className=" col-span-2 row-span-6 col-start-2 row-start-1 flex flex-col gap-10 ">
             <RegisterLink

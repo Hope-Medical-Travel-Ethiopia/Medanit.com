@@ -66,15 +66,21 @@ const ProviderListCard = ({
             {providers.address && (
               <p className=" text-sm">{providers.address}</p>
             )}
-            {provider == "Pharmacy" && <p className=" text-sm">{provider}</p>}
 
             {providers.opening && (
               <p className="mt-3">
                 Working Hour{" "}
-                <span className="ml-3 font-bold text-blue-500 tracking-wide">
-                  {" "}
-                  {providers.opening} - {providers.closing}
-                </span>
+                {providers.opening == providers.closing ? (
+                  <span className="ml-3 font-bold text-blue-500 tracking-wide">
+                    {" "}
+                    24 Hours
+                  </span>
+                ) : (
+                  <span className="ml-3 font-bold text-blue-500 tracking-wide">
+                    {" "}
+                    {providers.opening} - {providers.closing}
+                  </span>
+                )}
               </p>
             )}
           </div>

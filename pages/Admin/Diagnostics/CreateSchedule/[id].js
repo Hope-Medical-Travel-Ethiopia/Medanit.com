@@ -228,12 +228,6 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         <form onSubmit={(e) => handleSubmit(e)}>
           {schedules.map((element, index) => (
             <div className="flex items-end  " key={index}>
-              {/* <input
-                type="text"
-                name="day"
-                value={element.day || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
               <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -252,13 +246,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                   label="Day"
                 />
               </FormControl>
-              {/* <label>starting</label> */}
-              {/* <input
-                type="time"
-                name="starting"
-                value={element.starting || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
+
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -275,13 +263,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                   onChange={(e) => handleScheduleChange(index, e)}
                 />
               </FormControl>
-              {/* <label>ending</label> */}
-              {/* <input
-                type="time"
-                name="ending"
-                value={element.ending || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
+
               <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                 <label
                   className="mb-2 text-sm text-gray-600"
@@ -328,7 +310,9 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
             ) : (
               <input
                 value="Loading ..."
-                className=" rounded-lg w-fit py-3 px-20 m-2 bg-gray-500 text-white "
+                type="submit"
+                disable
+                className=" rounded-lg w-fit py-3 px-16 m-2 bg-gray-500 text-white "
               />
             )}
           </div>

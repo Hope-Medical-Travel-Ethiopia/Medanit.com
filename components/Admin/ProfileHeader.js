@@ -71,18 +71,28 @@ const ProfileHeader = ({ pic, type, provider }) => {
           {provider.openingTime && (
             <p className="text bg-gray-200 text-blue-500 px-5 py-2 rounded-full mt-3 w-fit">
               Opening Hours :
-              <span className="mx-3">
-                {provider.openingTime} - {provider.closingTime}
-              </span>
+              {provider.openingTime == provider.closingTime ? (
+                <span className="mx-3">
+                  {provider.openingTime} - {provider.closingTime}
+                </span>
+              ) : (
+                <span className="mx-3">
+                  {provider.openingTime} - {provider.closingTime}
+                </span>
+              )}
             </p>
           )}
           {provider.opening && (
             <p className="mt-3">
               Working Hour{" "}
-              <span className="ml-3 font-bold tracking-wide">
-                {" "}
-                {provider.opening} - {provider.closing}
-              </span>
+              {provider.opening == provider.closing ? (
+                <span className="ml-3 font-bold  tracking-wide"> 24 Hours</span>
+              ) : (
+                <span className="ml-3 font-bold  tracking-wide">
+                  {" "}
+                  {provider.opening} - {provider.closing}
+                </span>
+              )}
             </p>
           )}
         </div>
