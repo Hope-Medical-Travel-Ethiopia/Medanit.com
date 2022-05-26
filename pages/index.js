@@ -10,16 +10,7 @@ import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
 import Testimonial from "../components/sections/Testimonial";
-export default function Home({
-  doctors,
-  diagnostics,
-  hospitals,
-  pharmacy,
-  procedures,
-  medication,
-  counter,
-  testimonial,
-}) {
+export default function Home({ counter, testimonial }) {
   const router = useRouter();
   const { locale } = router;
   // console.log(locale);
@@ -41,15 +32,7 @@ export default function Home({
         <link rel="icon" href="/icon.png" />
       </Head>
       <main id="scatter">
-        <Header
-          doctors={doctors}
-          diagnostics={diagnostics}
-          hospitals={hospitals}
-          pharmacy={pharmacy}
-          procedures={procedures}
-          medication={medication}
-          content={t.home}
-        />
+        <Header content={t.home} />
         <AboutUs content={t.about} />
         <CounterSection content={t.counter} counter={counter} />
         <Services />
@@ -70,17 +53,10 @@ Home.getLayout = function PageLayout(page) {
 };
 
 export async function getServerSideProps() {
-  const Response = await axios.get("/api/all");
   const Testimonial = await axios.get("/api/testimonial");
   const CounterResponse = await axios.get("/api/CountProviders");
   return {
     props: {
-      doctors: Response.data.doctors,
-      diagnostics: Response.data.diagnostics,
-      hospitals: Response.data.hospitals,
-      pharmacy: Response.data.pharmacies,
-      procedures: Response.data.procedures,
-      medication: Response.data.medications,
       counter: CounterResponse.data,
       testimonial: Testimonial.data,
     },

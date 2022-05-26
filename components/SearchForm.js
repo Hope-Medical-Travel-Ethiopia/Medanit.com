@@ -13,6 +13,7 @@ import React from "react";
 const SearchForm = ({
   search,
   handleType,
+  handlePush,
   setSearchTerm,
   t,
   providers,
@@ -22,7 +23,9 @@ const SearchForm = ({
   return (
     <div>
       <form
-        onSubmit={search}
+        onSubmit={(e) => {
+          handlePush(e);
+        }}
         className=" w-full flex flex-wrap gap-5 items-center text-white "
       >
         <FormControl

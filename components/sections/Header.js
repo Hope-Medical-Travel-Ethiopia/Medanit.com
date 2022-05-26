@@ -2,16 +2,9 @@ import Navbar from "../layouts/Navbar";
 import { FiArrowDownCircle, FiArrowRight } from "react-icons/fi";
 import SearchFunction from "./SearchFunction";
 import ReactTypingEffect from "react-typing-effect";
+import SearchOnHome from "./SearchOnHome";
 
-const Header = ({
-  doctors,
-  diagnostics,
-  hospitals,
-  pharmacy,
-  procedures,
-  medication,
-  content,
-}) => {
+const Header = ({ content }) => {
   return (
     <section
       id="Header"
@@ -39,15 +32,7 @@ const Header = ({
           </div>
         </div>
         <div className="my-5">
-          <SearchFunction
-            content={content}
-            doctors={doctors}
-            diagnostics={diagnostics}
-            hospitals={hospitals}
-            pharmacy={pharmacy}
-            procedures={procedures}
-            medication={medication}
-          />
+          <SearchOnHome />
         </div>
       </div>
     </section>

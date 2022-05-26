@@ -22,6 +22,7 @@ export default {
     Doctor: "ሐኪም",
     Search: "ፈልግ",
     SearchFor: "ፈልግ",
+    Choose: "አስቀድመው የሚፈልጉትን አገልግሎት ይምረጡ",
   },
   contact: {
     title: "ያናግሩን",

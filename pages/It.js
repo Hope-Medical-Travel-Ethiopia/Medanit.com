@@ -54,18 +54,14 @@ const It = () => {
   //return
 
   return (
-    <div className="bg-gray-100 min-h-screen  shapes pt-16">
-      <section className="searchSection lg:p-14 p-5 py-10 bg-blue-500 text-white flex flex-wrap justify-center  items-center flex-col ">
-        <SearchForm
-          search={search}
-          handleType={handleType}
-          t={t}
-          providers={providers}
-          provider={provider}
-          loading={loading}
-        />
-      </section>
-    </div>
+    <SearchForm
+      search={search}
+      handleType={handleType}
+      t={t}
+      providers={providers}
+      provider={provider}
+      loading={loading}
+    />
   );
 };
 

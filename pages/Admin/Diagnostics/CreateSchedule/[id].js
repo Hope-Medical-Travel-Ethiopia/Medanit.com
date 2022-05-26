@@ -34,10 +34,8 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
 
     if (checked[index] == true) {
       newChecked[index] = false;
-      console.log("false");
     } else {
       newChecked[index] = true;
-      console.log("true");
     }
     setchecked(newChecked);
     if (newChecked[index] == true) {

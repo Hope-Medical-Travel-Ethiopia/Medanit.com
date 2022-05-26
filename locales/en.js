@@ -22,6 +22,7 @@ export default {
     Doctor: "Doctor",
     Search: "Search",
     SearchFor: "Search for a",
+    Choose: "Choose service type",
   },
   contact: {
     title: "Contact Us",
