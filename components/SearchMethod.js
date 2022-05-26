@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
-import SearchForm from "../components/SearchForm";
+import SearchForm from "./SearchForm";
 
-const It = () => {
+const SearchMethod = () => {
   const [providerData, setProviderData] = useState([]);
   const [provider, setProvider] = useState();
   const [providers, setProviders] = useState([]);
@@ -17,7 +17,7 @@ const It = () => {
   const [loading, setLoading] = useState();
   const allProviders = [];
   const doctorsList = [];
-  const hospitalList = [];
+  const hospSearchMethodalList = [];
   const diagnosticsList = [];
   const pharmacyList = [];
   const router = useRouter();
@@ -69,4 +69,4 @@ const It = () => {
   );
 };
 
-export default It;
+export default SearchMethod;

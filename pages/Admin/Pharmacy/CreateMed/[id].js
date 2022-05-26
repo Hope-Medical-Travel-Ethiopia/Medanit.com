@@ -197,7 +197,7 @@ export default function CreateMed({ medications, pharmacy }) {
                       value="Loading ..."
                       type="submit"
                       disabled
-                      className=" rounded-lg w-fit w-24 py-3 px-20 m-2 bg-gray-500 text-white "
+                      className=" rounded-lg w-fit py-3 px-20 m-2 bg-gray-500 text-white "
                     />
                   )}
                 </form>

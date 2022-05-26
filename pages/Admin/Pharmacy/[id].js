@@ -25,17 +25,6 @@ export default function Pharmacy({ pharmacy }) {
         </section>
         <section></section>
         <section>
-          {/* {pharmacy["medications"].map((option) => (
-            <MedList
-              key={option.id}
-              name={option.name}
-              description={option.description}
-              id={option.id}
-              providerId={pharmacy.id}
-              type="Medications"
-            />
-          ))} */}
-
           <MedList
             medications={pharmacy["medications"]}
             type="Medications"
@@ -64,16 +53,6 @@ Pharmacy.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("api/Pharmacy");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Pharmacy/${params.id}`);

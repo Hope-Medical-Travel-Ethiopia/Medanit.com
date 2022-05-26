@@ -7,7 +7,8 @@ import TextField from "@mui/material/TextField";
 import { useAuth } from "../../../../hooks/auth";
 import axios from "../../../../lib/axios";
 import { Router, useRouter } from "next/router";
-
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 export default function EditSchedule({
   doctorId,
   hospitalId,
@@ -20,7 +21,26 @@ export default function EditSchedule({
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
   ]);
+  const [checked, setchecked] = useState([]);
 
+  const handleCheck = (e, index) => {
+    let newChecked = [...checked];
+
+    if (checked[index] == true) {
+      newChecked[index] = false;
+      console.log("false");
+    } else {
+      newChecked[index] = true;
+      console.log("true");
+    }
+    setchecked(newChecked);
+    if (newChecked[index] == true) {
+      let newschedules = [...schedules];
+      newschedules[index]["starting"] = "00:00";
+      newschedules[index]["ending"] = "00:00";
+      setschedules(newschedules);
+    }
+  };
   useEffect(() => {
     {
       // schedule[`${doctor.id}`] &&
@@ -126,6 +146,15 @@ export default function EditSchedule({
                   onChange={(e) => handleScheduleChange(index, e)}
                 />
               </FormControl>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    size="large"
+                    onChange={(e) => handleCheck(e, index)}
+                  />
+                }
+                label="24 hours"
+              />
               <div>
                 {index ? (
                   <button
