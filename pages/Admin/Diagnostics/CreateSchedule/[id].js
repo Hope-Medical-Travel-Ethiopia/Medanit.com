@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Sidebar from "../../../../components/Admin/Sidebar";
 import Footer from "../../../../components/layouts/Footer";
 import AdminNav from "../../../../components/Admin/AdminNav";
-
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 
@@ -22,17 +23,35 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
   const [disableButton, setdisableButton] = useState(false);
-
   const [schedules, setschedules] = useState([
     { day: "", starting: "", ending: "" },
   ]);
 
+  const [checked, setchecked] = useState([]);
+
+  const handleCheck = (e, index) => {
+    let newChecked = [...checked];
+
+    if (checked[index] == true) {
+      newChecked[index] = false;
+      console.log("false");
+    } else {
+      newChecked[index] = true;
+      console.log("true");
+    }
+    setchecked(newChecked);
+    if (newChecked[index] == true) {
+      let newschedules = [...schedules];
+      newschedules[index]["starting"] = "00:00";
+      newschedules[index]["ending"] = "00:00";
+      setschedules(newschedules);
+    }
+  };
   let handleScheduleChange = (i, e) => {
     let newschedules = [...schedules];
     newschedules[i][e.target.name] = e.target.value;
     setschedules(newschedules);
   };
-
   let addFormFields = () => {
     setschedules([...schedules, { day: "", starting: "", ending: "" }]);
   };
@@ -91,6 +110,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         router.push(`/Admin/Diagnostics/${Diagnostics.id}`);
       });
   };
+
   return (
     <div className="min-h-screen">
       <div className="Heading">
@@ -229,12 +249,6 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
           <form onSubmit={(e) => handleSubmit(e)}>
             {schedules.map((element, index) => (
               <div className="flex items-end  " key={index}>
-                {/* <input
-                type="text"
-                name="day"
-                value={element.day || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
                 <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                   <label
                     className="mb-2 text-sm text-gray-600"
@@ -242,7 +256,6 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                   >
                     Day
                   </label>
-                  {/* <InputLabel htmlFor={`schedule-Date`}>Day</InputLabel> */}
                   <TextField
                     required
                     id="schedule-Date"
@@ -253,13 +266,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                     label="Day"
                   />
                 </FormControl>
-                {/* <label>starting</label> */}
-                {/* <input
-                type="time"
-                name="starting"
-                value={element.starting || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
+
                 <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                   <label
                     className="mb-2 text-sm text-gray-600"
@@ -276,13 +283,7 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                     onChange={(e) => handleScheduleChange(index, e)}
                   />
                 </FormControl>
-                {/* <label>ending</label> */}
-                {/* <input
-                type="time"
-                name="ending"
-                value={element.ending || ""}
-                onChange={(e) => handleScheduleChange(index, e)}
-              /> */}
+
                 <FormControl sx={{ m: 1, width: "19ch" }} variant="outlined">
                   <label
                     className="mb-2 text-sm text-gray-600"
@@ -299,6 +300,17 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
                     onChange={(e) => handleScheduleChange(index, e)}
                   />
                 </FormControl>
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      size="large"
+                      onChange={(e) => handleCheck(e, index)}
+                    />
+                  }
+                  label="24 hours"
+                />
+
                 <div>
                   {index ? (
                     <button
@@ -353,7 +365,6 @@ CreateSchedule.getLayout = function PageLayout(page) {
         <AdminNav
           title="Diagnostics"
           current="Register New Schedule"
-          // parent="Diagnostics"
           user={user}
         />
         {page}
@@ -363,20 +374,9 @@ CreateSchedule.getLayout = function PageLayout(page) {
   );
 };
 
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/diagnostics");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
-
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
   const Procedures = await axios.get("/api/Procedures");
-
   return {
     props: {
       Procedures: Procedures.data,

@@ -1,13 +1,18 @@
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import React from "react";
+
 import axios from "../../lib/axios";
 import DataTable from "react-data-table-component";
+
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
+
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
@@ -71,7 +76,10 @@ export const MedList = ({
         <>
           {fromMed && (
             <Link href={`/Admin/${type}/Edit/${row.id}`}>
-              <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+              <a
+                className="px-4 py-2 border-emerald-500 border rounded-md 
+              text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all"
+              >
                 <FaEdit className="text-xl stroke-1 " />
               </a>
             </Link>
@@ -79,7 +87,8 @@ export const MedList = ({
 
           <button
             onClick={() => handleClickOpen(row.id)}
-            className="px-4 mx-2 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
+            className="px-4 mx-2 py-2 border-red-500 border rounded-md 
+            text-red-500 hover:bg-red-600 hover:text-white transition-all"
           >
             <FaTrash className="text-xl stroke-1" />
           </button>
@@ -95,7 +104,6 @@ export const MedList = ({
     rows: {
       style: {
         maxWidth: "1000px",
-        // minHeight: "72px", // override the row height
       },
     },
   };
