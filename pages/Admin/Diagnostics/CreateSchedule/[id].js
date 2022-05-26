@@ -72,6 +72,8 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
       .post("/api/Procedure", {
         name: values.name,
         description: values.description,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         setProcedure(response.data);
@@ -102,6 +104,8 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         diagnostics_id: Diagnostics.id,
         procedures_id: Procedure.id,
         schedule: schedules,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         // console.log(response.data);

@@ -16,7 +16,7 @@ export default function Pharmacy({ pharmacy }) {
       <div className="profileBar">
         <ProfileHeader pic={pic} type="Pharmacy" provider={pharmacy} />
       </div>
-      <div className="body my-10">
+      <div className="body mt-10">
         <section>
           <RegisterLink
             text="Add New Medication"

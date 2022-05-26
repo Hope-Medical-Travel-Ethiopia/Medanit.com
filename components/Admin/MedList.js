@@ -68,7 +68,12 @@ export const MedList = ({
       name: "Description",
       selector: (row) => row.description,
       sortable: true,
-      // maxWidth: "400px",
+      wrap: true,
+    },
+    {
+      name: "Agent",
+      selector: (row) => row.agent_name,
+      sortable: true,
       wrap: true,
     },
     {
@@ -132,7 +137,7 @@ export const MedList = ({
         </DialogActions>
       </Dialog>
 
-      <div className="mt-36 ">
+      <div className="mt-10 ">
         <DataTable
           // title="Medications"
           columns={columns}
