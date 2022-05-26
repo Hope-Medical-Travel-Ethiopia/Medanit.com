@@ -42,6 +42,8 @@ export default function CreateMed({ medications, pharmacy }) {
       .post(`/api/addMedications`, {
         pharmacy_id: pharmacy.id,
         medication_id: medication.id,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         // console.log(response.data);
@@ -56,6 +58,8 @@ export default function CreateMed({ medications, pharmacy }) {
       .post(`/api/createAndAdd/${pharmacy.id}`, {
         name: values.name,
         description: values.description,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         router.push(`/Admin/Pharmacy/${pharmacy.id}`);

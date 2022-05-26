@@ -36,6 +36,8 @@ export default function CreateMed({ medications }) {
       .post("/api/Medications", {
         name: values.name,
         description: values.description,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         router.push("/Admin/Medications");

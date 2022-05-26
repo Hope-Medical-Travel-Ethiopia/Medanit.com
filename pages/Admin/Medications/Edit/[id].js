@@ -37,6 +37,8 @@ export default function CreateMed({ medications }) {
       .put(`/api/Medications/${medications.id}`, {
         name: values.name,
         description: values.description,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         router.push("/Admin/Medications");
