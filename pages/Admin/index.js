@@ -12,14 +12,16 @@ export default function Admin({ counter }) {
 
   return (
     <div className="min-h-screen p-20">
-      <section className="flex flex-wrap justify-evenly gap-10 ">
-        {report.map((item, index) => (
-          <div className="reportCard h-64 w-64 " key={index}>
-            <h1 className="number textClip">{item.number}</h1>
-            <h3>{item.provider}</h3>
-          </div>
-        ))}
-      </section>
+      {user && user.role == 0 && (
+        <section className="flex flex-wrap justify-evenly gap-10 ">
+          {report.map((item, index) => (
+            <div className="reportCard h-64 w-64 " key={index}>
+              <h1 className="number textClip">{item.number}</h1>
+              <h3>{item.provider}</h3>
+            </div>
+          ))}
+        </section>
+      )}
     </div>
   );
 }

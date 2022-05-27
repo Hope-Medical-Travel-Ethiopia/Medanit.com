@@ -59,6 +59,8 @@ export default function CreatePharmacy({ pharmacy }) {
     formData.append("opening", values.opening);
     formData.append("closing", values.closing);
     formData.append("user_id", values.user_id);
+    formData.append("agent_id", user.id);
+    formData.append("agent_name", user.name);
     const response = await axios({
       url: `/api/Pharmacy/${pharmacy.id}`,
       method: "POST",

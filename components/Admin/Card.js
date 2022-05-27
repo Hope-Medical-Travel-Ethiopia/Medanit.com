@@ -12,6 +12,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { useAuth } from "../../hooks/auth";
 
 const Card = ({ pic, provider, type }) => {
   const myLoader = ({ src, width, quality }) => {
@@ -19,6 +20,7 @@ const Card = ({ pic, provider, type }) => {
   };
 
   const [image, setimage] = useState();
+  const { user } = useAuth({ middleware: "auth" });
 
   useEffect(() => {
     if (provider.profilePicture) {
@@ -109,18 +111,22 @@ const Card = ({ pic, provider, type }) => {
                   <FaEye className="text-xl stroke-1" />
                 </a>
               </Link>
-              <Link href={`/Admin/${type}/Edit/${provider.id}`}>
-                <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
-                  <FaEdit className="text-xl stroke-1 " />
-                </a>
-              </Link>
+              {(user.role == 0 || user.id == provider.agent_id) && (
+                <>
+                  <Link href={`/Admin/${type}/Edit/${provider.id}`}>
+                    <a className="px-4 py-2 border-emerald-500 border rounded-md text-emerald-500 hover:bg-emerald-600  hover:text-white transition-all">
+                      <FaEdit className="text-xl stroke-1 " />
+                    </a>
+                  </Link>
 
-              <button
-                onClick={() => handleClickOpen()}
-                className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
-              >
-                <FaTrash className="text-xl stroke-1 " />
-              </button>
+                  <button
+                    onClick={() => handleClickOpen()}
+                    className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
+                  >
+                    <FaTrash className="text-xl stroke-1 " />
+                  </button>
+                </>
+              )}
             </>
           )}
         </div>

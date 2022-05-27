@@ -5,8 +5,12 @@ import Link from "next/link";
 import axios from "../../lib/axios";
 import { Router, useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { useAuth } from "../../hooks/auth";
+
 const ProfileHeader = ({ pic, type, provider }) => {
   const router = useRouter();
+  const { user } = useAuth({ middleware: "auth" });
+
   const handleDelete = async () => {
     const response = await axios
       .delete(`/api/${type}/${provider.id}`)
@@ -68,6 +72,7 @@ const ProfileHeader = ({ pic, type, provider }) => {
           {provider.address && (
             <p className="text text-gray-200">{provider.address}</p>
           )}
+
           {provider.openingTime && (
             <p className="text bg-gray-200 text-blue-500 px-5 py-2 rounded-full mt-3 w-fit">
               Opening Hours :
@@ -95,22 +100,29 @@ const ProfileHeader = ({ pic, type, provider }) => {
               )}
             </p>
           )}
+          {provider.agent_name && (
+            <h3 className="text-base mb-5">Agent: {provider.agent_name}</h3>
+          )}
         </div>
       </div>
 
       <div className="actions h-fit flex gap-5 self-end mb-10">
-        <Link href={`/Admin/${type}/Edit/${provider.id}`}>
-          <a className="px-4 py-2  border rounded-md border-white text-white  hover:border-emerald-600 hover:bg-emerald-600  transition-all">
-            <FaEdit className="text-xl stroke-1 " />
-          </a>
-        </Link>
+        {(user.role == 0 || provider.agent_id == user.id) && (
+          <>
+            <Link href={`/Admin/${type}/Edit/${provider.id}`}>
+              <a className="px-4 py-2  border rounded-md border-white text-white  hover:border-emerald-600 hover:bg-emerald-600  transition-all">
+                <FaEdit className="text-xl stroke-1 " />
+              </a>
+            </Link>
 
-        <button
-          onClick={() => handleDelete()}
-          className="px-4 py-2 border rounded-md text-white hover:bg-red-600 hover:border-red-600 transition-all"
-        >
-          <FaTrash className="text-xl stroke-1 " />
-        </button>
+            <button
+              onClick={() => handleDelete()}
+              className="px-4 py-2 border rounded-md text-white hover:bg-red-600 hover:border-red-600 transition-all"
+            >
+              <FaTrash className="text-xl stroke-1 " />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

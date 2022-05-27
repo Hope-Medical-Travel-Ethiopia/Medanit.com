@@ -54,6 +54,8 @@ export default function EditDiagnostics({ Diagnostics }) {
     formData.append("description", values.description);
     formData.append("phone", values.phone);
     formData.append("logo", values.logo);
+    formData.append("agent_id", user.id);
+    formData.append("agent_name", user.name);
 
     const response = await axios({
       url: `/api/Diagnostics/${Diagnostics.id}`,

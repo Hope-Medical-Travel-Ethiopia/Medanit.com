@@ -26,7 +26,9 @@ const Sidebar = () => {
           <Logo />
         </div>
         <div className="menu">
-          <Tab icon={<FaChartPie />} title="Dashboard" link="/Admin" />
+          {user && user.role == 0 && (
+            <Tab icon={<FaChartPie />} title="Dashboard" link="/Admin" />
+          )}
           {user && user.role == 0 && (
             <>
               <Tab

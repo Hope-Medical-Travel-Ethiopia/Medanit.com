@@ -11,11 +11,6 @@ import { useAuth } from "../../../hooks/auth";
 export default function Diagnostic({ diagnostics }) {
   const { user } = useAuth({ middleware: "auth" });
 
-
-
-
-
-  
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
@@ -27,9 +22,18 @@ export default function Diagnostic({ diagnostics }) {
       </div>
       <div className="body">
         <div className="listing flex flex-wrap gap-8">
-          {diagnostics.map((item) => (
-            <Card pic={pic} provider={item} type="Diagnostics" key={item.id} />
-          ))}
+          {diagnostics.map((item) =>
+            item.agent_id == user.id ? (
+              <Card
+                pic={pic}
+                provider={item}
+                type="Diagnostics"
+                key={item.id}
+              />
+            ) : (
+              <></>
+            )
+          )}
         </div>
       </div>
     </div>

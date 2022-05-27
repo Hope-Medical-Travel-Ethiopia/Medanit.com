@@ -8,6 +8,7 @@ import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
+import { DoctorsList } from "../../../components/Admin/DoctorsList";
 
 export default function Doctors({ doctors }) {
   return (
@@ -18,9 +19,15 @@ export default function Doctors({ doctors }) {
       </div>
       <div className="body">
         <div className="listing flex flex-wrap gap-8">
-          {doctors.map((item) => (
+          {/* {doctors.map((item) => (
             <Card pic={pic} provider={item} type="Doctors" key={item.id} />
-          ))}
+          ))} */}
+
+          <DoctorsList
+            medications={doctors}
+            type="Doctors"
+            fromDoctors={true}
+          />
         </div>
       </div>
     </div>

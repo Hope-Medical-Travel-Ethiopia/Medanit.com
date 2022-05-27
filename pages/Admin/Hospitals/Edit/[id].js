@@ -46,6 +46,8 @@ export default function EditHospitals({ hospital }) {
     formData.append("email", values.email);
     formData.append("address", values.address);
     formData.append("logo", values.logo);
+    formData.append("agent_name", user.name);
+    formData.append("agent_id", user.id);
     formData.append("phone", values.phone);
     for (const i = 0; i < values.services.length; i++) {
       formData.append("services[]", values.services[i]);

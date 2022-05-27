@@ -85,6 +85,7 @@ export async function getServerSideProps({ params }) {
   const scheduleResponse = await axios.get(
     `/api/Diagnostic_schedule/${params.id}`
   );
+
   return {
     props: {
       diagnostics: response.data[0],

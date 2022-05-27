@@ -73,6 +73,8 @@ export default function EditSchedule({
         hospital_id: hospitalId,
         doctor_id: doctorId,
         schedule: schedules,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         // console.log(response.data);

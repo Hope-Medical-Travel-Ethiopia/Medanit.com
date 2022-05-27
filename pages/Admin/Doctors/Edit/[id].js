@@ -51,6 +51,8 @@ export default function CreateDoctors({ doctor, doctors }) {
     formData.append("name", values.name);
     formData.append("speciality", values.speciality);
     formData.append("address", values.address);
+    formData.append("agent_id", user.id);
+    formData.append("agent_name", user.name);
     formData.append("description", values.description);
     for (const i = 0; i < values.expertise.length; i++) {
       formData.append("expertise[]", values.expertise[i]);

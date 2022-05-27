@@ -53,6 +53,8 @@ export default function CreatePharmacy() {
     formData.append("opening", values.opening);
     formData.append("closing", values.closing);
     formData.append("user_id", user.id);
+    formData.append("agent_id", user.id);
+    formData.append("agent_name", user.name);
 
     const response = axios({
       url: "/api/Pharmacy",

@@ -73,6 +73,8 @@ export default function CreateSchedule({ doctors, hospital }) {
     formData.append("name", values.name);
     formData.append("speciality", values.speciality);
     formData.append("address", values.address);
+    formData.append("agent_id", user.id);
+    formData.append("agent_name", user.name);
     formData.append("profilePicture", values.picture);
     for (const i = 0; i < values.expertise.length; i++) {
       formData.append("expertise[]", values.expertise[i]);
@@ -107,6 +109,8 @@ export default function CreateSchedule({ doctors, hospital }) {
         hospital_id: hospital.id,
         doctor_id: doctor.id,
         schedule: schedules,
+        agent_id: user.id,
+        agent_name: user.name,
       })
       .then((response) => {
         // console.log(response.data);

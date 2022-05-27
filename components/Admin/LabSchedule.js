@@ -13,6 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "../../lib/axios";
+import { useAuth } from "../../hooks/auth";
 
 const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
   // const [Sky, setSky] = useState([]);
@@ -20,6 +21,7 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
   const myLoader = ({ src, width, quality }) => {
     return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
+  const { user } = useAuth({ middleware: "auth" });
 
   const [image, setimage] = useState();
 
@@ -107,12 +109,14 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
               >
                 <FaEdit className="text-xl stroke-1 " />
               </button>
-              <button
-                onClick={() => handleClickOpen()}
-                className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
-              >
-                <FaTrash className="text-xl stroke-1 " />
-              </button>
+              {user.role == 0 && (
+                <button
+                  onClick={() => handleClickOpen()}
+                  className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
+                >
+                  <FaTrash className="text-xl stroke-1 " />
+                </button>
+              )}
             </div>
           </div>
           <div className="Dates w-fit text-left">

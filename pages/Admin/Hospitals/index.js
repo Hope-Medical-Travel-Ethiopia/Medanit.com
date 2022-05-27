@@ -25,9 +25,18 @@ export default function Hospitals({ hospitals }) {
         </div>
         <div className="body">
           <div className="listing flex flex-wrap gap-8">
-            {hospitals.map((item) => (
-              <Card pic={pic} provider={item} type="Hospitals" key={item.id} />
-            ))}
+            {hospitals.map((item) =>
+              item.agent_id == user.id ? (
+                <Card
+                  pic={pic}
+                  provider={item}
+                  type="Hospitals"
+                  key={item.id}
+                />
+              ) : (
+                <></>
+              )
+            )}
           </div>
         </div>
       </div>
