@@ -81,7 +81,7 @@ const DiagnosticsProfile = ({ diagnostics, schedule }) => {
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);
   const scheduleResponse = await axios.get(
-    `/api/Diagnostic_schedule/${params.id}`
+    `/api/User/Diagnostic_schedule/${params.id}`
   );
 
   return {

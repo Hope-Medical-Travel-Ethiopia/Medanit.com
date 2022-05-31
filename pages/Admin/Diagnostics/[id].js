@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -14,6 +14,21 @@ import LabSchedule from "../../../components/Admin/LabSchedule";
 import { useAuth } from "../../../hooks/auth";
 export default function Diagnostic({ diagnostics, schedule }) {
   const { user } = useAuth({ middleware: "auth" });
+  // const [schedule, setSchedule] = useState();
+  // const [diagnostics, setDiagnostics] = useState();
+  // // const [services, setServices] = useState();
+  // const [procedures, setProcedures] = useState();
+
+  // useEffect(async () => {
+  //   const Diagnostic = await axios.get(`/api/Diagnostics/${id}`);
+  //   const Schedule = await axios.get(`/api/Diagnostic_schedule/${id}`);
+
+  //   console.log(Diagnostic.data);
+
+  //   setSchedule(Schedule.data);
+  //   setDiagnostics(Diagnostic.data[0]);
+  //   // setServices(Diagnostic[0].services);
+  // }, []);
 
   return (
     <div className="min-h-screen p-20 py-10">

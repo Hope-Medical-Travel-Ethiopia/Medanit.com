@@ -12,6 +12,9 @@ export default function table({ diagnostics }) {
       });
   };
 
+  const [pending, setPending] = React.useState(true);
+  const [data, setData] = React.useState([]);
+
   const columns = [
     {
       name: "Name",
@@ -35,7 +38,16 @@ export default function table({ diagnostics }) {
     },
   ];
 
-  const data = diagnostics;
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      // setRows(data);
+      // const data = diagnostics;
+      setData(diagnostics);
+
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="mt-36">
@@ -44,6 +56,7 @@ export default function table({ diagnostics }) {
         columns={columns}
         data={data}
         pagination
+        progressPending={pending}
         // paginationComponentOptions={paginationComponentOptions}
       />
     </div>
@@ -59,7 +72,8 @@ export async function getServerSideProps() {
   };
 }
 
-{/* <div className="medication w-full bg-white px-10 py-5 my-5 rounded-lg flex items-center justify-between flex-wrap">
+{
+  /* <div className="medication w-full bg-white px-10 py-5 my-5 rounded-lg flex items-center justify-between flex-wrap">
   <h1 className="text-xl font-bold tracking-wider text-blue-500 w-48">
     {name}
   </h1>
@@ -81,4 +95,5 @@ export async function getServerSideProps() {
       <FaTrash className="text-xl stroke-1" />
     </button>
   </div>
-</div>; */}
+</div>; */
+}

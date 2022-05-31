@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -10,7 +10,15 @@ import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 import { DoctorsList } from "../../../components/Admin/DoctorsList";
 
-export default function Doctors({ doctors }) {
+export default function Doctors() {
+  const { user } = useAuth({ middleware: "auth" });
+
+  const [doctors, setDoctors] = useState([]);
+  useEffect(async () => {
+    const Doctors = await axios.get("/api/agent/doctors/" + user.id);
+    setDoctors(Doctors.data);
+  }, []);
+
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
@@ -52,12 +60,12 @@ Doctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getServerSideProps() {
-  const Doctors = await axios.get("/api/doctors");
+// export async function getServerSideProps() {
+//   const Doctors = await axios.get("/api/doctors");
 
-  return {
-    props: {
-      doctors: Doctors.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       doctors: Doctors.data,
+//     },
+//   };
+// }

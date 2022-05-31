@@ -26,7 +26,7 @@ export default function EditSchedule({
       // schedule[`${doctor.id}`] &&
       //   schedule[`${doctor.id}`].map((item) => {
       //   });
-      schedule[doctorId] && setschedules(schedule[doctorId]);
+      schedule[doctorId] && setschedules(schedule[doctorId][0]);
     }
   }, [doctorId, schedule]);
 

@@ -101,7 +101,7 @@ const ProfileHeader = ({ pic, type, provider }) => {
             </p>
           )}
           {provider.agent_name && (
-            <h3 className="text-base mb-5">Agent: {provider.agent_name}</h3>
+            <h3 className="text-base mb-5">By {provider.agent_name}</h3>
           )}
         </div>
       </div>

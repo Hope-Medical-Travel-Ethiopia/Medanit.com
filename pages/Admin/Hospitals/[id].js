@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -11,8 +11,24 @@ import AdminSchedule from "../../../components/Admin/AdminSchedule";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 
-export default function Hospital({ hospital, schedule }) {
+export default function Hospital({ id }) {
   const { user } = useAuth({ middleware: "auth" });
+
+  // console.log(id);
+
+  const [hospital, setHospital] = useState([]);
+  const [schedule, setSchedule] = useState();
+  const [doctors, setDoctors] = useState();
+
+  useEffect(async () => {
+    // console.log("here");
+    const Hospital = await axios.get(`/api/Hospitals/${id}`);
+    const Schedule = await axios.get(`/api/schedule/${id}`);
+    setDoctors(Hospital.data[0].doctors);
+    setHospital(Hospital.data[0]);
+    setSchedule(Schedule.data);
+  }, []);
+
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">
@@ -33,15 +49,17 @@ export default function Hospital({ hospital, schedule }) {
               provider={hospital.id}
             />
             <div className="schedules">
-              {hospital.doctors.map((doctor) => (
-                <AdminSchedule
-                  parent={hospital}
-                  provider={doctor}
-                  schedule={schedule}
-                  key={doctor.id}
-                  providerType="Doctors"
-                />
-              ))}
+              {schedule &&
+                doctors &&
+                doctors.map((doctor) => (
+                  <AdminSchedule
+                    parent={hospital}
+                    provider={doctor}
+                    schedule={schedule}
+                    key={doctor.id}
+                    providerType="Doctors"
+                  />
+                ))}
             </div>
           </div>
         </div>
@@ -79,13 +97,14 @@ Hospital.getLayout = function PageLayout(page) {
 // }
 
 export async function getServerSideProps({ params }) {
-  const response = await axios.get(`/api/Hospitals/${params.id}`);
-  const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
+  // const response = await axios.get(`/api/Hospitals/${params.id}`);
+  // const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
   // console.log(scheduleResponse.data);
   return {
     props: {
-      hospital: response.data[0],
-      schedule: scheduleResponse.data,
+      // hospital: response.data[0],
+      // schedule: scheduleResponse.data,
+      id: params.id,
     },
   };
 }

@@ -34,7 +34,7 @@ export default function CreatePharmacy({ pharmacy }) {
     setfullDay(!fullDay);
     if (fullDay == false) {
       setValues({ ...values, closing: "00:00", opening: "00:00" });
-      console.log(values);
+      // console.log(values);
     }
   };
   // useEffect(() => {

@@ -10,7 +10,6 @@ import { MedList } from "../../../components/Admin/MedList";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 export default function Pharmacy({ pharmacy }) {
-  const id = 1;
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="profileBar">

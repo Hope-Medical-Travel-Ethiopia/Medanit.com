@@ -151,7 +151,7 @@ export const DoctorsList = ({
         </DialogActions>
       </Dialog>
 
-      <div className="mt-2 width-full">
+      <div className="mt-2 width-full ">
         <DataTable
           // title="Medications"
           columns={columns}

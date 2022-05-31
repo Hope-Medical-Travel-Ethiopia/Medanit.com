@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -11,8 +11,14 @@ import { MedList } from "../../../components/Admin/MedList";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
 
-export default function Medication({ medications }) {
+export default function Medication() {
   const { user } = useAuth({ middleware: "auth" });
+
+  const [medications, setMedications] = useState([]);
+  useEffect(async () => {
+    const Medications = await axios.get("/api/agent/medications/" + user.id);
+    setMedications(Medications.data);
+  }, []);
 
   return (
     <div className="min-h-screen p-20 py-10">

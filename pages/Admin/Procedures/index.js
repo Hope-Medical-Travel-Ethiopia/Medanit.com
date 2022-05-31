@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -11,8 +11,14 @@ import { MedList } from "../../../components/Admin/MedList";
 import { useAuth } from "../../../hooks/auth";
 import axios from "../../../lib/axios";
 
-export default function Procedures({ Procedure }) {
+export default function Procedures() {
   const { user } = useAuth({ middleware: "auth" });
+
+  const [procedure, setProcedure] = useState([]);
+  useEffect(async () => {
+    const Procedure = await axios.get("/api/agent/procedures/" + user.id);
+    setProcedure(Procedure.data);
+  }, []);
 
   return (
     <div className="min-h-screen p-20 py-10">
@@ -37,7 +43,7 @@ export default function Procedures({ Procedure }) {
               />
             ))} */}
 
-          <MedList medications={Procedure} type="Procedures" fromMed={true} />
+          <MedList medications={procedure} type="Procedures" fromMed={true} />
         </section>
       </div>
     </div>
@@ -61,11 +67,11 @@ Procedures.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getServerSideProps() {
-  const response = await axios.get("/api/Procedures");
-  return {
-    props: {
-      Procedure: response.data,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   const response = await axios.get("/api/Procedures");
+//   return {
+//     props: {
+//       Procedure: response.data,
+//     },
+//   };
+// }

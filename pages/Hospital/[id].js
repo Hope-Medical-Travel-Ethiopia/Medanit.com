@@ -84,7 +84,7 @@ export async function getServerSideProps({ params, query }) {
   const response = await axios.get(
     `/api/Hospitals/${params.id}/${encodeURI(query.searchTerm)}`
   );
-  const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
+  const scheduleResponse = await axios.get(`/api/user/schedule/${params.id}`);
   // console.log(query.searchTerm);
 
   return {

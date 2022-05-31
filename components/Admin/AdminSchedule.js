@@ -113,6 +113,9 @@ const AdminSchedule = ({
                 <h1 className="text-xl leading-loose font-bold text-blue-500">
                   {provider.name}
                 </h1>
+                {schedule[`${provider.id}`][1] && (
+                  <h5>By {schedule[`${provider.id}`][1]}</h5>
+                )}
                 {provider.speciality && (
                   <p className="text-blue-500 tracking-wider">
                     {" "}
@@ -140,7 +143,7 @@ const AdminSchedule = ({
 
             <div className="Dates w-fit text-left">
               {schedule[`${provider.id}`] &&
-                schedule[`${provider.id}`].map((item) => (
+                schedule[`${provider.id}`][0].map((item) => (
                   <Schedule
                     time={item}
                     key={item.starting + item.ending + item.day}
@@ -164,14 +167,14 @@ const AdminSchedule = ({
                   >
                     <FaEdit className="text-xl stroke-1 " />
                   </button>
-                  {user.role == 0 && (
+                  {
                     <button
                       onClick={() => handleClickOpen()}
                       className="px-4 py-2 border-red-500 border rounded-md text-red-500 hover:bg-red-600 hover:text-white transition-all"
                     >
                       <FaTrash className="text-xl stroke-1 " />
                     </button>
-                  )}
+                  }
                 </>
               )}
             </div>

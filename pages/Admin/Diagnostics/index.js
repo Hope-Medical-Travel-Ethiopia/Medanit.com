@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -8,8 +8,13 @@ import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
-export default function Diagnostic({ diagnostics }) {
+export default function Diagnostic() {
   const { user } = useAuth({ middleware: "auth" });
+  const [diagnostics, setDiagnostics] = useState([]);
+  useEffect(async () => {
+    const Diagnostics = await axios.get("/api/agent/diagnostics/" + user.id);
+    setDiagnostics(Diagnostics.data);
+  }, []);
 
   return (
     <div className="min-h-screen p-20 py-10">
@@ -22,18 +27,9 @@ export default function Diagnostic({ diagnostics }) {
       </div>
       <div className="body">
         <div className="listing flex flex-wrap gap-8">
-          {diagnostics.map((item) =>
-            item.agent_id == user.id ? (
-              <Card
-                pic={pic}
-                provider={item}
-                type="Diagnostics"
-                key={item.id}
-              />
-            ) : (
-              <></>
-            )
-          )}
+          {diagnostics.map((item) => (
+            <Card pic={pic} provider={item} type="Diagnostics" key={item.id} />
+          ))}
         </div>
       </div>
     </div>
@@ -58,12 +54,12 @@ Diagnostic.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getServerSideProps() {
-  const Hospitals = await axios.get("/api/diagnostics");
+// export async function getServerSideProps() {
+//   const Hospitals = await axios.get("/api/diagnostics");
 
-  return {
-    props: {
-      diagnostics: Hospitals.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       diagnostics: Hospitals.data,
+//     },
+//   };
+// }

@@ -1,5 +1,5 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import axios from "../../lib/axios";
 import DataTable from "react-data-table-component";
@@ -28,6 +28,9 @@ export const MedList = ({
 }) => {
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
+
+  const data = medications;
+
   const handleDelete = async (id) => {
     if (providerId) {
       const response = await axios
@@ -74,7 +77,7 @@ export const MedList = ({
     },
     {
       name: "Agent",
-      selector: (row) => row.agent_name,
+      selector: (row) => (row.pivot ? row.pivot.agent_name : row.agent_name),
       sortable: true,
       wrap: true,
     },
@@ -92,7 +95,7 @@ export const MedList = ({
             </Link>
           )}
 
-          {(user.role == 0 || row.agent_id == user.id) && (
+          {
             <button
               onClick={() => handleClickOpen(row.id)}
               className="px-4 mx-2 py-2 border-red-500 border rounded-md 
@@ -100,7 +103,7 @@ export const MedList = ({
             >
               <FaTrash className="text-xl stroke-1" />
             </button>
-          )}
+          }
         </>
       ),
       allowOverflow: true,
@@ -116,8 +119,6 @@ export const MedList = ({
       },
     },
   };
-
-  const data = medications;
 
   return (
     <>
@@ -142,16 +143,18 @@ export const MedList = ({
       </Dialog>
 
       <div className="mt-10 ">
-        <DataTable
-          // title="Medications"
-          columns={columns}
-          data={data}
-          pagination
-          customStyles={customStyles}
-          striped={true}
+        {data && (
+          <DataTable
+            // title="Medications"
+            columns={columns}
+            data={data}
+            pagination
+            customStyles={customStyles}
+            striped={true}
 
-          // paginationComponentOptions={paginationComponentOptions}
-        />
+            // paginationComponentOptions={paginationComponentOptions}
+          />
+        )}
       </div>
     </>
   );

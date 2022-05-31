@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
@@ -10,8 +10,19 @@ import Search from "../../../components/Admin/Search";
 
 import { useAuth } from "../../../hooks/auth";
 
-export default function Hospitals({ hospitals }) {
+export default function Hospitals() {
   const { user } = useAuth({ middleware: "auth" });
+  const [hospitals, setHospitals] = useState([]);
+
+  const getData = async () => {
+    await axios.get("/api/agent/hospitals/" + user.id).then((res) => {
+      setHospitals(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -25,18 +36,9 @@ export default function Hospitals({ hospitals }) {
         </div>
         <div className="body">
           <div className="listing flex flex-wrap gap-8">
-            {hospitals.map((item) =>
-              item.agent_id == user.id ? (
-                <Card
-                  pic={pic}
-                  provider={item}
-                  type="Hospitals"
-                  key={item.id}
-                />
-              ) : (
-                <></>
-              )
-            )}
+            {hospitals.map((item) => (
+              <Card pic={pic} provider={item} type="Hospitals" key={item.id} />
+            ))}
           </div>
         </div>
       </div>
@@ -62,12 +64,12 @@ Hospitals.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getServerSideProps() {
-  const Hospitals = await axios.get("/api/hospitals");
+// export async function getServerSideProps() {
+//   const Hospitals = await axios.get("/api/hospitals");
 
-  return {
-    props: {
-      hospitals: Hospitals.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       hospitals: Hospitals.data,
+//     },
+//   };
+// }
