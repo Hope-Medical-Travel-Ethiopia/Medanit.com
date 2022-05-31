@@ -1,9 +1,12 @@
+import { SearchListing, changeProviders } from "../functions/searchFunction";
 import ProviderListCard from "./../components/sections/ProviderListCard";
 // import image from "./../public/Diagnostics.jpg";
-import hospitalPic from "./../public/hospitalDefault.jpg";
-import labPic from "./../public/labDefault.jpg";
-import doctorPic from "./../public/DocDefault.jpg";
-import pharmaPic from "./../public/pharmacyDefault.jpg";
+import CircularProgress from "@mui/material/CircularProgress";
+import React from "react";
+import hospitalPic from "../public/hospitalDefault.jpg";
+import labPic from "../public/labDefault.jpg";
+import doctorPic from "../public/DocDefault.jpg";
+import pharmaPic from "../public/pharmacyDefault.jpg";
 import axios from "./../lib/axios";
 import Head from "next/head";
 import { useState, useEffect } from "react";
@@ -30,13 +33,6 @@ const Listing = ({
   firstData,
   qProvider,
 }) => {
-  const [providerData, setProviderData] = useState([]);
-  const [provider, setProvider] = useState(qProvider);
-  const [providers, setProviders] = useState([]);
-  const [searchTerm, setSearchTerm] = useState();
-  const [Med, setMed] = useState();
-  const [image, setImage] = useState();
-  const [IsLoading, setIsLoading] = useState(false);
   const doctorsList = [];
   const hospitalList = [];
   const diagnosticsList = [];
@@ -45,15 +41,27 @@ const Listing = ({
   const router = useRouter();
   const { locale } = router;
   const t = locale === "en" ? en : am;
-  const [showResults, setShowResults] = useState(false);
+  const allProviders = [];
 
+  //states
+
+  const [providerData, setProviderData] = useState([]);
+  const [provider, setProvider] = useState(qProvider);
+  const [providers, setProviders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState();
+  const [Med, setMed] = useState();
+  const [image, setImage] = useState();
+  const [IsLoading, setIsLoading] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState();
+  const [providerState, setproviderState] = useState();
   useEffect(() => {
-    doctors.map((item) => {
-      hospitalList.push(item.speciality);
-    });
-    hospitals.map((item) => {
-      hospitalList.push(item.name);
-    });
+    // doctors.map((item) => {
+    //   hospitalList.push(item.speciality);
+    // });
+    // hospitals.map((item) => {
+    //   hospitalList.push(item.name);
+    // });
     setProvider(query.qProvider);
     setSearchTerm(decodeURI(query.qSearchTerm));
     setProviderData(firstData);
@@ -67,131 +75,40 @@ const Listing = ({
     } else if (provider == "Pharmacy") {
       setImage(pharmaPic);
     }
-    if (qProvider == "Doctors") {
-      doctors.map((item) => {
-        doctorsList.push(item.name);
-        doctorsList.push(item.speciality);
-        item.expertise.map((exp) => {
-          doctorsList.push(exp);
-        });
-      });
-      setProviders([...new Set(doctorsList)]);
-    }
-    if (qProvider == "Diagnostics") {
-      diagnostics.map((item) => {
-        diagnosticsList.push(item.name);
-      });
-      procedures.map((item) => {
-        diagnosticsList.push(item.name);
-      });
-      setProviders([...new Set(diagnosticsList)]);
-    }
-    if (qProvider == "Hospital") {
-      doctors.map((item) => {
-        hospitalList.push(item.speciality);
-      });
-      hospitals.map((item) => {
-        hospitalList.push(item.name);
-      });
-      setProviders([...new Set(hospitalList)]);
-    }
-    if (qProvider == "Pharmacy") {
-      pharmacy.map((item) => {
-        pharmacyList.push(item.name);
-      });
-      medication.map((item) => {
-        pharmacyList.push(item.name);
-      });
-      setProviders([...new Set(pharmacyList)]);
-    }
   }, []);
 
   //Type Change Function
 
-  const handleType = (event) => {
-    setProvider(event.target.value);
-    const targetValue = event.target.value;
-    if (targetValue == "Doctors") {
-      doctors.map((item) => {
-        doctorsList.push(item.name);
-        doctorsList.push(item.speciality);
-        item.expertise.map((exp) => {
-          doctorsList.push(exp);
-        });
-      });
-      setProviders([...new Set(doctorsList)]);
-    }
-    if (targetValue == "Diagnostics") {
-      diagnostics.map((item) => {
-        diagnosticsList.push(item.name);
-      });
-      procedures.map((item) => {
-        diagnosticsList.push(item.name);
-      });
-      setProviders([...new Set(diagnosticsList)]);
-    }
-    if (targetValue == "Hospital") {
-      doctors.map((item) => {
-        hospitalList.push(item.speciality);
-      });
-      hospitals.map((item) => {
-        hospitalList.push(item.name);
-      });
-      setProviders([...new Set(hospitalList)]);
-    }
-    if (targetValue == "Pharmacy") {
-      pharmacy.map((item) => {
-        pharmacyList.push(item.name);
-      });
-      medication.map((item) => {
-        pharmacyList.push(item.name);
-      });
-      setProviders([...new Set(pharmacyList)]);
-    }
-  };
+  //
+
+  const handleType = changeProviders(
+    setProvider,
+    setLoading,
+    providerState,
+    allProviders,
+    setproviderState,
+    doctorsList,
+    setProviders,
+    diagnosticsList,
+    hospitalList,
+    pharmacyList
+  );
 
   //Search Function
 
-  const search = async (event) => {
-    event.preventDefault();
-    setMed(null);
-    setIsLoading(true);
-    try {
-      let response = await axios.get(
-        `/api/search-by-${provider}/${searchTerm}`
-      );
-      let res = await response.data;
-      // console.log(res);
-      setProviderData(res);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(true);
-    }
-
-    if (provider == "Pharmacy") {
-      try {
-        let response = await axios.get(
-          `/api/search-by-medication/${searchTerm}`
-        );
-        let res = await response.data;
-        setMed(res);
-      } catch (error) {
-        // setIsLoading(true);
-      }
-    }
-
-    if (provider == "Diagnostics") {
-      setImage(labPic);
-    } else if (provider == "Hospital") {
-      setImage(hospitalPic);
-    } else if (provider == "Doctors") {
-      setImage(doctorPic);
-    } else if (provider == "Pharmacy") {
-      setImage(pharmaPic);
-    }
-
-    setShowResults(true);
-  };
+  const search = SearchListing(
+    setMed,
+    setIsLoading,
+    provider,
+    searchTerm,
+    setProviderData,
+    setImage,
+    setShowResults,
+    labPic,
+    doctorPic,
+    hospitalPic,
+    pharmaPic
+  );
 
   //return
 
@@ -203,7 +120,9 @@ const Listing = ({
       <section className="searchSection lg:p-14 p-5 py-10 bg-blue-500 text-white flex flex-wrap justify-center  items-center flex-col ">
         <div>
           <form
-            onSubmit={search}
+            onSubmit={(e) => {
+              search(e);
+            }}
             className=" w-full flex flex-wrap gap-5 items-center text-white "
           >
             <FormControl
@@ -219,7 +138,7 @@ const Listing = ({
                 id="select-type"
                 name="select-type"
                 value={provider}
-                label="Provider"
+                label={t.home.Provider}
                 onChange={handleType}
               >
                 <MenuItem value="Hospital">{t.home.Hospital}</MenuItem>
@@ -241,13 +160,10 @@ const Listing = ({
                 variant="filled"
                 freeSolo
                 required
-                // value={providers}
-                // sx={{ width: 600, color: "red" }}
                 autoHighlight
                 getOptionLabel={(option) => option}
                 onInputChange={(event, newValue) => {
                   try {
-                    setShowResults(false);
                     setSearchTerm(newValue);
                   } catch {
                     setSearchTerm("");
@@ -255,34 +171,45 @@ const Listing = ({
                 }}
                 renderOption={(props, option) => (
                   <Box
-                    // className="m-auto w-100"
                     component="li"
                     {...props}
                     className="border-slate-100  border-2 p-2 cursor-pointer"
                   >
-                    {option}{" "}
-                    <span className="block text-xs">
-                      {" "}
-                      {/* {option.speciality ? option.speciality : option.address}
-                      {option.address && option.address} */}
-                    </span>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : (
+                      option
+                    )}
+
+                    <span className="block text-xs"></span>
                   </Box>
                 )}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={`${t.home.SearchFor} ${provider}`}
+                    label={
+                      provider
+                        ? `${t.home.SearchFor} ${provider}`
+                        : `Choose service type`
+                    }
                     variant="filled"
-                    required
                     autoComplete="new-password"
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: "new-password",
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <React.Fragment>
+                          {loading ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : null}
+                          {params.InputProps.endAdornment}
+                        </React.Fragment>
+                      ),
                     }}
                   />
                 )}
               />
             </FormControl>
+
             <FormControl>
               <Button
                 variant="contained"
@@ -331,12 +258,6 @@ const Listing = ({
 };
 
 export async function getServerSideProps({ query }) {
-  const DoctorsResponse = await axios.get("/api/doctors");
-  const diagnosticResponse = await axios.get("/api/diagnostics");
-  const hospitalResponse = await axios.get("/api/hospitals");
-  const pharmacyResponse = await axios.get("/api/Pharmacy");
-  const procedureResponse = await axios.get("/api/Procedures");
-  const MedicationResponse = await axios.get("/api/Medications");
   let Firstresponse = await axios.get(
     `/api/search-by-${query.qProvider}/${query.qSearchTerm}`
   );
@@ -344,12 +265,6 @@ export async function getServerSideProps({ query }) {
 
   return {
     props: {
-      doctors: DoctorsResponse.data,
-      diagnostics: diagnosticResponse.data,
-      hospitals: hospitalResponse.data,
-      pharmacy: pharmacyResponse.data,
-      procedures: procedureResponse.data,
-      medication: MedicationResponse.data,
       firstData: Firstresponse.data,
       qProvider: query.qProvider,
     },

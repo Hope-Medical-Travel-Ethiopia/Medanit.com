@@ -22,7 +22,6 @@ export function searchProviders(
         `/api/search-by-${provider}/${searchTerm}`
       );
       let res = await response.data;
-      console.log(res);
       setProviderData(res[0]);
       setIsLoading(false);
     } catch (error) {
@@ -73,10 +72,8 @@ export function changeProviders(
         allProviders.push(response.data);
         setproviderState(allProviders);
       });
-      console.log("from the api");
     } else {
       allProviders.push(providerState[0]);
-      console.log("from the state");
     }
 
     const targetValue = event.target.value;
@@ -132,5 +129,61 @@ export function changeProviders(
       setProviders([...new Set(pharmacyList)]);
       setLoading(false);
     }
+  };
+}
+
+export function SearchListing(
+  setMed,
+  setIsLoading,
+  provider,
+  searchTerm,
+  setProviderData,
+  setImage,
+  setShowResults,
+  labPic,
+  doctorPic,
+  hospitalPic,
+  pharmaPic
+) {
+  return async (event) => {
+    event.preventDefault();
+    setMed(null);
+    setIsLoading(true);
+
+    try {
+      let response = await axios.get(
+        `/api/search-by-${provider}/${searchTerm}`
+      );
+      let res = await response.data; // console.log(res);
+
+      setProviderData(res);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(true);
+    }
+
+    if (provider == "Pharmacy") {
+      try {
+        let response = await axios.get(
+          `/api/search-by-medication/${searchTerm}`
+        );
+        let res = await response.data;
+        setMed(res);
+      } catch (error) {
+        // setIsLoading(true);
+      }
+    }
+
+    if (provider == "Diagnostics") {
+      setImage(labPic);
+    } else if (provider == "Hospital") {
+      setImage(hospitalPic);
+    } else if (provider == "Doctors") {
+      setImage(doctorPic);
+    } else if (provider == "Pharmacy") {
+      setImage(pharmaPic);
+    }
+
+    setShowResults(true);
   };
 }
