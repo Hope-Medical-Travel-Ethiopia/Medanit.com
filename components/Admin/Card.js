@@ -35,7 +35,8 @@ const Card = ({ pic, provider, type }) => {
     const response = await axios
       .delete(`/api/${type}/${provider.id}`)
       .then((response) => {
-        router.push(`/Admin/${type}`);
+        router.reload();
+        // router.push(`/Admin/${type}`);
       });
   };
 

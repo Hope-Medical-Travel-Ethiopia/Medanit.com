@@ -43,7 +43,9 @@ export const DoctorsList = ({
       const response = await axios
         .delete(`/api/${type}/${id}`)
         .then((response) => {
-          router.push(`/Admin/${type}`);
+          // router.push(`/Admin/${type}`);
+          router.reload();
+
           handleClose();
         });
     }

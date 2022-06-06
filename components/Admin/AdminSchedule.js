@@ -65,7 +65,8 @@ const AdminSchedule = ({
     const response = await axios
       .delete(`/api/scheduleDoctor/${hospital}/${doctor}`)
       .then((response) => {
-        router.push(`/Admin/Hospitals/${hospital}`);
+        router.reload();
+        // router.push(`/Admin/Hospitals/${hospital}`);
       });
   };
   return (

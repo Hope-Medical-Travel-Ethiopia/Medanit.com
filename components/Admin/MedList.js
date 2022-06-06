@@ -36,14 +36,18 @@ export const MedList = ({
       const response = await axios
         .delete(`/api/${type}/${providerId}/${id}`)
         .then((response) => {
-          router.push(`/Admin/Pharmacy/${providerId}`);
-          handleClose();
+          router.reload();
+
+          // router.push(`/Admin/Pharmacy/${providerId}`);
+          // handleClose();
         });
     } else {
       const response = await axios
         .delete(`/api/${type}/${id}`)
         .then((response) => {
-          router.push(`/Admin/${type}`);
+          router.reload();
+
+          // router.push(`/Admin/${type}`);
           handleClose();
         });
     }

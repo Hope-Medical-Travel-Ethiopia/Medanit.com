@@ -59,7 +59,9 @@ const AdminSchedule = ({ pic = image, provider, schedule, parent }) => {
     const response = await axios
       .delete(`/api/Procedure_schedule/${diagnostics}/${procedures}`)
       .then((response) => {
-        router.push(`/Admin/Diagnostics/${diagnostics}`);
+        router.reload();
+
+        // router.push(`/Admin/Diagnostics/${diagnostics}`);
       });
   };
   return (
