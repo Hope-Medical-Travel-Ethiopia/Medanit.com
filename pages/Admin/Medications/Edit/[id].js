@@ -111,28 +111,13 @@ CreateMed.getLayout = function PageLayout(page) {
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav
-          title="Medications"
-          // parent="Pharmacy Name"
-          current="Edit Medication"
-          user={user}
-        />
+        <AdminNav title="Medications" current="Edit Medication" user={user} />
         {page}
       </div>
       <Footer />
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/Medications");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Medications/${params.id}`);

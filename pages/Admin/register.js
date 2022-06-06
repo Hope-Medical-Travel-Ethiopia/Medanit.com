@@ -73,7 +73,6 @@ export default function CreateDoctors({ doctors }) {
                   required
                   id="doctor-registration-name"
                   type="text"
-                  //   value={values.name}
                   onChange={handleChange("name")}
                   label="Agent Name"
                 />
@@ -86,7 +85,6 @@ export default function CreateDoctors({ doctors }) {
                   required
                   id="doctor-registration-speciality"
                   type="email"
-                  //   value={values.email}
                   onChange={handleChange("email")}
                   label="Agent Email"
                 />
@@ -99,7 +97,6 @@ export default function CreateDoctors({ doctors }) {
                   required
                   id="doctor-registration-address"
                   type="password"
-                  //   value={values.password}
                   onChange={handleChange("password")}
                   label="Agent Password"
                 />
@@ -112,7 +109,6 @@ export default function CreateDoctors({ doctors }) {
                   required
                   id="doctor-registration-address"
                   type="password"
-                  //   value={values.password_confirmation}
                   onChange={handleChange("password_confirmation")}
                   label="Agent Password Confirmation"
                 />
@@ -129,7 +125,6 @@ export default function CreateDoctors({ doctors }) {
                 >
                   <MenuItem value="0">Admin</MenuItem>
                   <MenuItem value="1">Agent</MenuItem>
-                  {/* <MenuItem value="2">Deactivate Agent</MenuItem> */}
                 </Select>
               </FormControl>
             </div>

@@ -23,9 +23,6 @@ export default function EditSchedule({
 
   useEffect(() => {
     {
-      // schedule[`${doctor.id}`] &&
-      //   schedule[`${doctor.id}`].map((item) => {
-      //   });
       schedule[doctorId] && setschedules(schedule[doctorId][0]);
     }
   }, [doctorId, schedule]);
@@ -57,7 +54,6 @@ export default function EditSchedule({
         agent_name: user.name,
       })
       .then((response) => {
-        // console.log(response.data);
         router.push(`/Admin/Hospitals/${hospitalId}`);
       });
   };
@@ -175,7 +171,6 @@ EditSchedule.getLayout = function PageLayout(page) {
         <AdminNav
           title="Hospitals"
           current="Edit Doctor's Schedule"
-          // parent="hospital"
           user={user}
         />
         {page}
@@ -193,7 +188,6 @@ export async function getServerSideProps({ query }) {
     `/api/HospitalDoctorPivot/${query.parentId}/${query.providerId}`
   );
 
-  // console.log(scheduleResponse.data);
   return {
     props: {
       doctorId: query.providerId,

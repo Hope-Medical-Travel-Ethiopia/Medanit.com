@@ -34,12 +34,8 @@ export default function CreatePharmacy({ pharmacy }) {
     setfullDay(!fullDay);
     if (fullDay == false) {
       setValues({ ...values, closing: "00:00", opening: "00:00" });
-      // console.log(values);
     }
   };
-  // useEffect(() => {
-  //   setValues(pharmacy);
-  // }, [pharmacy]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -150,7 +146,6 @@ export default function CreatePharmacy({ pharmacy }) {
                 id="Pharmacy-registration-logo"
                 type="file"
                 inputProps={{ accept: "image/" }}
-                // value={values.logo}
                 onChange={(e) =>
                   setValues({ ...values, ["logo"]: e.target.files[0] })
                 }
@@ -244,16 +239,6 @@ CreatePharmacy.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/Pharmacy");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Pharmacy/${params.id}`);

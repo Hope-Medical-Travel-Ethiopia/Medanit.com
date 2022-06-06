@@ -3,6 +3,7 @@ import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
 import pic from "../../../public/hospitalDefault.jpg";
+import doctorDefaultPicture from "../../../public/DocDefault.jpg";
 import Expertise from "../../../components/sections/ExpertiseSection";
 import About from "../../../components/sections/About";
 import ProfileHeader from "../../../components/Admin/ProfileHeader";
@@ -14,14 +15,11 @@ import { useAuth } from "../../../hooks/auth";
 export default function Hospital({ id }) {
   const { user } = useAuth({ middleware: "auth" });
 
-  // console.log(id);
-
   const [hospital, setHospital] = useState([]);
   const [schedule, setSchedule] = useState();
   const [doctors, setDoctors] = useState();
 
   useEffect(async () => {
-    // console.log("here");
     const Hospital = await axios.get(`/api/Hospitals/${id}`);
     const Schedule = await axios.get(`/api/schedule/${id}`);
     setDoctors(Hospital.data[0].doctors);
@@ -53,6 +51,7 @@ export default function Hospital({ id }) {
                 doctors &&
                 doctors.map((doctor) => (
                   <AdminSchedule
+                    pic={doctorDefaultPicture}
                     parent={hospital}
                     provider={doctor}
                     schedule={schedule}
@@ -86,24 +85,9 @@ Hospital.getLayout = function PageLayout(page) {
   );
 };
 
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/hospitals");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
-
 export async function getServerSideProps({ params }) {
-  // const response = await axios.get(`/api/Hospitals/${params.id}`);
-  // const scheduleResponse = await axios.get(`/api/schedule/${params.id}`);
-  // console.log(scheduleResponse.data);
   return {
     props: {
-      // hospital: response.data[0],
-      // schedule: scheduleResponse.data,
       id: params.id,
     },
   };

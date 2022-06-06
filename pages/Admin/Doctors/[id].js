@@ -3,6 +3,7 @@ import Sidebar from "../../../components/Admin/Sidebar";
 import Footer from "../../../components/layouts/Footer";
 import AdminNav from "../../../components/Admin/AdminNav";
 import pic from "../../../public/DocDefault.jpg";
+import hospitalDefaultPicture from "../../../public/hospitalDefault.jpg";
 import hospital from "../../../public/hospital.jpg";
 import Expertise from "../../../components/sections/ExpertiseSection";
 import About from "../../../components/sections/About";
@@ -35,6 +36,7 @@ export default function Doctor({ doctors, schedule }) {
             <div className="schedules">
               {doctors.hospitals.map((hospital) => (
                 <AdminSchedule
+                  pic={hospitalDefaultPicture}
                   parent={doctors}
                   provider={hospital}
                   schedule={schedule}
@@ -68,20 +70,9 @@ Doctor.getLayout = function PageLayout(page) {
   );
 };
 
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/doctors");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
-
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
   const scheduleResponse = await axios.get(`/api/scheduleDoctor/${params.id}`);
-  // console.log(scheduleResponse.data);
   return {
     props: {
       doctors: response.data[0],

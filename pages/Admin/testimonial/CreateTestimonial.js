@@ -32,7 +32,6 @@ export default function CreateTestimonial({ testimonial }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setdisableButton(true);
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("title", values.title);
@@ -44,7 +43,6 @@ export default function CreateTestimonial({ testimonial }) {
       method: "POST",
       data: formData,
     }).then((response) => {
-      // console.log(response.data);
       router.push("/Admin/testimonial");
     });
   };

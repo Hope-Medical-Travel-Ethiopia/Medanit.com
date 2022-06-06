@@ -64,7 +64,6 @@ export default function CreateDoctors({ doctors }) {
       method: "POST",
       data: formData,
     }).then((response) => {
-      // console.log(response.data);
       router.push("/Admin/Doctors");
     });
   };
@@ -176,9 +175,7 @@ export default function CreateDoctors({ doctors }) {
                   required
                   id="tags-filled"
                   options={serviceList.map((option) => option)}
-                  //   defaultValue={[serviceList[1]]}
                   onChange={(event, value) => {
-                    // console.log(value);
                     setValues({ ...values, expertise: value });
                   }}
                   freeSolo

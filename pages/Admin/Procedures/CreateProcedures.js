@@ -153,7 +153,6 @@ CreateTest.getLayout = function PageLayout(page) {
       <div className="ml-64">
         <AdminNav
           title="Procedures"
-          // parent="Pharmacy Name"
           current="Add New Medical Procedure"
           user={user}
         />

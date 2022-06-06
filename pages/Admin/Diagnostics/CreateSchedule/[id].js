@@ -77,9 +77,6 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
       })
       .then((response) => {
         setProcedure(response.data);
-        // console.log(response);
-        // console.log("the procedure below");
-        // console.log(Procedure);
         setShowProcedureForm(false);
         setShowProcedure(true);
       });
@@ -108,7 +105,6 @@ export default function CreateSchedule({ Procedures, Diagnostics }) {
         agent_name: user.name,
       })
       .then((response) => {
-        // console.log(response.data);
         router.push(`/Admin/Diagnostics/${Diagnostics.id}`);
       });
   };

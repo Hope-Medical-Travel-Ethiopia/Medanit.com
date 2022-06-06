@@ -30,15 +30,9 @@ export default function EditDiagnostics({ Diagnostics }) {
     description: Diagnostics.description,
   });
 
-  // useEffect(() => {
-  //   setValues(Diagnostics);
-  // }, [Diagnostics]);
-
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
-
-  // const csrf = () => axios.get("/sanctum/csrf-cookie");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -226,17 +220,6 @@ EditDiagnostics.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/diagnostics");
-
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);

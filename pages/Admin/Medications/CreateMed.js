@@ -154,7 +154,6 @@ CreateMed.getLayout = function PageLayout(page) {
       <div className="ml-64">
         <AdminNav
           title="Medications"
-          // parent="Pharmacy Name"
           current="Create New Medication"
           user={user}
         />

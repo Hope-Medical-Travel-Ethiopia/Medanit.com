@@ -113,7 +113,6 @@ export default function CreateSchedule({ doctors, hospital }) {
         agent_name: user.name,
       })
       .then((response) => {
-        // console.log(response.data);
         router.push(`/Admin/Hospitals/${hospital.id}`);
       });
   };
@@ -249,7 +248,6 @@ export default function CreateSchedule({ doctors, hospital }) {
                     id="doctor-registration-picture"
                     type="file"
                     inputProps={{ accept: "image/" }}
-                    // value={values.picture}
                     onChange={(e) =>
                       setValues({
                         ...values,
@@ -265,7 +263,6 @@ export default function CreateSchedule({ doctors, hospital }) {
                     required
                     id="tags-filled"
                     options={serviceList.map((option) => option)}
-                    //   defaultValue={[serviceList[1]]}
                     onChange={(event, value) =>
                       setValues({ ...values, expertise: value })
                     }
@@ -449,16 +446,6 @@ CreateSchedule.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/hospitals");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);

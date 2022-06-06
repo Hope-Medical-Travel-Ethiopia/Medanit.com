@@ -29,15 +29,10 @@ export default function EditHospitals({ hospital }) {
     description: hospital.description,
   });
 
-  // useEffect(() => {
-  //   setValues(hospital);
-  // }, [hospital]);
-
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  // const csrf = () => axios.get("/sanctum/csrf-cookie");
   const handleSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
@@ -61,7 +56,6 @@ export default function EditHospitals({ hospital }) {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     }).then((response) => {
-      // console.log(response.data);
       router.push("/Admin/Hospitals");
     });
   };
@@ -216,17 +210,6 @@ EditHospitals.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/hospitals");
-
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Hospitals/${params.id}`);

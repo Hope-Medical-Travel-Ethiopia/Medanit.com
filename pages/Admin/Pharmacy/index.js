@@ -53,13 +53,3 @@ Pharmacy.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getServerSideProps() {
-//   const Hospitals = await axios.get("/api/Pharmacy");
-
-//   return {
-//     props: {
-//       hospitals: Hospitals.data,
-//     },
-//   };
-// }

@@ -24,7 +24,6 @@ export default function CreateDoctors({ agent, id }) {
   const [values, setValues] = React.useState({
     name: agent.name,
     email: agent.email,
-    // role: agent.role,
     password: "",
     password_confirmation: "",
   });
@@ -39,7 +38,6 @@ export default function CreateDoctors({ agent, id }) {
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
-    // formData.append("role", values.role);
     formData.append("password", values.password);
     formData.append("password_confirmation", values.password_confirmation);
 
@@ -48,7 +46,6 @@ export default function CreateDoctors({ agent, id }) {
       method: "POST",
       data: formData,
     }).then((response) => {
-      // console.log(response.data);
       router.push("/Admin/Admins");
     });
   };
@@ -72,7 +69,6 @@ export default function CreateDoctors({ agent, id }) {
                     Name
                   </InputLabel>
                   <OutlinedInput
-                    // required
                     id="doctor-registration-name"
                     type="text"
                     value={values.name}
@@ -98,10 +94,8 @@ export default function CreateDoctors({ agent, id }) {
                     Password
                   </InputLabel>
                   <OutlinedInput
-                    // required
                     id="doctor-registration-address"
                     type="password"
-                    // value=""
                     onChange={handleChange("password")}
                     label="Agent Password"
                   />
@@ -111,29 +105,12 @@ export default function CreateDoctors({ agent, id }) {
                     Password Confirmation
                   </InputLabel>
                   <OutlinedInput
-                    // required
                     id="doctor-registration-address"
                     type="password"
-                    //   value={values.password_confirmation}
                     onChange={handleChange("password_confirmation")}
                     label="Agent Password Confirmation"
                   />
                 </FormControl>
-                {/* <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
-                  <InputLabel htmlFor={`role`}>Role</InputLabel>
-                  <Select
-                    labelId="role"
-                    id="role"
-                    name="role"
-                    label="Provider"
-                    value={values.role}
-                    onChange={handleChange("role")}
-                  >
-                    <MenuItem value="0">Admin</MenuItem>
-                    <MenuItem value="1">Agent</MenuItem>
-                    <MenuItem value="2">Deactivate Agent</MenuItem>
-                  </Select>
-                </FormControl> */}
               </div>
               <input
                 type="submit"
@@ -168,19 +145,8 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/allUsers");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
-
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/showUser/${params.id}`);
-  // console.log(response.data);
   return {
     props: {
       agent: response.data,

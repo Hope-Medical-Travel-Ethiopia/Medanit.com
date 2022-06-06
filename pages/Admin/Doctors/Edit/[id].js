@@ -128,7 +128,6 @@ export default function CreateDoctors({ doctor, doctors }) {
                   id="doctor-registration-picture"
                   type="file"
                   inputProps={{ accept: "image/" }}
-                  // value={values.picture}
                   onChange={(e) =>
                     setValues({
                       ...values,
@@ -144,7 +143,6 @@ export default function CreateDoctors({ doctor, doctors }) {
                   required
                   id="tags-filled"
                   options={serviceList.map((option) => option)}
-                  //   defaultValue={[serviceList[1]]}
                   value={values.expertise}
                   onChange={(event, value) => {
                     setValues({ ...values, expertise: value });
@@ -211,17 +209,6 @@ CreateDoctors.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/doctors");
-
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);

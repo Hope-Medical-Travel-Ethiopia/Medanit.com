@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../../public/Doc4.jpg";
 import Link from "next/link";
 import Image from "next/image";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
@@ -15,13 +14,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios from "../../lib/axios";
 import { useAuth } from "../../hooks/auth";
 
-const AdminSchedule = ({
-  pic = image,
-  provider,
-  schedule,
-  parent,
-  providerType,
-}) => {
+const AdminSchedule = ({ pic, provider, schedule, parent, providerType }) => {
   // const [Sky, setSky] = useState([]);
   const { user } = useAuth({ middleware: "auth" });
 
@@ -30,6 +23,7 @@ const AdminSchedule = ({
   };
 
   const [image, setimage] = useState();
+  const [defaultPic, setDefaultPic] = useState();
 
   useEffect(() => {
     if (provider.profilePicture) {
@@ -144,11 +138,8 @@ const AdminSchedule = ({
 
             <div className="Dates w-fit text-left">
               {schedule[`${provider.id}`] &&
-                schedule[`${provider.id}`][0].map((item) => (
-                  <Schedule
-                    time={item}
-                    key={item.starting + item.ending + item.day}
-                  />
+                schedule[`${provider.id}`][0].map((item, index) => (
+                  <Schedule time={item} key={index} />
                 ))}
             </div>
             <div className="action  flex  w-full gap-5 justify-end mt-10">

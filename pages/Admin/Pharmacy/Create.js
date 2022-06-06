@@ -63,9 +63,6 @@ export default function CreatePharmacy() {
     }).then((response) => {
       router.push("/Admin/Pharmacy");
     });
-    // const response = await axios.post("/api/Pharmacy", {}).then((response) => {
-    //   router.push("/Admin/Pharmacy");
-    // });
   };
 
   return (
@@ -144,7 +141,6 @@ export default function CreatePharmacy() {
                 id="Pharmacy-registration-logo"
                 type="file"
                 name="file"
-                // value={values.logo}
                 onChange={(e) =>
                   setValues({ ...values, ["logo"]: e.target.files[0] })
                 }

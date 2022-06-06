@@ -14,21 +14,6 @@ import LabSchedule from "../../../components/Admin/LabSchedule";
 import { useAuth } from "../../../hooks/auth";
 export default function Diagnostic({ diagnostics, schedule }) {
   const { user } = useAuth({ middleware: "auth" });
-  // const [schedule, setSchedule] = useState();
-  // const [diagnostics, setDiagnostics] = useState();
-  // // const [services, setServices] = useState();
-  // const [procedures, setProcedures] = useState();
-
-  // useEffect(async () => {
-  //   const Diagnostic = await axios.get(`/api/Diagnostics/${id}`);
-  //   const Schedule = await axios.get(`/api/Diagnostic_schedule/${id}`);
-
-  //   console.log(Diagnostic.data);
-
-  //   setSchedule(Schedule.data);
-  //   setDiagnostics(Diagnostic.data[0]);
-  //   // setServices(Diagnostic[0].services);
-  // }, []);
 
   return (
     <div className="min-h-screen p-20 py-10">
@@ -84,16 +69,6 @@ Diagnostic.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("/api/diagnostics");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Diagnostics/${params.id}`);

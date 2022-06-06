@@ -41,9 +41,6 @@ export default function EditSchedule({
   };
   useEffect(() => {
     {
-      // schedule[`${doctor.id}`] &&
-      //   schedule[`${doctor.id}`].map((item) => {
-      //   });
       schedule[doctorId] && setschedules(schedule[doctorId][0]);
     }
   }, [doctorId, schedule]);
@@ -75,7 +72,6 @@ export default function EditSchedule({
         agent_name: user.name,
       })
       .then((response) => {
-        // console.log(response.data);
         router.push(`/Admin/Diagnostics/${hospitalId}`);
       });
   };
@@ -102,7 +98,6 @@ export default function EditSchedule({
                 >
                   Day
                 </label>
-                {/* <InputLabel htmlFor={`schedule-Date`}>Day</InputLabel> */}
                 <TextField
                   required
                   id="schedule-Date"
@@ -202,7 +197,6 @@ EditSchedule.getLayout = function PageLayout(page) {
         <AdminNav
           title="Hospitals"
           current="Edit Doctor's Schedule"
-          // parent="hospital"
           user={user}
         />
         {page}
@@ -219,8 +213,6 @@ export async function getServerSideProps({ query }) {
   const pivot = await axios.get(
     `/api/Procedure_schedule/${query.parentId}/${query.providerId}`
   );
-
-  // console.log(scheduleResponse.data);
 
   return {
     props: {

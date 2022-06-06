@@ -34,8 +34,6 @@ export default function CreateHospitals() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  // const csrf = () => axios.get("/sanctum/csrf-cookie");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setdisableButton(true);
@@ -142,7 +140,6 @@ export default function CreateHospitals() {
                 required
                 id="tags-filled"
                 options={serviceList.map((option) => option)}
-                //   defaultValue={[serviceList[1]]}
                 onChange={(event, value) =>
                   setValues({ ...values, services: value })
                 }

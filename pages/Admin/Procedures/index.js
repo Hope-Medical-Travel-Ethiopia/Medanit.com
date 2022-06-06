@@ -66,12 +66,3 @@ Procedures.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getServerSideProps() {
-//   const response = await axios.get("/api/Procedures");
-//   return {
-//     props: {
-//       Procedure: response.data,
-//     },
-//   };
-// }

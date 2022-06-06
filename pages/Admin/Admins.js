@@ -18,15 +18,6 @@ export default function Admins({ admin }) {
   const { user } = useAuth({ middleware: "auth" });
   const router = useRouter();
 
-  // const handleDelete = async (id) => {
-  //   alert("something");
-  //   const response = await axios
-  //     .delete(`/api/deleteUser/${id}`)
-  //     .then((response) => {
-  //       router.push(`/Admin/Admins`);
-  //     });
-  // };
-
   return (
     <>
       <div className="min-h-screen p-20">

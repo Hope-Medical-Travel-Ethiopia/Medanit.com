@@ -34,12 +34,9 @@ export default function CreateDiagnostics() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  // const csrf = () => axios.get("/sanctum/csrf-cookie");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setdisableButton(true);
-    // await csrf();
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -139,7 +136,6 @@ export default function CreateDiagnostics() {
                 required
                 id="tags-filled"
                 options={serviceList.map((option) => option)}
-                //   defaultValue={[serviceList[1]]}
                 onChange={(event, value) =>
                   setValues({ ...values, services: value })
                 }

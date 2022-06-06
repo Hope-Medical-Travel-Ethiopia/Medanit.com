@@ -46,7 +46,6 @@ export default function CreateMed({ medications, pharmacy }) {
         agent_name: user.name,
       })
       .then((response) => {
-        // console.log(response.data);
         router.push(`/Admin/Pharmacy/${pharmacy.id}`);
       });
   };
@@ -70,9 +69,6 @@ export default function CreateMed({ medications, pharmacy }) {
     setSchedule({ ...schedule, [prop]: event.target.value });
   };
 
-  const handleDone = () => {
-    // console.log(values);
-  };
   return (
     <div className="min-h-screen">
       <div className="Heading">
@@ -232,16 +228,6 @@ CreateMed.getLayout = function PageLayout(page) {
     </div>
   );
 };
-
-// export async function getStaticPaths() {
-//   const response = await axios.get("api/Pharmacy");
-//   return {
-//     fallback: false,
-//     paths: response.data.map((item) => ({
-//       params: { id: item.id.toString() },
-//     })),
-//   };
-// }
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get("/api/Medications");
