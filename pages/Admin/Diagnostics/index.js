@@ -11,10 +11,15 @@ import { useAuth } from "../../../hooks/auth";
 export default function Diagnostic() {
   const { user } = useAuth({ middleware: "auth" });
   const [diagnostics, setDiagnostics] = useState([]);
-  useEffect(async () => {
-    const Diagnostics = await axios.get("/api/agent/diagnostics/" + user.id);
-    setDiagnostics(Diagnostics.data);
-  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const Diagnostics = await axios.get("/api/agent/diagnostics/" + user.id);
+      setDiagnostics(Diagnostics.data);
+    }
+
+    fetchData();
+  }, [user.id]);
 
   return (
     <div className="min-h-screen p-20 py-10">

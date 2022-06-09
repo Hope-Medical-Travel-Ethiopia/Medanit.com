@@ -14,10 +14,14 @@ export default function Doctors() {
   const { user } = useAuth({ middleware: "auth" });
 
   const [doctors, setDoctors] = useState([]);
-  useEffect(async () => {
-    const Doctors = await axios.get("/api/agent/doctors/" + user.id);
-    setDoctors(Doctors.data);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const Doctors = await axios.get("/api/agent/doctors/" + user.id);
+      setDoctors(Doctors.data);
+    }
+
+    fetchData();
+  }, [user.id]);
 
   return (
     <div className="min-h-screen p-20 py-10">

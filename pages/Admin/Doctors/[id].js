@@ -72,7 +72,9 @@ Doctor.getLayout = function PageLayout(page) {
 
 export async function getServerSideProps({ params }) {
   const response = await axios.get(`/api/Doctors/${params.id}`);
-  const scheduleResponse = await axios.get(`/api/scheduleDoctor/${params.id}`);
+  const scheduleResponse = await axios.get(
+    `/api/scheduleDoctorAdmin/${params.id}`
+  );
   return {
     props: {
       doctors: response.data[0],

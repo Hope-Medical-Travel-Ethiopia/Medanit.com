@@ -23,16 +23,7 @@ import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
 
-const Listing = ({
-  doctors,
-  diagnostics,
-  hospitals,
-  pharmacy,
-  procedures,
-  medication,
-  firstData,
-  qProvider,
-}) => {
+const Listing = ({ firstData, qProvider }) => {
   const doctorsList = [];
   const hospitalList = [];
   const diagnosticsList = [];
@@ -55,13 +46,9 @@ const Listing = ({
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState();
   const [providerState, setproviderState] = useState();
+  const [disableProvider, setDisableProvider] = useState(false);
+
   useEffect(() => {
-    // doctors.map((item) => {
-    //   hospitalList.push(item.speciality);
-    // });
-    // hospitals.map((item) => {
-    //   hospitalList.push(item.name);
-    // });
     setProvider(query.qProvider);
     setSearchTerm(decodeURI(query.qSearchTerm));
     setProviderData(firstData);
@@ -91,7 +78,8 @@ const Listing = ({
     setProviders,
     diagnosticsList,
     hospitalList,
-    pharmacyList
+    pharmacyList,
+    setDisableProvider
   );
 
   //Search Function
@@ -125,7 +113,7 @@ const Listing = ({
             }}
             className=" w-full flex flex-wrap gap-5 items-center text-white "
           >
-            <FormControl
+            {/* <FormControl
               variant="filled"
               className=" md:w-32 min-w-fit w-[100%] m-auto bg-white"
             >
@@ -146,68 +134,99 @@ const Listing = ({
                 <MenuItem value="Doctors">{t.home.Doctor}</MenuItem>
                 <MenuItem value="Pharmacy">{t.home.Pharmacy}</MenuItem>
               </Select>
+            </FormControl> */}
+
+            <FormControl
+              className="md:w-32 min-w-fit w-[100%] m-auto bg-white"
+              variant="filled"
+            >
+              <InputLabel id="demo-simple-select-label">
+                {t.home.Provider}
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="select-type"
+                name="select-type"
+                label={t.home.Provider}
+                onChange={handleType}
+              >
+                <MenuItem value="Hospital">{t.home.Hospital}</MenuItem>
+                <MenuItem value="Diagnostics">{t.home.Diagnostics}</MenuItem>
+                <MenuItem value="Doctors">{t.home.Doctor}</MenuItem>
+                <MenuItem value="Pharmacy">{t.home.Pharmacy}</MenuItem>
+              </Select>
             </FormControl>
 
             <FormControl
               variant="filled"
               className="md:w-96 min-w-fit w-[100%] m-auto"
             >
-              <Autocomplete
-                className="bg-white"
-                id="select-providers"
-                name="searchTerm"
-                options={providers}
-                variant="filled"
-                freeSolo
-                required
-                autoHighlight
-                getOptionLabel={(option) => option}
-                onInputChange={(event, newValue) => {
-                  try {
-                    setSearchTerm(newValue);
-                  } catch {
-                    setSearchTerm("");
-                  }
-                }}
-                renderOption={(props, option) => (
-                  <Box
-                    component="li"
-                    {...props}
-                    className="border-slate-100  border-2 p-2 cursor-pointer"
-                  >
-                    {loading ? (
-                      <CircularProgress color="inherit" size={20} />
-                    ) : (
-                      option
-                    )}
-
-                    <span className="block text-xs"></span>
-                  </Box>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={
-                      provider
-                        ? `${t.home.SearchFor} ${provider}`
-                        : `Choose service type`
+              {provider && disableProvider ? (
+                <Autocomplete
+                  id="select-providers"
+                  variant="filled"
+                  className="bg-white"
+                  name="searchTerm"
+                  options={providers}
+                  freeSolo
+                  required
+                  autoHighlight
+                  getOptionLabel={(option) => option}
+                  onInputChange={(event, newValue) => {
+                    try {
+                      setSearchTerm(newValue);
+                    } catch {
+                      setSearchTerm("");
                     }
-                    variant="filled"
-                    autoComplete="new-password"
-                    InputProps={{
-                      ...params.InputProps,
-                      endAdornment: (
-                        <React.Fragment>
-                          {loading ? (
-                            <CircularProgress color="inherit" size={20} />
-                          ) : null}
-                          {params.InputProps.endAdornment}
-                        </React.Fragment>
-                      ),
-                    }}
-                  />
-                )}
-              />
+                  }}
+                  renderOption={(props, option) => (
+                    <Box
+                      className="m-auto w-100 border-slate-100 border-2 p-2 cursor-pointer"
+                      component="li"
+                      {...props}
+                    >
+                      {loading ? (
+                        <CircularProgress color="inherit" size={20} />
+                      ) : (
+                        option
+                      )}
+
+                      <span className="block text-xs"></span>
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      required
+                      label={
+                        provider ? `${t.home.SearchFor} ` : `${t.home.Choose}`
+                      }
+                      variant="filled"
+                      autoComplete="new-password"
+                      InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                          <React.Fragment>
+                            {loading ? (
+                              <CircularProgress color="inherit" size={20} />
+                            ) : null}
+                            {params.InputProps.endAdornment}
+                          </React.Fragment>
+                        ),
+                      }}
+                    />
+                  )}
+                />
+              ) : (
+                <TextField
+                  id="outlined-basic"
+                  label={t.home.Choose}
+                  className="bg-white"
+                  variant="filled"
+                  required
+                  disabled
+                />
+              )}
             </FormControl>
 
             <FormControl>

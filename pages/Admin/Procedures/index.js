@@ -15,10 +15,14 @@ export default function Procedures() {
   const { user } = useAuth({ middleware: "auth" });
 
   const [procedure, setProcedure] = useState([]);
-  useEffect(async () => {
-    const Procedure = await axios.get("/api/agent/procedures/" + user.id);
-    setProcedure(Procedure.data);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const Procedure = await axios.get("/api/agent/procedures/" + user.id);
+      setProcedure(Procedure.data);
+    }
+
+    fetchData();
+  }, [user.id]);
 
   return (
     <div className="min-h-screen p-20 py-10">

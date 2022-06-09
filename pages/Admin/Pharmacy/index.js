@@ -11,10 +11,14 @@ import { useAuth } from "../../../hooks/auth";
 export default function Pharmacy() {
   const { user } = useAuth({ middleware: "auth" });
   const [pharmacies, setPharmacies] = useState([]);
-  useEffect(async () => {
-    const Pharmacies = await axios.get("/api/agent/pharmacies/" + user.id);
-    setPharmacies(Pharmacies.data);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const Pharmacies = await axios.get("/api/agent/pharmacies/" + user.id);
+      setPharmacies(Pharmacies.data);
+    }
+
+    fetchData();
+  }, [user.id]);
 
   return (
     <div className="min-h-screen p-20 py-10">

@@ -38,7 +38,7 @@ export default function CreateDoctors({ doctors }) {
     });
 
     setServiceList([...new Set(serviceList)]);
-  }, []);
+  }, [doctors, serviceList]);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });

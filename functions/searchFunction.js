@@ -61,11 +61,13 @@ export function changeProviders(
   setProviders,
   diagnosticsList,
   hospitalList,
-  pharmacyList
+  pharmacyList,
+  setDisableProvider
 ) {
   return async (event) => {
     setProvider(event.target.value);
     setLoading(true);
+    setDisableProvider && setDisableProvider(true);
 
     if (!providerState) {
       await axios.get("/api/all").then((response) => {

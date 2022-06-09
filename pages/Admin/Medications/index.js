@@ -15,10 +15,14 @@ export default function Medication() {
   const { user } = useAuth({ middleware: "auth" });
 
   const [medications, setMedications] = useState([]);
-  useEffect(async () => {
-    const Medications = await axios.get("/api/agent/medications/" + user.id);
-    setMedications(Medications.data);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const Medications = await axios.get("/api/agent/medications/" + user.id);
+      setMedications(Medications.data);
+    }
+
+    fetchData();
+  }, [user.id]);
 
   return (
     <div className="min-h-screen p-20 py-10">

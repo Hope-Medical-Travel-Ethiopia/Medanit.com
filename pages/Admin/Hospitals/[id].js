@@ -19,13 +19,17 @@ export default function Hospital({ id }) {
   const [schedule, setSchedule] = useState();
   const [doctors, setDoctors] = useState();
 
-  useEffect(async () => {
-    const Hospital = await axios.get(`/api/Hospitals/${id}`);
-    const Schedule = await axios.get(`/api/schedule/${id}`);
-    setDoctors(Hospital.data[0].doctors);
-    setHospital(Hospital.data[0]);
-    setSchedule(Schedule.data);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const Hospital = await axios.get(`/api/Hospitals/${id}`);
+      const Schedule = await axios.get(`/api/schedule/${id}`);
+      setDoctors(Hospital.data[0].doctors);
+      setHospital(Hospital.data[0]);
+      setSchedule(Schedule.data);
+    }
+
+    fetchData();
+  }, [id]);
 
   return (
     <div className="min-h-screen p-20 py-10">
