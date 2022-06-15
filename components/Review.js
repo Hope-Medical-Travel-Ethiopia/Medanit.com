@@ -12,9 +12,7 @@ export const Review = ({ testimonial }) => {
   }, [testimonial]);
 
   const myLoader = ({ src, width, quality }) => {
-    return `https://data.medanit.com/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
   return (
     <>

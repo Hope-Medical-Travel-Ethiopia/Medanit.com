@@ -17,7 +17,7 @@ import { Router, useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 
-export default function CreateDoctors({ doctors }) {
+export default function RegisterAdmins({ admins }) {
   const router = useRouter();
   const { user } = useAuth({ middleware: "auth" });
   const [disableButton, setdisableButton] = useState(false);
@@ -149,7 +149,7 @@ export default function CreateDoctors({ doctors }) {
   );
 }
 
-CreateDoctors.getLayout = function PageLayout(page) {
+RegisterAdmins.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });
   if (isLoading) {
     return <></>;
@@ -166,12 +166,12 @@ CreateDoctors.getLayout = function PageLayout(page) {
   );
 };
 
-export async function getServerSideProps() {
-  const response = await axios.get("/api/doctors");
+// export async function getServerSideProps() {
+//   const response = await axios.get("/api/admins");
 
-  return {
-    props: {
-      doctors: response.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       admins: response.data,
+//     },
+//   };
+// }

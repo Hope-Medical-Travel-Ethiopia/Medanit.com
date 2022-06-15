@@ -6,31 +6,27 @@ import RegisterLink from "../../../components/Admin/RegisterLink";
 import Search from "../../../components/Admin/Search";
 import axios from "../../../lib/axios";
 import { useAuth } from "../../../hooks/auth";
-import { Review } from "../../../components/sections/Testimonial";
-import { MedList } from "../../../components/Admin/MedList";
-import { TestimonialTable } from "../../../components/Admin/TestimonialTable";
+import { PromoTable } from "../../../components/Admin/PromoTable";
 
-export default function Testimonials({ testimonial }) {
+export default function Promotions({ Promotion }) {
   const { user } = useAuth({ middleware: "auth" });
   return (
     <div className="min-h-screen p-20 py-10">
       <div className="head flex justify-between mb-10">
         <RegisterLink
-          text="Add new Testimonial"
-          link="/Admin/testimonial/CreateTestimonial"
+          text="Add new Promotion"
+          link="/Admin/Promotions/CreatePromotion"
         />
         <Search />
       </div>
       <div className="body">
-        <section>
-          {testimonial && <TestimonialTable testimonial={testimonial} />}
-        </section>
+        <section>{Promotion && <PromoTable promotion={Promotion} />}</section>
       </div>
     </div>
   );
 }
 
-Testimonials.getLayout = function PageLayout(page) {
+Promotions.getLayout = function PageLayout(page) {
   const { user, isLoading } = useAuth({ middleware: "auth" });
 
   if (isLoading) {
@@ -40,7 +36,7 @@ Testimonials.getLayout = function PageLayout(page) {
     <div>
       <Sidebar />
       <div className="ml-64">
-        <AdminNav title="Testimonials" user={user} />
+        <AdminNav title="Promotions" user={user} />
         {page}
       </div>
       <Footer />
@@ -49,11 +45,11 @@ Testimonials.getLayout = function PageLayout(page) {
 };
 
 export async function getServerSideProps() {
-  const response = await axios.get("/api/testimonial");
+  const response = await axios.get("/api/advertisments");
 
   return {
     props: {
-      testimonial: response.data,
+      Promotion: response.data,
     },
   };
 }

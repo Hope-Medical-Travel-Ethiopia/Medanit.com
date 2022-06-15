@@ -93,8 +93,15 @@ export default function CreateTestimonial({ testimonial }) {
                       label="Testimony"
                       multiline
                       rows={4}
+                      maxlength="50"
                       value={values.testimony}
                       onChange={handleChange("testimony")}
+                      inputProps={{
+                        maxLength: 155,
+                      }}
+                      InputProps={{
+                        disableUnderline: true,
+                      }}
                     />
                   </FormControl>
                   <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
