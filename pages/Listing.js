@@ -22,6 +22,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
+import { Promocard } from "../components/sections/Promocard";
 
 const Listing = ({ firstData, qProvider }) => {
   const doctorsList = [];
@@ -253,25 +254,34 @@ const Listing = ({ firstData, qProvider }) => {
         )}
       </section>
       {/* <h1 className="text-2xl">Searching For {searchTerm}</h1> */}
-      <section className="list pt-10 flex  flex-col justify-center items-center m-auto">
-        {IsLoading ? (
-          <>
-            <h1 className="text-2xl">Searching For {searchTerm}</h1>
-            <div className="text-9xl text-red-700 animate-spin w-24 h-24 rounded-full border-4 border-blue-500 border-x-0"></div>
-          </>
-        ) : (
-          providerData.map((item) => (
-            <ProviderListCard
-              key={item.id + item.name}
-              pic={image}
-              providers={item}
-              provider={provider}
-              searchTerm={searchTerm}
-              content={t}
-            />
-          ))
-        )}
-      </section>
+      <div className="flex flex-wrap overflow-hidden justify-between">
+        <section className="list pt-10 flex  flex-col justify-center items-center m-auto ">
+          {IsLoading ? (
+            <>
+              <h1 className="text-2xl">Searching For {searchTerm}</h1>
+              <div className="text-9xl text-red-700 animate-spin w-24 h-24 rounded-full border-4 border-blue-500 border-x-0"></div>
+            </>
+          ) : (
+            providerData.map((item) => (
+              <ProviderListCard
+                key={item.id + item.name}
+                pic={image}
+                providers={item}
+                provider={provider}
+                searchTerm={searchTerm}
+                content={t}
+              />
+            ))
+          )}
+        </section>
+
+        <section className="w-72 mx-auto">
+          <div className="w-[90%] my-10 lg:my-20 gap-5 flex flex-col border-2 border-black ">
+            <Promocard src="https://images.unsplash.com/photo-1557746534-7e6ca4397ff5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHByb21vdGlvbnxlbnwwfDF8MHx8&auto=format&fit=crop&w=600&q=60" />
+            <Promocard src="https://images.unsplash.com/photo-1557746534-7e6ca4397ff5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHByb21vdGlvbnxlbnwwfDF8MHx8&auto=format&fit=crop&w=600&q=60" />
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
