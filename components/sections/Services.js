@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Hosp from "../../public/hosp2.jpg";
-import Doc4 from "../../public/Doct3.jpg";
+import Doc4 from "../../public/doct3.jpg";
 import Lab from "../../public/laboratory.jpg";
 import Phar from "../../public/Phar2.jpg";
 import Hospital from "../../public/pharmacy.jpg";
