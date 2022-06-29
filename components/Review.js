@@ -12,7 +12,9 @@ export const Review = ({ testimonial }) => {
   }, [testimonial]);
 
   const myLoader = ({ src, width, quality }) => {
-    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+    return `http://192.241.153.141/storage/${src}?w=${width}&q=${
+      quality || 75
+    }`;
   };
   return (
     <>
