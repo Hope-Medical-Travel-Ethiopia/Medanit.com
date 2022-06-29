@@ -39,7 +39,7 @@ export default function CreateSchedule({ doctors, hospital }) {
     });
 
     setServiceList([...new Set(serviceList)]);
-  }, [doctors, serviceList]);
+  }, [doctors]);
 
   let handleScheduleChange = (i, e) => {
     let newschedules = [...schedules];

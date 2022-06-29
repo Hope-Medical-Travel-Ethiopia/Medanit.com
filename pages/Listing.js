@@ -24,7 +24,7 @@ import en from "../locales/en";
 import am from "../locales/am";
 import { Promocard } from "../components/sections/Promocard";
 
-const Listing = ({ firstData, qProvider }) => {
+const Listing = ({ firstData, qProvider, advertisment }) => {
   const doctorsList = [];
   const hospitalList = [];
   const diagnosticsList = [];
@@ -277,8 +277,10 @@ const Listing = ({ firstData, qProvider }) => {
 
         <section className="w-72 mx-auto">
           <div className="w-[90%] my-10 lg:my-20 gap-5 flex flex-col border-2 border-black ">
-            <Promocard src="https://images.unsplash.com/photo-1557746534-7e6ca4397ff5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHByb21vdGlvbnxlbnwwfDF8MHx8&auto=format&fit=crop&w=600&q=60" />
-            <Promocard src="https://images.unsplash.com/photo-1557746534-7e6ca4397ff5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHByb21vdGlvbnxlbnwwfDF8MHx8&auto=format&fit=crop&w=600&q=60" />
+            {advertisment &&
+              advertisment.map((ad) => (
+                <Promocard src={`http://localhost:8000/storage/${ad.photo}`} />
+              ))}
           </div>
         </section>
       </div>
@@ -290,12 +292,16 @@ export async function getServerSideProps({ query }) {
   let Firstresponse = await axios.get(
     `/api/search-by-${query.qProvider}/${query.qSearchTerm}`
   );
+
+  let AdvertismentResponse = await axios.get("/api/listing/advertisments");
+  console.log(AdvertismentResponse.data);
   // console.log(Firstresponse.data);
 
   return {
     props: {
       firstData: Firstresponse.data,
       qProvider: query.qProvider,
+      advertisment: AdvertismentResponse.data,
     },
   };
 }

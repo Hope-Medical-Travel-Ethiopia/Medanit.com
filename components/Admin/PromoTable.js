@@ -25,7 +25,7 @@ export const PromoTable = ({ promotion }) => {
 
   const handleDelete = async (id) => {
     const response = await axios
-      .delete(`/api/promotion/${id}`)
+      .delete(`/api/advertisment/${id}`)
       .then((response) => {
         router.reload();
       });

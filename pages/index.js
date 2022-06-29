@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 import en from "../locales/en";
 import am from "../locales/am";
 import Testimonial from "../components/sections/Testimonial";
-export default function Home({ counter, testimonial }) {
+import Promotions from "../components/sections/Promotions";
+export default function Home({ counter, testimonial, advertisment }) {
   const router = useRouter();
   const { locale } = router;
   // console.log(locale);
@@ -36,6 +37,7 @@ export default function Home({ counter, testimonial }) {
         <AboutUs content={t.about} />
         <CounterSection content={t.counter} counter={counter} />
         <Services />
+        <Promotions advertisment={advertisment} />
         <Testimonial testimonial={testimonial} />
         <Contact contact={t.contact} />
       </main>
@@ -55,10 +57,12 @@ Home.getLayout = function PageLayout(page) {
 export async function getServerSideProps() {
   const Testimonial = await axios.get("/api/testimonial");
   const CounterResponse = await axios.get("/api/CountProviders");
+  const AdvertismentResponse = await axios.get("/api/homepage/advertisments");
   return {
     props: {
       counter: CounterResponse.data,
       testimonial: Testimonial.data,
+      advertisment: AdvertismentResponse.data.data,
     },
   };
 }

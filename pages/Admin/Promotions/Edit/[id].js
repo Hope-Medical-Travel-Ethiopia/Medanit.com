@@ -174,7 +174,6 @@ export default function EditPromotion({ promotion }) {
 
                   <FormControl sx={{ m: 1, width: "40ch" }} variant="outlined">
                     <TextField
-                      required
                       id="promotion-registration-picture"
                       type="file"
                       onChange={(e) =>
