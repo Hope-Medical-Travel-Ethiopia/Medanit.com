@@ -19,9 +19,7 @@ const AdminSchedule = ({ pic, provider, schedule, parent, providerType }) => {
   const { user } = useAuth({ middleware: "auth" });
 
   const myLoader = ({ src, width, quality }) => {
-    return `http://192.241.153.141/storage/${src}?w=${width}&q=${
-      quality || 75
-    }`;
+    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
   };
 
   const [image, setimage] = useState();

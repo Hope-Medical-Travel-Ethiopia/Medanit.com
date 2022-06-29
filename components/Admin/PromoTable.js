@@ -49,7 +49,7 @@ export const PromoTable = ({ promotion }) => {
       cell: (row) => (
         <img
           className="h-24 object-contain"
-          src={`http://192.241.153.141/storage/${row.photo}`}
+          src={`http://localhost:8000/storage/${row.photo}`}
         />
       ),
       sortable: true,

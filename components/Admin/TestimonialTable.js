@@ -68,7 +68,7 @@ export const TestimonialTable = ({ testimonial }) => {
       cell: (row) => (
         <img
           className="h-24 object-contain"
-          src={`http://192.241.153.141/storage/${row.image}`}
+          src={`http://localhost:8000/storage/${row.image}`}
         />
       ),
       sortable: true,

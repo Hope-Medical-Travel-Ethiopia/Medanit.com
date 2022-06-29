@@ -279,7 +279,7 @@ const Listing = ({ firstData, qProvider, advertisment }) => {
           <div className="w-[90%] my-10 lg:my-20 gap-5 flex flex-col border-2 border-black ">
             {advertisment &&
               advertisment.map((ad) => (
-                <Promocard src={`http://192.241.153.141/storage/${ad.photo}`} />
+                <Promocard src={`http://localhost:8000/storage/${ad.photo}`} />
               ))}
           </div>
         </section>
