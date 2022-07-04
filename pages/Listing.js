@@ -280,6 +280,7 @@ const Listing = ({ firstData, qProvider, advertisment }) => {
             {advertisment &&
               advertisment.map((ad) => (
                 <Promocard
+                  key={ad.id}
                   src={`https://api.medanit.com/storage/${ad.photo}`}
                 />
               ))}
