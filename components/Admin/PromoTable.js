@@ -49,7 +49,7 @@ export const PromoTable = ({ promotion }) => {
       cell: (row) => (
         <img
           className="h-24 object-contain"
-          src={`http://localhost:8000/storage/${row.photo}`}
+          src={`https://api.medanit.com/storage/${row.photo}`}
         />
       ),
       sortable: true,

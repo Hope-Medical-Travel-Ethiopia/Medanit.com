@@ -19,7 +19,9 @@ const AdminSchedule = ({ pic, provider, schedule, parent, providerType }) => {
   const { user } = useAuth({ middleware: "auth" });
 
   const myLoader = ({ src, width, quality }) => {
-    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
+      quality || 75
+    }`;
   };
 
   const [image, setimage] = useState();

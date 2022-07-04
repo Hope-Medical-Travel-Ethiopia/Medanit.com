@@ -13,7 +13,9 @@ const ProviderListCard = ({
   searchTerm,
 }) => {
   const myLoader = ({ src, width, quality }) => {
-    return `http://localhost:8000/storage/${src}?w=${width}&q=${quality || 75}`;
+    return `https://api.medanit.com/storage/${src}?w=${width}&q=${
+      quality || 75
+    }`;
   };
 
   const [image, setimage] = useState();

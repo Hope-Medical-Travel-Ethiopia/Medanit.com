@@ -68,7 +68,7 @@ export const TestimonialTable = ({ testimonial }) => {
       cell: (row) => (
         <img
           className="h-24 object-contain"
-          src={`http://localhost:8000/storage/${row.image}`}
+          src={`https://api.medanit.com/storage/${row.image}`}
         />
       ),
       sortable: true,

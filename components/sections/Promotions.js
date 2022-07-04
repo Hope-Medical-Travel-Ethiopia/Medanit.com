@@ -18,19 +18,19 @@ export default function Promotions({ advertisment }) {
 
           <img
             className="lg:w-full lg:object-contain lg:h-full"
-            src={`http://localhost:8000/storage/${advertisment[0].photo}`}
+            src={`https://api.medanit.com/storage/${advertisment[0].photo}`}
           />
         </div>
       )}
       <div className="flex justify-center gap-5 mt-5 lg:mt-0 lg:w-[50%]">
         {advertisment[1] && (
           <Promocard
-            src={`http://localhost:8000/storage/${advertisment[1].photo}`}
+            src={`https://api.medanit.com/storage/${advertisment[1].photo}`}
           />
         )}
         {advertisment[2] && (
           <Promocard
-            src={`http://localhost:8000/storage/${advertisment[2].photo}`}
+            src={`https://api.medanit.com/storage/${advertisment[2].photo}`}
           />
         )}
       </div>
